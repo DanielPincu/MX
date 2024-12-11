@@ -1,86 +1,85 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { ref, watch } from 'vue'
+
+const isMenuOpen = ref(false)
+const navLinks = [
+  { to: '/', text: 'Home' },
+  { to: '/about', text: 'About' },
+  { to: '/portfolio', text: 'Portfolio' }
+]
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+const closeMenu = () => {
+  isMenuOpen.value = false
+}
+
+// Watch for menu state changes
+watch(isMenuOpen, (newValue) => {
+  document.body.style.overflow = newValue ? 'auto' : 'auto'
+})
 </script>
 
 <template>
-  
-    
+  <header class="fixed w-full bg-black bg-opacity-80 z-10">
+    <nav class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <a href="#" class="text-green-400 text-2xl font-bold">DP</a>
+        <!-- Burger Button Visible on All Screen Sizes -->
+        <button @click="toggleMenu" class="text-green-400 focus:outline-none md:block">
+          <svg :class="{ 'rotate-90': isMenuOpen }" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+    <!-- Menu Items -->
+    <Transition name="slide-in">
+      <div v-if="isMenuOpen" class="fixed top-0 right-0 h-full w-64 bg-black bg-opacity-90 p-4 transform transition-transform duration-300 ease-in-out">
+        <!-- Close Button -->
+        <button @click="closeMenu" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
+        
+        <RouterLink 
+          v-for="link in navLinks" 
+          :key="link.to" 
+          :to="link.to" 
+          @click="closeMenu"
+          class="block py-2 text-white hover:text-green-400 transition-colors"
+          exact-active-class="router-link-exact-active"
+        >
+          {{ link.text }}
+        </RouterLink>
+      </div>
+    </Transition>
+  </header>
 
-    <div>
-
-      <nav class="flex text-xl py-10 gap-5  pr-10 justify-end">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/portfolio">Portfolio</RouterLink>
-      </nav>
-
-    </div>
- 
-
-
-
-<RouterView v-slot=" { Component }">
-  
+  <RouterView v-slot="{ Component }">
     <component :is="Component" />
-  
-</RouterView>
-
+  </RouterView>
 </template>
 
-
 <style scoped>
-
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
+/* Highlight the active link with the specified color */
+.router-link-exact-active {
+  color: #F0CE00;
 }
 
-.bounce-leave-active {
-  animation: bounce-out 0.5s;
+/* Slide-in animation */
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: transform 0.3s ease-in-out;
 }
 
-@keyframes bounce-in {
-  0% {
-    transform: scale(0.9);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1);
-  }
+.slide-in-enter-from,
+.slide-in-leave-to {
+  transform: translateX(100%);
 }
 
-@keyframes bounce-out {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-}
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.5s ease;
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  opacity: 0;
-  transform: translate(-20px, 20px);
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.slide-in-enter-to,
+.slide-in-leave-from {
+  transform: translateX(0);
 }
 </style>

@@ -107,7 +107,7 @@ nav a.router-link-exact-active {
   }
   
 
-/* 
+
  .color-block {
     left: -73%;
     position: fixed;
@@ -115,21 +115,4 @@ nav a.router-link-exact-active {
     overflow: scroll;
     transform: rotate(-15deg);
     width: 100%
-} */
-
-#menu-toggle svg {
-  transition: transform 0.3s ease-in-out;
-}
-#menu-toggle.active svg {
-  transform: rotate(90deg);
-}
-
-/* Mobile menu transition */
-#mobile-menu {
-  transition: max-height 0.3s ease-out;
-  max-height: 0;
-  overflow: hidden;
-}
-#mobile-menu.active {
-  max-height: 300px;
 }
