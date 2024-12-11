@@ -302,3 +302,6 @@ nav a.router-link-exact-active {
 .dark .blink-red {
   animation: blink-red 5s infinite ease-in-out;
 }
+.animate-pulsing {
+  animation: pulse 0.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
