@@ -1,27 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { ref, watch } from 'vue'
-
-const isMenuOpen = ref(false)
-const navLinks = [
-  { to: '/', text: 'Home' },
-  { to: '/about', text: 'About' },
-  { to: '/portfolio', text: 'Portfolio' }
-]
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
-}
-
-const closeMenu = () => {
-  isMenuOpen.value = false
-}
-
-// Watch for menu state changes
-watch(isMenuOpen, (newValue) => {
-  document.body.style.overflow = newValue ? 'auto' : 'auto'
-})
-</script>
 
 <template>
   <header class="fixed w-full bg-black bg-opacity-80 z-10">
@@ -59,7 +35,49 @@ watch(isMenuOpen, (newValue) => {
   <RouterView v-slot="{ Component }">
     <component :is="Component" />
   </RouterView>
+
+
+
+  <footer class="bg-gray-900 text-center py-4 mt-20 project-card">
+            <p class="mb-4">&copy; 2024 Daniel Pincu. All rights reserved.</p>
+            <!-- Social Media Links -->
+            <div class="flex justify-center space-x-6 mt-2">
+                <a href="https://github.com/danielpincu" target="_blank" aria-label="GitHub Profile" class="text-green-400 hover:text-white transition-colors">
+                    <i class="fab fa-github text-3xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/danielpincu/" target="_blank" aria-label="LinkedIn Profile" class="text-green-400 hover:text-white transition-colors">
+                    <i class="fab fa-linkedin text-3xl"></i>
+                </a>
+            </div>
+        </footer>
 </template>
+
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+import { ref, watch } from 'vue'
+
+const isMenuOpen = ref(false)
+const navLinks = [
+  { to: '/', text: 'Home' },
+  { to: '/about', text: 'About' },
+  { to: '/portfolio', text: 'Portfolio' }
+]
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+const closeMenu = () => {
+  isMenuOpen.value = false
+}
+
+// Watch for menu state changes
+watch(isMenuOpen, (newValue) => {
+  document.body.style.overflow = newValue ? 'auto' : 'auto'
+})
+</script>
+
+
 
 <style scoped>
 /* Highlight the active link with the specified color */
