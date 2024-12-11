@@ -4,7 +4,7 @@
   <video autoplay loop muted playsinline>
     <source src="@/assets/matrix.mp4" type="video/mp4" />
   </video>
-  <div class="video-content mt-20 lg:grid grid-cols-2 items-center justify-around mx-10">
+  <div class="video-content mt-36 lg:grid grid-cols-2 items-center justify-around mx-10">
 
       <div class="flex flex-col justify-center items-center">
             <div class="">
@@ -21,7 +21,7 @@
                 </button>
 
 
-                <button class="blink-blue block dark:hidden button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
+                <button class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
                 <span>Contact <span class="md:inline-block hidden">me</span></span>
                 <div class="liquid2"></div>
                 </button>
@@ -30,7 +30,7 @@
       </div>
       
 
-      <div class="flex justify-center py-10">
+      <div class="flex justify-center pt-5 pb-32">
         <img class="w-full project-card rounded-3xl" src="@/assets/ddd.jpeg" alt="">
       </div>
 
