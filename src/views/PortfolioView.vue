@@ -9,7 +9,7 @@
     </div>
 
     <div v-for="portfolioItem in filteredPortfolioItems" :key="portfolioItem" class="card">
-      <router-link :to="`/portfoliodetail/${portfolioItem.id}`">
+      <router-link :to="`/detail/${portfolioItem.id}`">
         To Go
       </router-link>
       <h2>{{ portfolioItem.title }}</h2>

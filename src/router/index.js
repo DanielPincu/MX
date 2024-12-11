@@ -24,15 +24,15 @@ const router = createRouter({
     {
       path: '/portfolio',
       name: 'portfolio',
-      component: () => import('../views/PortfoliosView.vue'),
+      component: () => import('../views/PortfolioView.vue'),
       meta: {
-        title: "Portfolio Views"
+        title: "Portfolio"
       }
     },
     
     {
-      path: '/portfoliodetail/:id',
-      name: 'portfoliodetail',
+      path: '/detail/:id',
+      name: 'detail',
       component: () => import('../views/PortfolioDetailView.vue'),
       meta: {
         dynamicTitle: true 
@@ -52,11 +52,11 @@ router.beforeEach((to, from, next) => {
       .portfolioItems.value
       .find(item => item.id == to.params.id)
       if(portfolioItem) {
-        document.title = `KW Portfolio | ${portfolioItem.title}`
+        document.title = `Daniel Pincu | ${portfolioItem.title}`
       }
     }
     else {
-      document.title = `KW Portfolio | ${to.meta.title}`
+      document.title = `Daniel Pincu | ${to.meta.title}`
     }
     next()
 })

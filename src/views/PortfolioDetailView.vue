@@ -9,7 +9,6 @@
     <!-- Test id: {{ route.params.id }} -->
     <h1>{{ specificPortfolioItem.title }}</h1>
     <p>{{ specificPortfolioItem.description }}</p>
-    <p>{{ specificPortfolioItem.id }}</p>
     <img :src="specificPortfolioItem.image" alt="">
    
   </div>
