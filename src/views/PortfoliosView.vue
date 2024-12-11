@@ -14,7 +14,6 @@
       </router-link>
       <h2>{{ portfolioItem.title }}</h2>
       <p>{{ portfolioItem.description }}</p>
-      <p>{{ portfolioItem.id }}</p>
       <p :class="portfolioItem.category">{{ portfolioItem.category }}</p>
 
       <img :src="portfolioItem.image" alt="">

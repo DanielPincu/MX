@@ -16,7 +16,7 @@ const getPortfolio = () => {
       id: 2,
       title: 'Portfolio Item 2',
       description: 'This is the second portfolio item',
-      image: 'https://via.placeholder.com/150',
+      image: image1,
       link: 'https://www.google.com',
       category: 'photo'
     },
@@ -24,12 +24,16 @@ const getPortfolio = () => {
       id: 3,
       title: 'Portfolio Item 3',
       description: 'This is the third portfolio item',
+      image: image1,
       category: 'web'
     },
     {
       id: 2,
       title: 'Portfolio Item 2',
-      description: 'This is the second portfolio item'
+      description: 'This is the second portfolio item',
+      image: image1,
+      link: 'https://www.google.com',
+      category: 'photo'
     }  
   ])
 
