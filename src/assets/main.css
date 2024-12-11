@@ -2,7 +2,134 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body
+{   
+    
+    background-color: #000;
+}
+
+h1, h2, h3, h4, h5, h6, p, i
+{
+    color: white;
+}
+{
+    color: white;
+}
+
+nav a 
+{
+    color: white;
+}
+
+.hobby-ticker {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.hobby-ticker-content {
+  display: inline-block;
+  animation: ticker 20s linear infinite;
+}
+
+
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-15%); 
+  }
+}
+
+
+.video-banner {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.video-banner video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 0;
+  object-fit: cover; /* Ensures video covers entire area */
+}
+.video-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+.video-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  padding: 0 15px; /* Add some padding on mobile */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .video-banner {
+      min-height: 70vh; /* Shorter on mobile */
+  }
+  .video-banner video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+  .video-content h1 {
+      font-size: 2.5rem; /* Smaller font size on mobile */
+  }
+  .video-content p {
+      font-size: 1rem; /* Smaller font size on mobile */
+  }
+}
+
 nav a.router-link-exact-active {
     color: #F0CE00;
   }
   
+
+/* 
+ .color-block {
+    left: -73%;
+    position: fixed;
+    top: -60%;
+    overflow: scroll;
+    transform: rotate(-15deg);
+    width: 100%
+} */
+
+#menu-toggle svg {
+  transition: transform 0.3s ease-in-out;
+}
+#menu-toggle.active svg {
+  transform: rotate(90deg);
+}
+
+/* Mobile menu transition */
+#mobile-menu {
+  transition: max-height 0.3s ease-out;
+  max-height: 0;
+  overflow: hidden;
+}
+#mobile-menu.active {
+  max-height: 300px;
+}

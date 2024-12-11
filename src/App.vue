@@ -8,7 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <div>
 
-      <nav class="flex gap-5 justify-end">
+      <nav class="flex text-xl py-10 gap-5  pr-10 justify-end">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/portfolio">Portfolio</RouterLink>
@@ -20,9 +20,9 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
 <RouterView v-slot=" { Component }">
-  <transition mode="out-in" name="bounce">
+  
     <component :is="Component" />
-  </transition>
+  
 </RouterView>
 
 </template>

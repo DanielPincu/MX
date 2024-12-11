@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>This is an about view</h1>
+  <div class="color-block h-[300vh] z-0 bg-slate-900">
+    
   </div>
 </template>
 
