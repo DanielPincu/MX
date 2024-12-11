@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+nav a.router-link-exact-active {
+    color: #F0CE00;
+  }
+  
