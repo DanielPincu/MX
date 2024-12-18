@@ -1,5 +1,5 @@
 <template>
-  <section id="home" class="video-banner relative project-card">
+  <section id="home" class="video-banner project-card">
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="video-content relative z-10 mt-36 lg:grid grid-cols-2 items-center justify-around mx-10">
       <div class="flex flex-col justify-center items-center">
@@ -14,10 +14,21 @@
             <span><span class="md:inline-block hidden">See</span> projects</span>
             <div class="liquid"></div>
           </button>
-          <button class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
-            <span>Contact <span class="md:inline-block hidden">me</span></span>
+          <button @click="toggleAbout" class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
+            <span>About <span class="md:inline-block hidden">me</span></span>
             <div class="liquid2"></div>
           </button>
+
+        <Transition name="slide-in">
+        <div v-if="isAboutOpen" class="fixed overflow-y-hidden z-40 top-20 left-0 h-96 w-full bg-black bg-opacity-90 p-4 transform transition-transform duration-300 ease-in-out">
+              <!-- Close Button -->
+              <button @click="closeAbout" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
+              
+            <h1>Heya</h1>
+        </div>
+
+      </Transition>
+
         </div>
       </div>
       <div class="flex justify-center pt-5 pb-32">
@@ -56,12 +67,42 @@
       </div>
     </div>
   </section>
+  <PortfolioView />
+
+  
 
 </template>
 
 <script setup>
-// Import necessary functions
-import { ref, onMounted, onUnmounted } from 'vue';
+import PortfolioView from './PortfolioView.vue';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+
+
+const isAboutOpen = ref(false)
+
+const toggleAbout = () => {
+  isAboutOpen.value = !isAboutOpen.value
+}
+
+const closeAbout = () => {
+  isAboutOpen.value = false
+}
+// Function to get scrollbar width
+const getScrollbarWidth = () => {
+  return window.innerWidth - document.documentElement.clientWidth;
+};
+
+// Watch for changes in `isAboutOpen` to toggle scrolling and adjust padding
+watch(isAboutOpen, (newValue) => {
+  const scrollbarWidth = getScrollbarWidth();
+  if (newValue) {
+    document.body.style.overflow = "hidden"; // Disable scrolling
+    document.body.style.paddingRight = `${scrollbarWidth}px`; // Add padding to compensate for scrollbar width
+  } else {
+    document.body.style.overflow = ""; // Restore scrolling
+    document.body.style.paddingRight = ""; // Remove padding
+  }
+});
 
 // Home Section Canvas
 const canvas = ref(null);
@@ -269,6 +310,23 @@ onUnmounted(() => {
 }
 .project-card {
    background-color: rgba(255,255,255,.1); /* Optional background for visibility */
+}
+
+
+/* Slide-in animation */
+.slide-in-enter-active,
+.slide-in-leave-active {
+  transition: transform 0.3s ease-in-out;
+}
+
+.slide-in-enter-from,
+.slide-in-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-in-enter-to,
+.slide-in-leave-from {
+  transform: translateX(0);
 }
 </style>
 

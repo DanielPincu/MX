@@ -1,6 +1,6 @@
 
 <template>
-  <header class="fixed w-full bg-black z-10">
+  <header class="fixed w-screen bg-black z-30">
     <nav class="container mx-auto px-4 py-4">
       <div class="flex justify-between items-center">
         <h3 class="text-3xl"></h3>
@@ -76,8 +76,22 @@ const closeMenu = () => {
 
 // Watch for menu state changes
 watch(isMenuOpen, (newValue) => {
-  document.body.style.overflow = newValue ? 'auto' : 'auto'
-})
+  const getScrollbarWidth = () => {
+    return window.innerWidth - document.documentElement.clientWidth;
+  };
+
+  const scrollbarWidth = getScrollbarWidth();
+
+  if (newValue) {
+    document.body.style.overflow = "hidden"; // Disable scrolling
+    document.body.style.paddingRight = `${scrollbarWidth}px`; // Add padding to compensate for scrollbar width
+  } else {
+    document.body.style.overflow = ""; // Restore scrolling
+    document.body.style.paddingRight = ""; // Remove padding
+  }
+});
+
+
 </script>
 
 
