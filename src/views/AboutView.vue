@@ -1,5 +1,5 @@
 <template>
-  <section id="home" class="video-banner relative">
+  <section id="home" class="video-banner relative my-32 project-card">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
   </section>
 </template>

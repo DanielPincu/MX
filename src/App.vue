@@ -41,7 +41,7 @@
 
 
 
-  <footer class="bg-gray-900 text-center py-4 mt-20 project-card">
+  <footer class="bg-gray-900 text-center py-4 project-card mt-32">
             <p class="mb-4">&copy; 2024 Daniel Pincu. All rights reserved.</p>
             <!-- Social Media Links -->
             <div class="flex justify-center space-x-6 mt-2">

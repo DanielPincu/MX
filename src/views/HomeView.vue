@@ -6,8 +6,8 @@
         <div>
           <p class="text-3xl pb-10">{{ greeting }}</p>
           <h1 class="text-3xl md:text-6xl font-bold mb-4">{{ name }}</h1>
-          <p class="text-xl pb-2">{{ introText }}</p>
-          <p class="text-xl md:text-2xl">{{ profession }}</p>
+          <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p>
+          <p class="text-xl inline-block md:text-2xl">{{ profession }}</p>
         </div>
         <div class="flex flex-row gap-5 md:gap-10 my-10">
           <button class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
@@ -15,16 +15,16 @@
             <div class="liquid"></div>
           </button>
           <button @click="toggleAbout" class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
-            <span>About <span class="md:inline-block hidden">me</span></span>
+            <span>Contact <span class="md:inline-block hidden">me</span></span>
             <div class="liquid2"></div>
           </button>
 
         <Transition name="slide-in">
-        <div v-if="isAboutOpen" class="fixed overflow-y-hidden z-40 top-20 left-0 h-96 w-full bg-black bg-opacity-90 p-4 transform transition-transform duration-300 ease-in-out">
+        <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-full bg-black bg-opacity-90 transform transition-transform duration-300 ease-in-out">
               <!-- Close Button -->
               <button @click="closeAbout" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
               
-            <h1>Heya</h1>
+           <ContactView />
         </div>
 
       </Transition>
@@ -36,6 +36,10 @@
       </div>
     </div>
   </section>
+
+
+  <AboutView />
+
 
   <section id="hobbies" class="py-20 my-32 bg-gray-900 project-card relative">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -67,6 +71,9 @@
       </div>
     </div>
   </section>
+
+
+
   <PortfolioView />
 
   
@@ -74,6 +81,8 @@
 </template>
 
 <script setup>
+import ContactView from './ContactView.vue';
+import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 
@@ -125,9 +134,34 @@ const hobbies = ref([
   { name: "ASTRONOMY", icon: "fa-star" },
   { name: "ELECTRONICS", icon: "fa-microchip" },
   { name: "IOT", icon: "fa-network-wired" },
-  { name: "REMOTE PILOT", icon: "fa-cube" },
-  { name: "PHP Developer", icon: "fa-php" }
+  { name: "REMOTE PILOT", icon: "fa-paper-plane" },
+  
+  // Replacing non-existent icons
+  { name: "PHP Developer", icon: "fa-laptop-code" }, // Replaced with "laptop-code" for coding
+  { name: "VueJS", icon: "fa-laptop" }, // Replaced with "cogs" for development work
+  { name: "WordPress", icon: "fa-cogs" }, // Replaced with "cogs" for development work
+  { name: "Python", icon: "fa-code" }, // Replaced with "code" for programming
+  
+  // New web development-related hobbies
+  { name: "Web Design", icon: "fa-paint-brush" },
+  { name: "Front-End Dev", icon: "fa-laptop" },
+  { name: "Back-End Dev", icon: "fa-server" },
+  { name: "Web Security", icon: "fa-shield-alt" },
+  { name: "UX/UI Design", icon: "fa-users-cog" },
+  { name: "DB Management", icon: "fa-database" },
+  { name: "DevOps", icon: "fa-cogs" },
+  { name: "Mobile App Dev", icon: "fa-mobile-alt" },
+  { name: "API Development", icon: "fa-plug" },
+  { name: "Cloud Computing", icon: "fa-cloud" },
+  { name: "SEO", icon: "fa-search" },
+  { name: "Code Review", icon: "fa-check-circle" },
+  { name: "Version Control", icon: "fa-code-branch" },
+  { name: "CI/CD", icon: "fa-sync-alt" }
 ]);
+
+
+
+
 
 // Expertise Section Data
 const expertiseTitle = ref("Expertise");

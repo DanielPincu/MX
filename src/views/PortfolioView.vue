@@ -1,7 +1,5 @@
 <template>
-  <div class="relative min-h-screen bg-gray-900 text-gray-100">
-   
-    
+  <div class="relative min-h-screen bg-gray-900 text-gray-100 pt-16">
 
     <canvas ref="portfolioCanvas" class="absolute top-0 left-0 w-full h-full project-card"></canvas>
 
@@ -32,7 +30,7 @@
           v-for="portfolioItem in filteredPortfolioItems"
           :key="portfolioItem.id"
           :to="`/detail/${portfolioItem.id}`"
-          class="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-[103%] transition duration-300 block">
+          class="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-[103%] transition duration-300 block project-card">
           <h2 class="text-xl font-bold mb-2 hover:text-blue-400 transition duration-300">
             {{ portfolioItem.title }}
           </h2>
