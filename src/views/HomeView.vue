@@ -20,7 +20,7 @@
           </button>
 
         <Transition name="slide-in">
-        <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-full bg-black bg-opacity-90 transform transition-transform duration-300 ease-in-out">
+        <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-full  bg-black bg-opacity-90 transform transition-transform duration-300 ease-in-out">
               <!-- Close Button -->
               <button @click="closeAbout" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
               
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="flex justify-center pt-5 pb-32">
-        <img class="w-full project-card rounded-3xl" src="@/assets/ddd.jpeg">
+        <img data-aos="flip-right" data-aos-duration="1000" class="w-full project-card rounded-3xl" src="@/assets/ddd.jpeg">
       </div>
     </div>
   </section>
