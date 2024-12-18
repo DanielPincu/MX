@@ -31,7 +31,7 @@ const drawMatrix = () => {
   for (let i = 0; i < matrixDrops.length; i++) {
     let txt = matrixChars[Math.floor(Math.random() * matrixChars.length)];
     matrixCtx.fillText(txt, i * matrixFont, matrixDrops[i] * matrixFont);
-    if (matrixDrops[i] * matrixFont > matrixHeight && Math.random() > 0.9999) matrixDrops[i] = 0;
+    if (matrixDrops[i] * matrixFont > matrixHeight && Math.random() > 0.99999) matrixDrops[i] = 0;
     matrixDrops[i]++;
   }
   matrixAnimationId = requestAnimationFrame(drawMatrix);
