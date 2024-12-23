@@ -87,34 +87,29 @@ import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 
-
 const isAboutOpen = ref(false)
-
 const toggleAbout = () => {
   isAboutOpen.value = !isAboutOpen.value
 }
-
 const closeAbout = () => {
   isAboutOpen.value = false
 }
-// Function to get scrollbar width
+
 const getScrollbarWidth = () => {
   return window.innerWidth - document.documentElement.clientWidth;
 };
 
-// Watch for changes in `isAboutOpen` to toggle scrolling and adjust padding
 watch(isAboutOpen, (newValue) => {
   const scrollbarWidth = getScrollbarWidth();
   if (newValue) {
-    document.body.style.overflow = "hidden"; // Disable scrolling
-    document.body.style.paddingRight = `${scrollbarWidth}px`; // Add padding to compensate for scrollbar width
+    document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
   } else {
-    document.body.style.overflow = ""; // Restore scrolling
-    document.body.style.paddingRight = ""; // Remove padding
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
   }
 });
 
-// Home Section Canvas
 const canvas = ref(null);
 let animationId = null;
 const str = "А+Б0В-Г1Д=Е2Ё Ж3З И4Й К5Л М6Н О7П Р8С Т9У Ф!Х Ц?Ч Ш.ЩЪ,Ы Ь:ЭЮ;Я";
@@ -126,7 +121,6 @@ const name = ref("Daniel Pincu");
 const introText = ref("and I'm a");
 const profession = ref("Web Developer");
 
-// Hobbies Section Data
 const hobbiesTitle = ref("Hobbies & Interests");
 const hobbies = ref([
   { name: "CODING", icon: "fa-code" },
@@ -136,14 +130,10 @@ const hobbies = ref([
   { name: "ELECTRONICS", icon: "fa-microchip" },
   { name: "IOT", icon: "fa-network-wired" },
   { name: "REMOTE PILOT", icon: "fa-paper-plane" },
-  
-  // Replacing non-existent icons
-  { name: "PHP Developer", icon: "fa-laptop-code" }, // Replaced with "laptop-code" for coding
-  { name: "VueJS", icon: "fa-laptop" }, // Replaced with "cogs" for development work
-  { name: "WordPress", icon: "fa-cogs" }, // Replaced with "cogs" for development work
-  { name: "Python", icon: "fa-code" }, // Replaced with "code" for programming
-  
-  // New web development-related hobbies
+  { name: "PHP Developer", icon: "fa-laptop-code" },
+  { name: "VueJS", icon: "fa-laptop" },
+  { name: "WordPress", icon: "fa-cogs" },
+  { name: "Python", icon: "fa-code" },
   { name: "Web Design", icon: "fa-paint-brush" },
   { name: "Front-End Dev", icon: "fa-laptop" },
   { name: "Back-End Dev", icon: "fa-server" },
@@ -160,11 +150,6 @@ const hobbies = ref([
   { name: "CI/CD", icon: "fa-sync-alt" }
 ]);
 
-
-
-
-
-// Expertise Section Data
 const expertiseTitle = ref("Expertise");
 const expertise = ref([
   {
@@ -181,7 +166,6 @@ const expertise = ref([
   }
 ]);
 
-// Initialize Canvas for Home Section
 const initCanvas = () => {
   const C = canvas.value;
   $ = C.getContext("2d");
@@ -197,31 +181,15 @@ const draw = () => {
   $.fillRect(0, 0, W, H);
   $.fillStyle = "#0f0";
   $.font = font + "px system-ui";
-  
   for (let i = 0; i < arr.length; i++) {
     let txt = matrix[Math.floor(Math.random() * matrix.length)];
     $.fillText(txt, i * font, arr[i] * font);
-    
     if (arr[i] * font > H && Math.random() > 0.998) arr[i] = 0;
     arr[i]++;
   }
-  
   animationId = requestAnimationFrame(draw);
 };
 
-onMounted(() => {
-  initCanvas();
-  draw();
-  
-  window.addEventListener("resize", initCanvas);
-});
-
-onUnmounted(() => {
-  cancelAnimationFrame(animationId);
-  window.removeEventListener("resize", initCanvas);
-});
-
-// Matrix Canvas for Hobbies Section
 const matrixCanvas = ref(null);
 let matrixAnimationId = null;
 const matrixCharsHobbies = str.split("");
@@ -229,12 +197,10 @@ let matrixCtxHobbies, matrixWidthHobbies, matrixHeightHobbies, matrixFontHobbies
 
 const initMatrixCanvasHobbies = () => {
   const canvasElementHobbies = matrixCanvas.value;
-  
   if (canvasElementHobbies) {
     matrixCtxHobbies = canvasElementHobbies.getContext("2d");
     matrixWidthHobbies = canvasElementHobbies.width = window.innerWidth;
     matrixHeightHobbies = canvasElementHobbies.height = window.innerHeight;
-    
     matrixFontHobbies = 14;
     matrixColumnsHobbies = matrixWidthHobbies / matrixFontHobbies;
     matrixDropsHobbies = new Array(Math.ceil(matrixColumnsHobbies)).fill(1);
@@ -242,96 +208,76 @@ const initMatrixCanvasHobbies = () => {
 };
 
 const drawMatrixHobbies = () => {
-   // Clear the canvas with a semi-transparent black rectangle
-   matrixCtxHobbies.fillStyle = "rgba(0,0,0,.02)";
-   matrixCtxHobbies.fillRect(0, 0, matrixWidthHobbies, matrixHeightHobbies);
-   
-   // Set text color and font
-   matrixCtxHobbies.fillStyle = "#0f0";
-   matrixCtxHobbies.font = `${matrixFontHobbies}px system-ui`;
-  
-   for (let i = 0; i < matrixDropsHobbies.length; i++) {
-     let txt = matrixCharsHobbies[Math.floor(Math.random() * matrixCharsHobbies.length)];
-     matrixCtxHobbies.fillText(txt, i * matrixFontHobbies, matrixDropsHobbies[i] * matrixFontHobbies);
-    
-     if (matrixDropsHobbies[i] * matrixFontHobbies > matrixHeightHobbies && Math.random() > 0.9999) {
-       matrixDropsHobbies[i] = 0; // Reset drop position
-     }
-    
-     // Move the drop down
-     matrixDropsHobbies[i]++;
-   }
-  
-   // Request next animation frame
-   matrixAnimationId = requestAnimationFrame(drawMatrixHobbies);
+  matrixCtxHobbies.fillStyle = "rgba(0,0,0,.02)";
+  matrixCtxHobbies.fillRect(0, 0, matrixWidthHobbies, matrixHeightHobbies);
+  matrixCtxHobbies.fillStyle = "#0f0";
+  matrixCtxHobbies.font = `${matrixFontHobbies}px system-ui`;
+  for (let i = 0; i < matrixDropsHobbies.length; i++) {
+    let txt = matrixCharsHobbies[Math.floor(Math.random() * matrixCharsHobbies.length)];
+    matrixCtxHobbies.fillText(txt, i * matrixFontHobbies, matrixDropsHobbies[i] * matrixFontHobbies);
+    if (matrixDropsHobbies[i] * matrixFontHobbies > matrixHeightHobbies && Math.random() > 0.9999) {
+      matrixDropsHobbies[i] = 0;
+    }
+    matrixDropsHobbies[i]++;
+  }
+  matrixAnimationId = requestAnimationFrame(drawMatrixHobbies);
 };
 
-onMounted(() => {
-   initMatrixCanvasHobbies();
-   drawMatrixHobbies();
-   window.addEventListener("resize", initMatrixCanvasHobbies);
-});
-
-onUnmounted(() => {
-   cancelAnimationFrame(matrixAnimationId);
-   window.removeEventListener("resize", initMatrixCanvasHobbies);
-});
-
-// Matrix Canvas for Expertise Section
 const matrixCanvas2 = ref(null);
 let expertiseMatrixAnimationId;
-const expertiseCharsMatrixStr = str.split(""); // Reuse the same string for expertise
-
+const expertiseCharsMatrixStr = str.split("");
 let expertiseMatrixCtx, expertiseMatrixWidth, expertiseMatrixHeight, expertiseMatrixFont, expertiseMatrixColumns, expertiseMatrixDrops;
 
 const initExpertiseMatrixCanvas = () => {
-   const canvasElementExpertise = matrixCanvas2.value;
-
-   if (canvasElementExpertise) {
-       expertiseMatrixCtx = canvasElementExpertise.getContext("2d");
-       expertiseMatrixWidth = canvasElementExpertise.width = window.innerWidth;
-       expertiseMatrixHeight = canvasElementExpertise.height = window.innerHeight;
-
-       expertiseMatrixFont = 14;
-       expertiseMatrixColumns = expertiseMatrixWidth / expertiseMatrixFont;
-       expertiseMatrixDrops = new Array(Math.ceil(expertiseMatrixColumns)).fill(1);
-   }
+  const canvasElementExpertise = matrixCanvas2.value;
+  if (canvasElementExpertise) {
+    expertiseMatrixCtx = canvasElementExpertise.getContext("2d");
+    expertiseMatrixWidth = canvasElementExpertise.width = window.innerWidth;
+    expertiseMatrixHeight = canvasElementExpertise.height = window.innerHeight;
+    expertiseMatrixFont = 14;
+    expertiseMatrixColumns = expertiseMatrixWidth / expertiseMatrixFont;
+    expertiseMatrixDrops = new Array(Math.ceil(expertiseMatrixColumns)).fill(1);
+  }
 };
 
-const drawExpertiseMatrixFrame= () => {
-   // Clear the canvas with a semi-transparent black rectangle
-   expertiseMatrixCtx.fillStyle= 'rgba(0,0,0,.02)';
-   expertiseMatrixCtx.fillRect(0 ,0 , expertiseMatrixWidth , expertiseMatrixHeight);
-
-   // Set text color and font
-   expertiseMatrixCtx.fillStyle= '#00ff00';
-   expertiseMatrixCtx.font= `${expertiseMatrixFont}px system-ui`;
-
-   for(let i=0; i<expertiseMatrixDrops.length; i++){
-       let txt=expertiseCharsMatrixStr[Math.floor(Math.random()*expertiseCharsMatrixStr.length)];
-       expertiseMatrixCtx.fillText(txt,i*(expertiseMatrixFont),expertiseMatrixDrops[i]*expertiseMatrixFont);
-
-       if(expertiseMatrixDrops[i]*expertiseMatrixFont>expertiseMatrixHeight && Math.random()>0.9999){
-           expertiseMatrixDrops[i]=0; // Reset drop position
-       }
-
-       // Move the drop down
-       expertiseMatrixDrops[i]++;
-   }
-
-   // Request next animation frame
-   expertiseMatrixAnimationId=requestAnimationFrame(drawExpertiseMatrixFrame);
+const drawExpertiseMatrixFrame = () => {
+  expertiseMatrixCtx.fillStyle = 'rgba(0,0,0,.02)';
+  expertiseMatrixCtx.fillRect(0, 0, expertiseMatrixWidth, expertiseMatrixHeight);
+  expertiseMatrixCtx.fillStyle = '#00ff00';
+  expertiseMatrixCtx.font = `${expertiseMatrixFont}px system-ui`;
+  for (let i = 0; i < expertiseMatrixDrops.length; i++) {
+    let txt = expertiseCharsMatrixStr[Math.floor(Math.random() * expertiseCharsMatrixStr.length)];
+    expertiseMatrixCtx.fillText(txt, i * expertiseMatrixFont, expertiseMatrixDrops[i] * expertiseMatrixFont);
+    if (expertiseMatrixDrops[i] * expertiseMatrixFont > expertiseMatrixHeight && Math.random() > 0.9999) {
+      expertiseMatrixDrops[i] = 0;
+    }
+    expertiseMatrixDrops[i]++;
+  }
+  expertiseMatrixAnimationId = requestAnimationFrame(drawExpertiseMatrixFrame);
 };
 
 onMounted(() => {
-   initExpertiseMatrixCanvas();
-   drawExpertiseMatrixFrame();
+  initCanvas();
+  draw();
+  window.addEventListener("resize", initCanvas);
+  initMatrixCanvasHobbies();
+  drawMatrixHobbies();
+  window.addEventListener("resize", initMatrixCanvasHobbies);
+  initExpertiseMatrixCanvas();
+  drawExpertiseMatrixFrame();
+  window.addEventListener("resize", initExpertiseMatrixCanvas);
 });
 
 onUnmounted(() => {
-   cancelAnimationFrame(expertiseMatrixAnimationId);
+  cancelAnimationFrame(animationId);
+  window.removeEventListener("resize", initCanvas);
+  cancelAnimationFrame(matrixAnimationId);
+  window.removeEventListener("resize", initMatrixCanvasHobbies);
+  cancelAnimationFrame(expertiseMatrixAnimationId);
+  window.removeEventListener("resize", initExpertiseMatrixCanvas);
 });
 </script>
+
 
 <style scoped>
 .video-banner {

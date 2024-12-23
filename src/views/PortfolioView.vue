@@ -88,7 +88,7 @@ const initCanvas = () => {
   ctx = canvas.getContext("2d");
   canvasWidth = canvas.width = window.innerWidth;
   canvasHeight = canvas.height = window.innerHeight;
-  fontSize = 9;
+  fontSize = 10;
   columns = canvasWidth / fontSize;
   drops = new Array(Math.ceil(columns)).fill(1);
 };
