@@ -6,8 +6,9 @@ const getPortfolio = () => {
   const portfolioItems = ref([
     {
       id: 1,
-      title: 'Portfolio Item 1',
-      description: 'This is the first portfolio item',
+      title: 'Trapholt Museum',
+      description: "I'm proud to present a project where I contributed and executed a comprehensive redesign for Trapholt Museum, renowned cultural institution in Kolding",
+      extra_description: "The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. The website was built with a focus on user experience and accessibility, and the design was based on the visual identity of the museum. The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. The website was built with a focus on user experience and accessibility The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. The website was built with a focus on user experience and accessibility, and the design was based on the visual identity of the museum. The project was a collaboration with the design agency Kontrapunkt The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. The website was built with a focus on user experience and accessibility, and the design was based on the visual identity of the museum. The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. The website was built with a focus on user experience and accessibility The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. The website was built with a focus on user experience and accessibility, and the design was based on the visual identity of the museum. The project was a collaboration with the design agency Kontrapunkt",
       image: image1,
       link: 'https://www.google.com',
       category: 'web'

@@ -64,6 +64,7 @@
     <div class="relative z-20">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ expertiseTitle }}</h2>
       <div class="grid md:grid-cols-3 gap-8 fade-in container mx-auto">
+        
         <div v-for="skill in expertise" :key="skill.title" class="bg-gray-800  p-6 rounded-lg project-card">
           <h3 class="text-md font-bold mb-2">{{ skill.title }}</h3>
           <p class="text-md">{{ skill.description }}</p>
@@ -74,7 +75,7 @@
 
 
 
-  <PortfolioView data-aos="fade-down" data-aos-duration="1000" />
+  <PortfolioView class="mb-32" data-aos="fade-down" data-aos-duration="1000" />
 
   
 

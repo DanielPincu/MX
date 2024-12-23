@@ -31,17 +31,23 @@
           :key="portfolioItem.id"
           :to="`/detail/${portfolioItem.id}`"
           class="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-[103%] transition duration-300 block project-card">
+          
           <h2 class="text-xl font-bold mb-2 hover:text-blue-400 transition duration-300">
             {{ portfolioItem.title }}
           </h2>
-          <p class="text-gray-400 mb-4">{{ portfolioItem.description }}</p>
-          <p class="inline-block px-20 py-1 text-sm font-medium rounded-full mb-4 capitalize" 
+
+          <div class="h-20 mb-10">
+            <p class="text-gray-400 mb-4">{{ portfolioItem.description }}</p>
+          </div>
+
+          <div class="inline-block mt-20 px-20 py-1 text-sm font-medium rounded-full mb-4 capitalize" 
             :class="{
               'bg-blue-600 text-white': portfolioItem.category === 'web',
               'bg-red-600 text-white': portfolioItem.category === 'photo'
             }">
             {{ portfolioItem.category }}
-          </p>
+          </div>
+
           <img
             :src="portfolioItem.image"
             alt=""
