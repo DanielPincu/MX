@@ -1,7 +1,7 @@
 <template>
-  <div class="relative min-h-screen bg-gray-900 text-gray-100 pt-16">
+  <div class="relative min-h-screen bg-gray-900 text-gray-100 pt-16 project-card">
 
-    <canvas ref="portfolioCanvas" class="absolute top-0 left-0 w-full h-full project-card"></canvas>
+    <canvas ref="portfolioCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
 
     <div class="relative px-6 py-20">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">Projects Showcase</h2>
@@ -94,7 +94,7 @@ const initCanvas = () => {
 };
 
 const drawMatrix = () => {
-  ctx.fillStyle = "rgba(0,0,0,.02)";
+  ctx.fillStyle = "rgba(0,0,0,.03)";
   ctx.fillRect(0, 0, canvasWidth, canvasHeight);
   ctx.fillStyle = "#0f0";
   ctx.font = fontSize + "px system-ui";

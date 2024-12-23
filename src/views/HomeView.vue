@@ -38,7 +38,7 @@
   </section>
 
 
-  <AboutView data-aos="fade-down" data-aos-duration="1000" />
+  <!-- <AboutView data-aos="fade-down" data-aos-duration="1000" /> -->
 
 
   <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="py-20 my-32 bg-gray-900 project-card relative">
