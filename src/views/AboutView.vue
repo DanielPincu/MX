@@ -1,25 +1,25 @@
 <template>
   <main class="">
-    <h1 class="z-40 text-3xl relative text-center pt-10">Latest projects</h1>
+    <h1 class="z-40 text-3xl relative text-center pb- bg-slate-800 project-card">Latest projects</h1>
     <ul class='slider' ref="slider">
       <li v-for="(item, index) in items" :key="index" class='item' :style="{ backgroundImage: `url('${item.image}')` }">
-        <div class='content'>
-          <h2 class='title'>{{ item.title }}</h2>
-          <p class='description'>{{ item.description }}</p>
-          <button>Read More</button>
-        </div>
+        <!-- <div class='content'>
+          <h2 class='title text-black'>{{ item.title }}</h2>
+          <p class='description text-black'>{{ item.description }}</p>
+        </div> -->
       </li>
     </ul>
-    <nav class='nav'>
+    <span class='nav'>
       <ion-icon class='btn prev' name="arrow-back-outline" @click="activate('prev')"></ion-icon>
       <ion-icon class='btn next' name="arrow-forward-outline" @click="activate('next')"></ion-icon>
-    </nav>
+    </span>
   </main>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import ddd from '@/assets/test.jpeg';
+import chatognito from '@/assets/chatognito.png';
 
 
 const slider = ref(null);
@@ -30,7 +30,7 @@ const items = ref([
     description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore fuga voluptatum, iure corporis inventore praesentium nisi. Id laboriosam ipsam enim.'
   },
   {
-    image: 'https://i.redd.it/tc0aqpv92pn21.jpg',
+    image: chatognito,
     title: '"Estrange Bond"',
     description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore fuga voluptatum, iure corporis inventore praesentium nisi. Id laboriosam ipsam enim.'
   },
@@ -79,14 +79,14 @@ main {
   position: relative;
   top: 100px;
   max-width: 100vw;
-  height: 60vh;
+  height: 70vh;
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
 
 .item {
-  width: 200px;
-  height: 300px;
+  width: 300px;
+  height: 200px;
   list-style-type: none;
   position: absolute;
   top: 50%;
@@ -111,9 +111,9 @@ main {
 }
 
 .item:nth-child(3) { left: 50%; }
-.item:nth-child(4) { left: calc(50% + 220px); }
-.item:nth-child(5) { left: calc(50% + 440px); }
-.item:nth-child(6) { left: calc(50% + 660px); opacity: 0; }
+.item:nth-child(4) { left: calc(50% + 200px); }
+.item:nth-child(5) { left: calc(50% + 400px); }
+.item:nth-child(6) { left: calc(50% + 600px); opacity: 0; }
 
 .content {
   width: min(30vw, 400px);
@@ -193,8 +193,8 @@ main {
   .content .description { font-size: 0.7rem; }
   .content button { font-size: 0.7rem; }
   .item {
-    width: 160px;
-    height: 270px;
+    width: 270px;
+    height: 160px;
   }
   .item:nth-child(3) { left: 50%; }
   .item:nth-child(4) { left: calc(50% + 170px); }
@@ -207,8 +207,8 @@ main {
   .content .description { font-size: 0.65rem; }
   .content button { font-size: 0.7rem; }
   .item {
-    width: 130px;
-    height: 220px;
+    width: 220px;
+    height: 130px;
   }
   .item:nth-child(3) { left: 50%; }
   .item:nth-child(4) { left: calc(50% + 140px); }
