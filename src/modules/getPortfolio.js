@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import image1 from '@/assets/test.jpeg'
+import chatognito from '@/assets/chatognito.png'
 
 const getPortfolio = () => {
   const portfolioItems = ref([
@@ -10,13 +11,13 @@ const getPortfolio = () => {
       extra_description: "The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. The website was built with a focus on user experience and accessibility, and the design was based on the visual identity of the museum. The project was a collaboration with the design agency Kontrapunkt, where I was responsible for the design and development of the website. ",
       image: image1,
       link: 'https://semester-project-kappa.vercel.app/',
-      category: 'web'
+      category: 'photo'
     },
     {
       id: 2,
-      title: 'Portfolio Item 2',
+      title: 'Chatognito',
       description: 'This is the second portfolio item',
-      image: image1,
+      image: chatognito,
       link: 'https://www.google.com',
       category: 'photo'
     },
