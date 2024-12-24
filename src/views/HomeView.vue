@@ -38,7 +38,7 @@
   </section>
 
 
-  <AboutView class="project-card mb-20" data-aos="fade-down" data-aos-duration="1000" />
+  <AboutView class="project-card mb-20 hidden md:block" data-aos="fade-down" data-aos-duration="1000" />
 
 
   <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="py-20 my-32 bg-gray-900 project-card relative">
@@ -59,7 +59,7 @@
     </div>
   </section>
 
-  <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20 my-32 relative project-card">
+  <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20  relative project-card">
     <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="relative z-20">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ expertiseTitle }}</h2>
@@ -75,7 +75,7 @@
 
 
 
-  <PortfolioView id="projects" class="mb-32" data-aos="fade-down" data-aos-duration="1000" />
+  <PortfolioView id="projects" class="my-32" data-aos="fade-down" data-aos-duration="1000" />
 
   
 
