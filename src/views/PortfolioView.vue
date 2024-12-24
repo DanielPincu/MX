@@ -51,7 +51,7 @@
           <img
             :src="portfolioItem.image"
             alt=""
-            class="rounded-lg mb-4 shadow-lg w-full object-cover"
+            class="rounded-lg mb-4 shadow-lg h-44 w-full object-cover"
           />
         </router-link>
       </div>
@@ -74,7 +74,7 @@ const filteredPortfolioItems = computed(() => {
 });
 
 // Matrix animation variables
-const FONT_SIZE = 1;
+const FONT_SIZE = 2;
 const FONT_FACE = "Matrix Code NFI, monospace"; // Fallback to monospace if custom font is not available
 const SPEED = 50;
 

@@ -17,11 +17,18 @@
           <p>{{ specificPortfolioItem.description }}</p>
           <br>
           <p>{{ specificPortfolioItem.extra_description }}</p>
+
+           <a target="_blank" :href="specificPortfolioItem.link">
+            <button class="text-white my-10 bg-blue-400 rounded-full px-10">Visit project</button>
+          </a>
+
         </div>
         
         <div class="flex items-center justify-center">
           <img class="" :src="specificPortfolioItem.image" alt="">
         </div>
+
+       
         
       </div>
 

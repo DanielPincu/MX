@@ -87,6 +87,10 @@ import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
 import { ref, watch, onMounted, onUnmounted } from 'vue';
 
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
+
 const isAboutOpen = ref(false)
 const toggleAbout = () => {
   isAboutOpen.value = !isAboutOpen.value
