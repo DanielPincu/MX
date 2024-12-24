@@ -1,7 +1,7 @@
 <template>
   <div class="relative min-h-screen bg-gray-900 text-gray-100 pt-16 project-card">
 
-    <canvas ref="portfolioCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+    <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
 
     <div class="relative px-6 py-20">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">Projects Showcase</h2>
@@ -65,56 +65,87 @@ import getPortfolio from '@/modules/getPortfolio';
 
 const { portfolioItems } = getPortfolio();
 const selectedCategory = ref('');
-const portfolioCanvas = ref(null);
+const matrixCanvas = ref(null);
 
 const filteredPortfolioItems = computed(() => {
-  if (selectedCategory.value === '') {
-    return portfolioItems.value;
-  } else {
-    return portfolioItems.value.filter(
-      (item) => item.category === selectedCategory.value
-    );
-  }
+  return selectedCategory.value ? 
+    portfolioItems.value.filter(item => item.category === selectedCategory.value) : 
+    portfolioItems.value;
 });
 
-// Create a new independent canvas
-let animationId = null;
-const matrixStr = "А+Б0В-Г1Д=Е2Ё Ж3З И4Й К5Л М6Н О7П Р8С Т9У Ф!Х Ц?Ч Ш.ЩЪ,Ы Ь:ЭЮ;Я";
-const matrixChars = matrixStr.split("");
-let ctx, canvasWidth, canvasHeight, fontSize, columns, drops;
+// Matrix animation variables
+const FONT_SIZE = 1;
+const FONT_FACE = "Matrix Code NFI, monospace"; // Fallback to monospace if custom font is not available
+const SPEED = 50;
 
-const initCanvas = () => {
-  const canvas = portfolioCanvas.value;
-  ctx = canvas.getContext("2d");
-  canvasWidth = canvas.width = window.innerWidth;
-  canvasHeight = canvas.height = window.innerHeight;
-  fontSize = 10;
-  columns = canvasWidth / fontSize;
-  drops = new Array(Math.ceil(columns)).fill(1);
+const CHARS = "abcdefghijklmnopqrstuvwxyz0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~".split("");
+
+let totalColumns;
+let rows = [];
+let intervalId;
+
+const getRandomChar = () => CHARS[Math.floor(Math.random() * CHARS.length)];
+
+const initColumns = () => {
+  for (let x = 0; x < totalColumns; x++) {
+    rows[x] = [Math.ceil(matrixCanvas.value.height / FONT_SIZE) + 1, ""];
+  }
 };
 
-const drawMatrix = () => {
-  ctx.fillStyle = "rgba(0,0,0,.03)";
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-  ctx.fillStyle = "#0f0";
-  ctx.font = fontSize + "px system-ui";
-  for (let i = 0; i < drops.length; i++) {
-    const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-    if (drops[i] * fontSize > canvasHeight && Math.random() > 0.9999) drops[i] = 0;
-    drops[i]++;
+const calculateColumns = () => {
+  const canvas = matrixCanvas.value;
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  totalColumns = Math.ceil(canvas.width / FONT_SIZE);
+  initColumns();
+};
+
+const renderMatrix = () => {
+  const canvas = matrixCanvas.value;
+  const matrix = canvas.getContext("2d");
+
+  matrix.fillStyle = "rgba(2, 2, 4, 0.04)";
+  matrix.fillRect(0, 0, canvas.width, canvas.height);
+
+  matrix.font = FONT_SIZE + "px " + FONT_FACE;
+
+  for (let i = 0; i < rows.length; i++) {
+    let randChar = getRandomChar();
+
+    matrix.fillStyle = "rgba(168, 255, 200, 1)";
+    matrix.fillText(randChar, i * FONT_SIZE, rows[i][0] * FONT_SIZE);
+
+    if (rows[i][1] && rows[i][1] !== "") {
+      matrix.fillStyle = "rgba(0, 143, 17, 1)";
+      matrix.fillText(
+        rows[i][1],
+        i * FONT_SIZE,
+        (rows[i][0] - 1) * FONT_SIZE
+      );
+    }
+
+    if (rows[i][0] * FONT_SIZE > canvas.height && Math.random() > 0.999) {
+      rows[i][0] = -1;
+    }
+
+    rows[i][0]++;
+    rows[i][1] = randChar;
   }
-  animationId = requestAnimationFrame(drawMatrix);
+};
+
+const initMatrix = () => {
+  calculateColumns();
+  intervalId = setInterval(renderMatrix, SPEED);
 };
 
 onMounted(() => {
-  initCanvas();
-  drawMatrix();
-  window.addEventListener("resize", initCanvas);
+  initMatrix();
+  window.addEventListener("resize", calculateColumns);
 });
 
 onUnmounted(() => {
-  cancelAnimationFrame(animationId);
-  window.removeEventListener("resize", initCanvas);
+  clearInterval(intervalId);
+  window.removeEventListener("resize", calculateColumns);
 });
 </script>
+

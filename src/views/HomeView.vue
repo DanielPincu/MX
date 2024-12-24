@@ -10,10 +10,10 @@
           <p class="text-xl inline-block md:text-2xl">{{ profession }}</p>
         </div>
         <div class="flex flex-row gap-5 md:gap-10 my-10">
-          <button class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
+          <a href="#projects"><button class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
             <span><span class="md:inline-block hidden">See</span> projects</span>
             <div class="liquid"></div>
-          </button>
+          </button></a>
           <button @click="toggleAbout" class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
             <span>Contact <span class="md:inline-block hidden">me</span></span>
             <div class="liquid2"></div>
@@ -75,7 +75,7 @@
 
 
 
-  <PortfolioView class="mb-32" data-aos="fade-down" data-aos-duration="1000" />
+  <PortfolioView id="projects" class="mb-32" data-aos="fade-down" data-aos-duration="1000" />
 
   
 
