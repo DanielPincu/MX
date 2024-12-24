@@ -19,11 +19,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import ddd from '@/assets/test.jpeg';
+
 
 const slider = ref(null);
 const items = ref([
   {
-    image: 'https://cdn.mos.cms.futurecdn.net/dP3N4qnEZ4tCTCLq59iysd.jpg',
+    image: ddd,
     title: '"Lossless Youths"',
     description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore fuga voluptatum, iure corporis inventore praesentium nisi. Id laboriosam ipsam enim.'
   },

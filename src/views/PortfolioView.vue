@@ -30,7 +30,7 @@
           v-for="portfolioItem in filteredPortfolioItems"
           :key="portfolioItem.id"
           :to="`/detail/${portfolioItem.id}`"
-          class="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-[103%] transition duration-300 block project-card">
+          class=" rounded-lg shadow-lg p-6 transform hover:scale-[103%] transition duration-300 block project-card">
           
           <h2 class="text-xl font-bold mb-2 hover:text-blue-400 transition duration-300">
             {{ portfolioItem.title }}
