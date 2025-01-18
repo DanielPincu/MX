@@ -1,5 +1,6 @@
 <template>
   <section data-aos="fade-down" data-aos-duration="1000" id="home" class="video-banner project-card">
+    <div class="noise"></div>
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="video-content relative z-10 mt-36 lg:grid grid-cols-2 items-center justify-around mx-10">
       <div class="flex flex-col justify-center items-center">
@@ -44,6 +45,7 @@
 
   <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20  relative project-card">
     <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
+    <div class="noise2"></div>
     <div class="relative z-20">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ expertiseTitle }}</h2>
       <div class="grid md:grid-cols-3 gap-8 fade-in container mx-auto">
@@ -59,14 +61,14 @@
 
 
 
-  <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="py-20 my-32 bg-gray-900 project-card relative">
+  <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="my-32 bg-gray-900 project-card relative">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-
+    <div class="noise3"></div>
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
-      <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ hobbiesTitle }}</h2>
+      <h2 class="text-xl md:text-3xl font-bold mb-8 text-center pt-20">{{ hobbiesTitle }}</h2>
 
-      <div class="hobby-ticker overflow-hidden">
+      <div class="hobby-ticker overflow-hidden mb-32">
         <div class="hobby-ticker-content space-x-8 inline-block">
           <div v-for="hobby in hobbies" :key="hobby.name" class="hobby-item bg-opacity-60 project-card bg-gray-800 p-6 rounded-lg text-center inline-block flex-shrink-0 w-64">
             <i :class="['fas', hobby.icon, 'text-4xl mb-4']"></i>
@@ -318,6 +320,42 @@ onUnmounted(() => {
 .slide-in-enter-to,
 .slide-in-leave-from {
   transform: translateX(0);
+}
+
+.noise {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMndyaXVhaXh3ZjV4cWhneXlvZmI3aWh3Y3hwZ2E0NnVxcjZnMTNneCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IcZhFmufozDCij3p22/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  opacity: 0.2;
+}
+
+.noise2 {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 83%;
+  background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmN5bDl1eDB6OWNmMWsyaGkyM3dmZXV0MzdodTB6ejNoc3ZiaTRiYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/J2bBD0FWK3bxXvym1T/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  opacity: 0.1;
+}
+
+.noise3 {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnU4a3RhNHFhbWtodjNzNjRobmZpNWdrbndwMWsxbXg4cGl3bmh1aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41lTRFZILZG2Q0Ba/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  opacity: 0.1;
 }
 </style>
 
