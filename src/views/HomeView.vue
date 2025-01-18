@@ -38,7 +38,7 @@
   </section>
 
 
-  <AboutView class="project-card mb-20 hidden md:block" data-aos="fade-down" data-aos-duration="1000" />
+  <AboutView class="project-card my-32" data-aos="fade-down" data-aos-duration="1000" />
 
 
 
