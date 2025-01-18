@@ -1,8 +1,8 @@
 <template>
-  <div class="error-page">
+  <div class="error-page h-[1000px]">
     <div class="noise"></div>
     <div class="overlay"></div>
-    <div class="terminal">
+    <div class="terminal p-5">
       
       <div class="pb-32">
         <div class="glitch-text text-[50px]">
@@ -11,10 +11,9 @@
         <div class="glitch-scanline">Can you read this?</div>
       </div>
 
-      <h1 class="text-2xl">About <span class="text-3xl">ME</span></h1>
-      <p class="output text-xl">The page you are looking for might have been removed, had its name changed or is temporarily unavailable.</p>
-      <p class="output">Please try to go back or return to the homepage.</p>
-      <p class="output">Good luck.</p>
+      <h1 class="text-2xl">Hey<span class="text-2xl animate-pulsing">|</span></h1>
+      <p class="output text-xl">My name is Daniel Pincu and I have a knack for turning ideas into reality. As a multimedia designer, I thrive on simplicity with a splash of creativity. My mission? Making things look awesome! From logos that leave a lasting impression to motion graphics that bring static images to life, I've got a bit of everything up my sleeve. User interfaces? Consider it done. I'm here to sprinkle a little magic on your project and make it stand out from the crowd.</p>
+      
     </div>
     
   </div>
@@ -28,8 +27,6 @@
 @import 'https://fonts.googleapis.com/css?family=Inconsolata';
 
 .error-page {
-  min-height: 100vh;
-  box-sizing: border-box;
   background-image: radial-gradient(#11581E, #041607), url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
   background-repeat: no-repeat;
   background-size: cover;
@@ -95,13 +92,10 @@
 }
 
 .terminal {
-  box-sizing: inherit;
   position: absolute;
   height: 100%;
-  width: 1000px;
+  /* width: 1000px; */
   max-width: 100%;
-  padding: 4rem;
-  text-transform: uppercase;
 }
 
 .output {
