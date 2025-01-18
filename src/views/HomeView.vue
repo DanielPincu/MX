@@ -41,23 +41,6 @@
   <AboutView class="project-card mb-20 hidden md:block" data-aos="fade-down" data-aos-duration="1000" />
 
 
-  <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="py-20 my-32 bg-gray-900 project-card relative">
-    <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-
-    <!-- Ensure the title is above the canvas -->
-    <div class="relative z-10">
-      <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ hobbiesTitle }}</h2>
-
-      <div class="hobby-ticker overflow-hidden">
-        <div class="hobby-ticker-content space-x-8 inline-block">
-          <div v-for="hobby in hobbies" :key="hobby.name" class="hobby-item bg-gray-800 p-6 rounded-lg text-center inline-block flex-shrink-0 w-64">
-            <i :class="['fas', hobby.icon, 'text-4xl mb-4']"></i>
-            <h3 class="text-xl font-bold mb-2">{{ hobby.name }}</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20  relative project-card">
     <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -72,6 +55,29 @@
       </div>
     </div>
   </section>
+
+
+
+
+  <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="py-20 my-32 bg-gray-900 project-card relative">
+    <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+
+    <!-- Ensure the title is above the canvas -->
+    <div class="relative z-10">
+      <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ hobbiesTitle }}</h2>
+
+      <div class="hobby-ticker overflow-hidden">
+        <div class="hobby-ticker-content space-x-8 inline-block">
+          <div v-for="hobby in hobbies" :key="hobby.name" class="hobby-item bg-opacity-60 project-card bg-gray-800 p-6 rounded-lg text-center inline-block flex-shrink-0 w-64">
+            <i :class="['fas', hobby.icon, 'text-4xl mb-4']"></i>
+            <h3 class="text-xl font-bold mb-2">{{ hobby.name }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
 
 
 
@@ -205,7 +211,7 @@ const initMatrixCanvasHobbies = () => {
     matrixCtxHobbies = canvasElementHobbies.getContext("2d");
     matrixWidthHobbies = canvasElementHobbies.width = window.innerWidth;
     matrixHeightHobbies = canvasElementHobbies.height = window.innerHeight;
-    matrixFontHobbies = 14;
+    matrixFontHobbies = 11;
     matrixColumnsHobbies = matrixWidthHobbies / matrixFontHobbies;
     matrixDropsHobbies = new Array(Math.ceil(matrixColumnsHobbies)).fill(1);
   }
@@ -238,7 +244,7 @@ const initExpertiseMatrixCanvas = () => {
     expertiseMatrixCtx = canvasElementExpertise.getContext("2d");
     expertiseMatrixWidth = canvasElementExpertise.width = window.innerWidth;
     expertiseMatrixHeight = canvasElementExpertise.height = window.innerHeight;
-    expertiseMatrixFont = 14;
+    expertiseMatrixFont = 11;
     expertiseMatrixColumns = expertiseMatrixWidth / expertiseMatrixFont;
     expertiseMatrixDrops = new Array(Math.ceil(expertiseMatrixColumns)).fill(1);
   }
