@@ -1,6 +1,7 @@
 <template>
   <section data-aos="fade-down" data-aos-duration="1000" id="home" class="video-banner project-card">
     <div class="noise"></div>
+    <div class="overlay"></div>
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="video-content relative z-10 mt-36 lg:grid grid-cols-2 items-center justify-around mx-10">
       <div class="flex flex-col justify-center items-center">
@@ -43,14 +44,15 @@
 
 
 
-  <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20  relative project-card">
+  <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20 relative project-card">
     <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise2"></div>
+    <div class="overlay3 md:h-[82%] h-[93%]"></div>
     <div class="relative z-20">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ expertiseTitle }}</h2>
       <div class="grid md:grid-cols-3 gap-8 fade-in container mx-auto">
         
-        <div v-for="skill in expertise" :key="skill.title" class="bg-gray-800  p-6 rounded-lg project-card">
+        <div v-for="skill in expertise" :key="skill.title" class="bg-gray-800 p-6 rounded-lg project-card">
           <h3 class="text-md font-bold mb-2">{{ skill.title }}</h3>
           <p class="text-md">{{ skill.description }}</p>
         </div>
@@ -64,6 +66,7 @@
   <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="my-32 bg-gray-900 project-card relative">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise3"></div>
+    <div class="overlay2"></div>
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center pt-20">{{ hobbiesTitle }}</h2>
@@ -183,7 +186,7 @@ const initCanvas = () => {
   $ = C.getContext("2d");
   W = C.width = window.innerWidth;
   H = C.height = window.innerHeight;
-  font = 11;
+  font = 10;
   col = W / font;
   arr = new Array(Math.ceil(col)).fill(1);
 };
@@ -271,13 +274,13 @@ const drawExpertiseMatrixFrame = () => {
 onMounted(() => {
   initCanvas();
   draw();
-  window.addEventListener("resize", initCanvas);
+  // window.addEventListener("resize", initCanvas);
   initMatrixCanvasHobbies();
   drawMatrixHobbies();
-  window.addEventListener("resize", initMatrixCanvasHobbies);
+  // window.addEventListener("resize", initMatrixCanvasHobbies);
   initExpertiseMatrixCanvas();
   drawExpertiseMatrixFrame();
-  window.addEventListener("resize", initExpertiseMatrixCanvas);
+  // window.addEventListener("resize", initExpertiseMatrixCanvas);
 });
 
 onUnmounted(() => {
@@ -356,6 +359,133 @@ onUnmounted(() => {
   background-size: cover;
   z-index: 1;
   opacity: 0.1;
+}
+
+
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background:
+      repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 30;
+}
+
+.overlay::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(32, 128, 32, 0.2) 2%,
+      rgba(32, 128, 32, 0.8) 3%,
+      rgba(32, 128, 32, 0.2) 3%,
+      transparent 100%);
+  background-repeat: no-repeat;
+  animation: scan 10s linear 0s infinite;
+}
+
+@keyframes scan {
+  0%        { background-position: 0 -100vh; }
+  30%, 100% { background-position: 0 100vh; }
+}
+
+
+.overlay2 {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 103%;
+  background:
+      repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 30;
+}
+
+.overlay2::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(32, 128, 32, 0.2) 2%,
+      rgba(32, 128, 32, 0.8) 3%,
+      rgba(32, 128, 32, 0.2) 3%,
+      transparent 100%);
+  background-repeat: no-repeat;
+  animation: scan2 100s linear 0s infinite;
+}
+
+@keyframes scan {
+  0%        { background-position: 0 -100vh; }
+  30%, 100% { background-position: 0 100vh; }
+}
+
+.overlay3 {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  background:
+      repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 30;
+}
+
+.overlay3::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 103%;
+  background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(32, 128, 32, 0.2) 2%,
+      rgba(32, 128, 32, 0.8) 3%,
+      rgba(32, 128, 32, 0.2) 3%,
+      transparent 100%);
+  background-repeat: no-repeat;
+  animation: scan3 100s linear 0s infinite;
+}
+
+@keyframes scan {
+  0%        { background-position: 0 -100vh; }
+  30%, 100% { background-position: 0 100vh; }
 }
 </style>
 

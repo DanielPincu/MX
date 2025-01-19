@@ -36,7 +36,7 @@ const initMatrixCanvas = () => {
 };
 
 const drawMatrix = () => {
-  matrixCtx.fillStyle = "rgba(0,0,0,.015)";
+  matrixCtx.fillStyle = "rgba(0,0,0,.02)";
   matrixCtx.fillRect(0, 0, matrixWidth, matrixHeight);
   matrixCtx.fillStyle = "#0f0";
   matrixCtx.font = matrixFont + "px system-ui";
@@ -52,7 +52,7 @@ const drawMatrix = () => {
 onMounted(() => {
   initMatrixCanvas();
   drawMatrix();
-  window.addEventListener("resize", initMatrixCanvas);
+  // window.addEventListener("resize", initMatrixCanvas);
 });
 
 onUnmounted(() => {

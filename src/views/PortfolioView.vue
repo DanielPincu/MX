@@ -3,6 +3,7 @@
     <!-- Matrix Canvas -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise"></div>
+    <div class="overlay"></div>
     <h2 class="text-xl relative md:text-3xl font-bold mb-8 text-center pt-16">Projects Showcase</h2>
     <div class="relative px-6 py-20">
       <!-- Heading -->
@@ -132,7 +133,7 @@ const initMatrix = () => {
 
 onMounted(() => {
   initMatrix();
-  window.addEventListener("resize", calculateColumns);
+  // window.addEventListener("resize", calculateColumns);
 });
 
 onUnmounted(() => {
@@ -162,14 +163,7 @@ a {
   color: inherit;
 }
 
-.overlay {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-}
+
 
 .main {
   z-index: 1;
@@ -256,5 +250,45 @@ a {
   opacity: 0.2;
 }
 
+.overlay {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background:
+      repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%);
+  background-size: auto 4px;
+  z-index: 30;
+}
 
+.overlay::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      rgba(32, 128, 32, 0.2) 2%,
+      rgba(32, 128, 32, 0.8) 3%,
+      rgba(32, 128, 32, 0.2) 3%,
+      transparent 100%);
+  background-repeat: no-repeat;
+  animation: scan 100s linear 0s infinite;
+}
+
+/* @keyframes scan {
+  0%        { background-position: 0 -200vh; }
+  30%, 100% { background-position: 0 100vh; }
+} */
 </style>
