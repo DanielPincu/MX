@@ -3,7 +3,7 @@
     <!-- Matrix Canvas -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise"></div>
-    <div class="overlay"></div>
+    <!-- <div class="overlay"></div> -->
     <h2 class="text-xl relative md:text-3xl font-bold mb-8 text-center pt-16">Projects Showcase</h2>
     <div class="relative px-6 py-20">
       <!-- Heading -->
@@ -243,7 +243,7 @@ a {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWJyM3FhOHo1dHhlZzRveGJveHF1cWF6c3VoazhhanRlMjZueWI5dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0IyeUveuzmj0SP9m/giphy.gif");
+  /* background-image: url("https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWJyM3FhOHo1dHhlZzRveGJveHF1cWF6c3VoazhhanRlMjZueWI5dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0IyeUveuzmj0SP9m/giphy.gif"); */
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 1;

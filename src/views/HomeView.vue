@@ -1,7 +1,7 @@
 <template>
   <section data-aos="fade-down" data-aos-duration="1000" id="home" class="video-banner project-card">
     <div class="noise"></div>
-    <div class="overlay"></div>
+    <!-- <div class="overlay"></div> -->
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="video-content relative z-10 mt-36 lg:grid grid-cols-2 items-center justify-around mx-10">
       <div class="flex flex-col justify-center items-center">
@@ -47,7 +47,7 @@
   <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20 relative project-card">
     <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise2"></div>
-    <div class="overlay3 md:h-[82%] h-[93%]"></div>
+    <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
     <div class="relative z-20">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ expertiseTitle }}</h2>
       <div class="grid md:grid-cols-3 gap-8 fade-in container mx-auto">
@@ -66,7 +66,7 @@
   <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="my-32 bg-gray-900 project-card relative">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise3"></div>
-    <div class="overlay2"></div>
+    <!-- <div class="overlay2"></div> -->
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
       <h2 class="text-xl md:text-3xl font-bold mb-8 text-center pt-20">{{ hobbiesTitle }}</h2>
@@ -330,11 +330,11 @@ onUnmounted(() => {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMndyaXVhaXh3ZjV4cWhneXlvZmI3aWh3Y3hwZ2E0NnVxcjZnMTNneCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IcZhFmufozDCij3p22/giphy.gif");
+  /* background-image: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMndyaXVhaXh3ZjV4cWhneXlvZmI3aWh3Y3hwZ2E0NnVxcjZnMTNneCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IcZhFmufozDCij3p22/giphy.gif"); */
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 1;
-  opacity: 0.2;
+  opacity: 0.1;
 }
 
 .noise2 {
@@ -342,7 +342,7 @@ onUnmounted(() => {
   position: absolute;
   width: 100%;
   height: 83%;
-  background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmN5bDl1eDB6OWNmMWsyaGkyM3dmZXV0MzdodTB6ejNoc3ZiaTRiYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/J2bBD0FWK3bxXvym1T/giphy.gif");
+  /* background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmN5bDl1eDB6OWNmMWsyaGkyM3dmZXV0MzdodTB6ejNoc3ZiaTRiYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/J2bBD0FWK3bxXvym1T/giphy.gif"); */
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 1;
@@ -354,7 +354,7 @@ onUnmounted(() => {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnU4a3RhNHFhbWtodjNzNjRobmZpNWdrbndwMWsxbXg4cGl3bmh1aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41lTRFZILZG2Q0Ba/giphy.gif");
+  /* background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnU4a3RhNHFhbWtodjNzNjRobmZpNWdrbndwMWsxbXg4cGl3bmh1aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41lTRFZILZG2Q0Ba/giphy.gif"); */
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 1;
@@ -371,8 +371,8 @@ onUnmounted(() => {
       repeating-linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0,
-      rgba(0, 0, 0, 0.3) 50%,
-      rgba(0, 0, 0, 0) 100%);
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0) 10%);
   background-size: auto 4px;
   z-index: 30;
 }
@@ -396,7 +396,7 @@ onUnmounted(() => {
       rgba(32, 128, 32, 0.2) 3%,
       transparent 100%);
   background-repeat: no-repeat;
-  animation: scan 10s linear 0s infinite;
+  animation: scan 15s linear 0s infinite;
 }
 
 @keyframes scan {
@@ -404,88 +404,5 @@ onUnmounted(() => {
   30%, 100% { background-position: 0 100vh; }
 }
 
-
-.overlay2 {
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  height: 103%;
-  background:
-      repeating-linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0) 0,
-      rgba(0, 0, 0, 0.3) 50%,
-      rgba(0, 0, 0, 0) 100%);
-  background-size: auto 4px;
-  z-index: 30;
-}
-
-.overlay2::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(
-      0deg,
-      transparent 0%,
-      rgba(32, 128, 32, 0.2) 2%,
-      rgba(32, 128, 32, 0.8) 3%,
-      rgba(32, 128, 32, 0.2) 3%,
-      transparent 100%);
-  background-repeat: no-repeat;
-  animation: scan2 100s linear 0s infinite;
-}
-
-@keyframes scan {
-  0%        { background-position: 0 -100vh; }
-  30%, 100% { background-position: 0 100vh; }
-}
-
-.overlay3 {
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  background:
-      repeating-linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0) 0,
-      rgba(0, 0, 0, 0.3) 50%,
-      rgba(0, 0, 0, 0) 100%);
-  background-size: auto 4px;
-  z-index: 30;
-}
-
-.overlay3::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 103%;
-  background-image: linear-gradient(
-      0deg,
-      transparent 0%,
-      rgba(32, 128, 32, 0.2) 2%,
-      rgba(32, 128, 32, 0.8) 3%,
-      rgba(32, 128, 32, 0.2) 3%,
-      transparent 100%);
-  background-repeat: no-repeat;
-  animation: scan3 100s linear 0s infinite;
-}
-
-@keyframes scan {
-  0%        { background-position: 0 -100vh; }
-  30%, 100% { background-position: 0 100vh; }
-}
 </style>
 
