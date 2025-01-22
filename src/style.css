@@ -30,18 +30,18 @@ nav a
 
 .hobby-ticker-content {
   display: inline-block;
-  animation: ticker 200s linear infinite;
+  animation: ticker 60s linear infinite;
 }
 
 
 
 @keyframes ticker {
   0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%); 
-  }
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(calc(-200px * 25)); /* (width + margin) * number of unique items */
+}
 }
 
 
