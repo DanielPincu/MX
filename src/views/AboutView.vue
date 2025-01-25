@@ -10,18 +10,18 @@
         </div>
         <div class="glitch-scanline">The Matrix has you!</div>
       </div>
-      <h2 class="text-2xl">Hey<span class="text-2xl animate-pulsing">|</span></h2>
+      <h2 class="text-4xl">Hey<span class="text-4xl animate-pulsing">|</span></h2>
 
-      <div class="grid grid-cols-2">
+      <div class="grid grid-cols-1">
         <div>
-          <p class="output text-xl">I’m Daniel Pincu, a web developer who bends the fabric of the digital world. Behind every line of code lies a choice: to remain in the known, or to break free into the unknown. I build experiences that shift the balance, pulling users into a space where form and function converge in perfect harmony. The red pill whispers of transformation, where every interaction is a new possibility. The blue pill offers comfort, grounding users in a familiar, flowing reality. From front-end to back-end, I shape the unseen, crafting environments that move, adapt, and connect. Welcome to a world beyond code—where the web is not just built, but awakened.</p>
+          <p class="output text-2xl">I’m Daniel Pincu, a web developer who bends the fabric of the digital world. Behind every line of code lies a choice: to remain in the known, or to break free into the unknown. I build experiences that shift the balance, pulling users into a space where form and function converge in perfect harmony. The red pill whispers of transformation, where every interaction is a new possibility. The blue pill offers comfort, grounding users in a familiar, flowing reality. From front-end to back-end, I shape the unseen, crafting environments that move, adapt, and connect. Welcome to a world beyond code—where the web is not just built, but awakened.</p>
         </div>
         <div>
-          <Glitch />
+          
         </div>
       </div>
 
-      <div>
+      <div class="hidden md:block">
         <h1>My Internet Periodic Table</h1>
         <h5>How I waste my time on the Internet</h5>
 

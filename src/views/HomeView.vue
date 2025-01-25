@@ -6,10 +6,14 @@
     <div class="video-content relative z-10 mt-36 lg:grid grid-cols-2 items-center justify-around mx-10">
       <div class="flex flex-col justify-center items-center">
         <div>
-          <p class="text-3xl pb-10">{{ greeting }}</p>
-          <h1 class="text-3xl md:text-6xl font-bold mb-4">{{ name }}</h1>
-          <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p>
-          <p class="text-xl inline-block md:text-2xl">{{ profession }}</p>
+          <!-- <p class="text-3xl pb-10">{{ greeting }}</p> -->
+
+          <Glitch class="text-4xl"/>
+
+          <!-- <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p> -->
+          <div class="glitch-text text-center text-[40px]">
+              <span>Welcome to The Matrix...</span>
+          </div>
         </div>
         <div class="flex flex-row gap-5 md:gap-10 my-10">
           <a href="#projects"><button class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
@@ -49,7 +53,9 @@
     <div class="noise2"></div>
     <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
     <div class="relative z-20">
-      <h2 class="text-xl md:text-3xl font-bold mb-8 text-center">{{ expertiseTitle }}</h2>
+        <div class="glitch-text pb-10 text-center text-[50px]">
+          <span>Expertise</span>
+        </div>
       <div class="grid md:grid-cols-3 gap-8 fade-in container mx-auto">
         
         <div v-for="skill in expertise" :key="skill.title" class="bg-gray-800 p-6 rounded-lg project-card">
@@ -69,7 +75,9 @@
     <!-- <div class="overlay2"></div> -->
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
-      <h2 class="text-xl md:text-3xl font-bold mb-8 text-center pt-20">{{ hobbiesTitle }}</h2>
+        <div class="glitch-text pb-10 pt-20 text-center text-[50px]">
+          <span>Hobbies and Interests</span>
+        </div>
 
       <div class="hobby-ticker overflow-hidden mb-32">
         <div class="hobby-ticker-content space-x-8 inline-block">
@@ -91,8 +99,8 @@
   
 
 </template>
-
 <script setup>
+import Glitch from './Glitch.vue';
 import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
@@ -295,6 +303,41 @@ onUnmounted(() => {
 
 
 <style scoped>
+
+.glitch-text {
+  position: relative;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: green;
+  animation: glitch-jerkwhole 5s infinite;
+}
+
+.glitch-text span {
+  color: green;
+  filter: blur(2px);
+  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
+}
+
+.glitch-scanline {
+  width: 100%;
+  height: 4px;
+  margin-bottom: 5px;
+  opacity: 0.15;
+  background: rgba(0, 255, 0, 0.1);
+}
+
+@keyframes glitch-blur {
+  0%, 100% { filter: blur(0px); opacity: 0.5; }
+  50% { filter: blur(2px); opacity: 1; }
+}
+
+@keyframes glitch-jerk {
+  50% { transform: translateX(3px); }
+  51% { transform: translateX(0); }
+}
+
+
+
 .video-banner {
    position: relative;
    overflow: hidden;
@@ -403,6 +446,7 @@ onUnmounted(() => {
   0%        { background-position: 0 -100vh; }
   30%, 100% { background-position: 0 100vh; }
 }
+
 
 </style>
 

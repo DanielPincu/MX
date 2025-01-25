@@ -4,7 +4,9 @@
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
-    <h2 class="text-xl relative md:text-3xl font-bold mb-8 text-center pt-16">Projects Showcase</h2>
+        <div class="glitch-text pb-10 pt-20 text-center text-[50px]">
+          <span>Projects showcase</span>
+        </div>
     <div class="relative px-6 py-20">
       <!-- Heading -->
       
@@ -291,4 +293,39 @@ a {
   0%        { background-position: 0 -200vh; }
   30%, 100% { background-position: 0 100vh; }
 } */
+
+
+
+.glitch-text {
+  position: relative;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: green;
+  animation: glitch-jerkwhole 5s infinite;
+}
+
+.glitch-text span {
+  color: green;
+  filter: blur(2px);
+  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
+}
+
+.glitch-scanline {
+  width: 100%;
+  height: 4px;
+  margin-bottom: 5px;
+  opacity: 0.15;
+  background: rgba(0, 255, 0, 0.1);
+}
+
+@keyframes glitch-blur {
+  0%, 100% { filter: blur(0px); opacity: 0.8; }
+  50% { filter: blur(2px); opacity: 1; }
+}
+
+@keyframes glitch-jerk {
+  50% { transform: translateX(3px); }
+  51% { transform: translateX(0); }
+}
+
 </style>
