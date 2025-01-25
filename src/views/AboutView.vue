@@ -16,7 +16,9 @@
         <div>
           <p class="output text-xl">I’m Daniel Pincu, a web developer who bends the fabric of the digital world. Behind every line of code lies a choice: to remain in the known, or to break free into the unknown. I build experiences that shift the balance, pulling users into a space where form and function converge in perfect harmony. The red pill whispers of transformation, where every interaction is a new possibility. The blue pill offers comfort, grounding users in a familiar, flowing reality. From front-end to back-end, I shape the unseen, crafting environments that move, adapt, and connect. Welcome to a world beyond code—where the web is not just built, but awakened.</p>
         </div>
-        <div></div>
+        <div>
+          <Glitch />
+        </div>
       </div>
 
       <div>
@@ -58,6 +60,7 @@
 </template>
 
 <script setup>
+import Glitch from '@/views/Glitch.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const matrixCanvas = ref(null);
