@@ -8,11 +8,11 @@
         <div>
           <!-- <p class="text-3xl pb-10">{{ greeting }}</p> -->
 
-          <Glitch class="text-4xl"/>
+          <Glitch class="text-4xl "/>
 
           <!-- <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p> -->
           <div class="glitch-text text-center text-[40px]">
-              <span>Welcome to The Matrix...</span>
+              <span>Welcome to <br class="md:hidden block"> The Matrix <span class="hidden md:block">...</span></span>
           </div>
         </div>
         <div class="flex flex-row gap-5 md:gap-10 my-10">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="chardelay text-slate-400 inline-block" v-html="output"></p><span class="inline-block text-slate-400 animate-pulsing">|</span>
+    <p class="text-slate-400 inline-block" v-html="output"></p><span class="inline-block text-slate-400 animate-pulsing">|</span>
   </div>
 </template>
 
@@ -45,15 +45,4 @@ onMounted(() => {
 </script>
 
 <style scoped>
-body {
-  background-color: black;
-  font-family: "Courier New", Monospace;
-  color: lime;
-}
-
-/* .chardelay {
-  margin: 2em;
-  padding: 2em;
-  line-height: 1.5em;
-} */
 </style>
