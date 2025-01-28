@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import Glitch from '@/views/Glitch.vue';
+import Glitch from '@/views/Typing.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const matrixCanvas = ref(null);

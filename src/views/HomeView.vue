@@ -8,7 +8,7 @@
         <div>
           <!-- <p class="text-3xl pb-10">{{ greeting }}</p> -->
 
-          <Glitch class="text-4xl "/>
+          <Typing class="text-4xl "/>
 
           <!-- <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p> -->
           <div class="glitch-text text-center text-[40px]">
@@ -100,7 +100,8 @@
 
 </template>
 <script setup>
-import Glitch from './Glitch.vue';
+import Glitch from '../../Backups/Glitch.vue';
+import Typing from './Typing.vue';
 import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
