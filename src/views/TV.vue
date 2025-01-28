@@ -106,7 +106,7 @@ function changeChannel(direction) {
 
   setTimeout(() => {
     currentChannelURL.value = gifTVURLs[dial.channel.currentIndex];
-  }, 50);
+  });
 }
 
 // Start auto channel change
