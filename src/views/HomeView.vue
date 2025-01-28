@@ -100,7 +100,7 @@
 
 </template>
 <script setup>
-import Glitch from './Glitch.vue';
+import Glitch from './TV.vue';
 import Typing from './Typing.vue';
 import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
