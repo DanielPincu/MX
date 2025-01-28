@@ -4,7 +4,7 @@
       <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
           <h3 class="text-3xl"></h3>
-          <h1>Reality is just a constant feed of false signals</h1>
+          <h1><span class="text-slate-400">Reality is just a constant feed of false signals. Follow the</span> white rabbit!</h1>
           <!-- Burger Button Visible on All Screen Sizes -->
           <div class="">
             <button @click="toggleMenu" class="text-green-400 focus:outline-none md:block">

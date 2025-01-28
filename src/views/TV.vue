@@ -20,7 +20,7 @@
 
         <button
           id="gif_tv_button_channel"
-          class="dial animate-pulse"
+          class="dial animate-ping"
           title="Change the Channels"
           @click="changeChannel('up')"
           @contextmenu.prevent="changeChannel('down')"
@@ -39,6 +39,7 @@ import gif1 from '@/assets/gif1.gif';
 import gif2 from '@/assets/gif2.gif';
 import gif3 from '@/assets/gif3.gif';
 import gif4 from '@/assets/gif4.gif';
+import xp from '@/assets/xp.gif';
 const gifTVURLs = [
   ddd,
   gif1,
@@ -54,7 +55,7 @@ const gifTVURLs = [
 
   'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzlpYmpvZGJvdHIxMWJrdzliaXUyaHR6OWE4NmNlazJrOHU4MHk1dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1HQ0xMcxsSECY/giphy.gif',
 
-  'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbjM0NGFmbTE5Ynh5ZjIxeml3dHdud2YxNmlqcWhkcW9qN3FzcmdrMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AqV8uSb8ptxyo7Wyog/giphy.gif'
+  xp,
  
   
 ];
@@ -200,40 +201,61 @@ img {
   }
 
   button.dial {
-    display: block;
-    position: absolute;
-    left: 85.6%;
-    transform: translateY(-50%);
-    padding: 0;
-    border-radius: 50%;
-    border: #f40505 solid 5px;
-    background-color: transparent;
-    width: 10.2%;
-    line-height: 0;
-    cursor: pointer;
-    transition: all 200ms ease-in-out;
+  display: block;
+  position: absolute;
+  left: 85.6%;
+  transform: translateY(-50%);
+  padding: 0;
+  border-radius: 50%;
+  border: #f40505 solid 5px;
+  background-color: transparent;
+  width: 10.2%;
+  line-height: 0;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  overflow: hidden;
 
-    &:hover,
-    &:focus {
-      outline: none;
-    }
-    
-    &:hover {
-      border-color: #ff5900;
-    }
+  /* Add your image here */
+  background-image: url('https://www.svgrepo.com/show/500134/white-rabbit.svg');
+  opacity: 0.2;
+  background-size: cover; /* Makes the image cover the button */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
 
-    &:active {
-      border-color: #f00e25;
-    }
-    
-    &::before {
-      display: block;
-      width: 100%;
-      padding-top: 100%;
-      content: '';
-    }
+  &:hover,
+  &:focus {
+    outline: none;
   }
+  
+  &:hover {
+    border-color: #ff5900;
+  }
+
+  &:active {
+    border-color: #f00e25;
+  }
+
+  &::before {
+    display: block;
+    width: 100%;
+    padding-top: 100%;
+    content: '';
+  }
+}
+
 
   button#gif_tv_button_channel { top: 56.3%; }
 }
+
+@keyframes ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+.animate-ping {
+    animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+
 </style>
