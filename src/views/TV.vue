@@ -35,14 +35,17 @@ import { ref } from 'vue';
 import ddd from '@/assets/ddd.jpeg';
 import tv from '@/assets/tv.png';
 import overlay from '@/assets/overlay.png';
-import chatognito from '@/assets/chatognito.png';
-import trapholt from '@/assets/test.jpeg';
 import gif1 from '@/assets/gif1.gif';
 import gif2 from '@/assets/gif2.gif';
+import gif3 from '@/assets/gif3.gif';
+import gif4 from '@/assets/gif4.gif';
 const gifTVURLs = [
   ddd,
   gif1,
   gif2,
+  gif3,
+  gif4,
+  'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG85dW04c3djOXZld3B6Z25qZ3d2MjQ3cmZ3eTd6eHpreno5eXI0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9IgzoKnwFNmISR8I/giphy.gif'
   
 ];
 
