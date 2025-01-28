@@ -21,7 +21,7 @@
 
         <button
           id="gif_tv_button_channel"
-          class="dial animate-ping"
+          class="dial"
           title="Change the Channels"
           @click="changeChannel('up')"
           @contextmenu.prevent="changeChannel('down')"
@@ -49,8 +49,6 @@ const gifTVURLs = [
   gif4,
   'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG85dW04c3djOXZld3B6Z25qZ3d2MjQ3cmZ3eTd6eHpreno5eXI0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9IgzoKnwFNmISR8I/giphy.gif',
   
-  
-  'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdGg3b3hjN3NuMm14ZzE1eWQyMDZoZWRzeWx2NXNybnZjZGFyd3h3NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GjzVGmqTfzRIc/giphy.gif',
 
   'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDBsdm9kaWF2Y200cno2bXF3dWtpN2JnZWRqZHcxcW92NnExdmpybCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KlrMS4vyq5KSY/giphy.gif',
 
@@ -62,7 +60,7 @@ const gifTVURLs = [
 ];
 
 const currentChannelURL = ref(gifTVURLs[0]);
-const overlayImage = overlay;
+const overlayImage = '';
 
 const channelMessage = ref('');
 
@@ -205,7 +203,7 @@ img {
   display: block;
   position: absolute;
   left: 85.6%;
-  transform: translateY(-90%);
+  transform: translateY(-50%);
   padding: 0;
   border-radius: 50%;
   border: #f9f3f3 solid 2px;
@@ -217,7 +215,7 @@ img {
   overflow: hidden;
 
   /* Add your image here */
-  background-image: url('https://www.svgrepo.com/show/500134/white-rabbit.svg');
+  // background-image: url('https://www.svgrepo.com/show/500134/white-rabbit.svg');
   opacity: 0.2;
   background-size: cover; 
   &:hover,
