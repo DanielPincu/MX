@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import ddd from '@/assets/ddd.jpeg';
 import tv from '@/assets/tv.png';
 import overlay from '@/assets/overlay.png';
@@ -41,21 +41,18 @@ import gif2 from '@/assets/gif2.gif';
 import gif3 from '@/assets/gif3.gif';
 import gif4 from '@/assets/gif4.gif';
 import xp from '@/assets/xp.gif';
+
 const gifTVURLs = [
+  'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXdoYnpvNnE4MGo5YmZ1a3RqczIyb2picjM4aGRpMms2dXY4Z2p1ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LbSdXQbS0XVVC/giphy.gif',
   ddd,
   gif1,
   gif2,
   gif3,
   gif4,
   'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG85dW04c3djOXZld3B6Z25qZ3d2MjQ3cmZ3eTd6eHpreno5eXI0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9IgzoKnwFNmISR8I/giphy.gif',
-  
-
   'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDBsdm9kaWF2Y200cno2bXF3dWtpN2JnZWRqZHcxcW92NnExdmpybCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KlrMS4vyq5KSY/giphy.gif',
-
-  'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzlpYmpvZGJvdHIxMWJrdzliaXUyaHR6OWE4NmNlazJrOHU4MHk1dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1HQ0xMcxsSECY/giphy.gif',
-
-  xp,
- 
+  'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXdoYnpvNnE4MGo5YmZ1a3RqczIyb2picjM4aGRpMms2dXY4Z2p1ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LbSdXQbS0XVVC/giphy.gif',
+  
   
 ];
 
@@ -111,7 +108,23 @@ function changeChannel(direction) {
     currentChannelURL.value = gifTVURLs[dial.channel.currentIndex];
   }, 50);
 }
+
+// Start auto channel change
+let channelChangeInterval;
+
+onMounted(() => {
+  // Start changing channels automatically every 1 second
+  channelChangeInterval = setInterval(() => {
+    changeChannel('up');
+  }, 5000);
+});
+
+onBeforeUnmount(() => {
+  // Clean up the interval when the component is unmounted
+  clearInterval(channelChangeInterval);
+});
 </script>
+
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Roboto|VT323&display=swap');
