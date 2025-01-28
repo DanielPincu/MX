@@ -1,6 +1,7 @@
 <template>
   <section >
-    <div class="wrapper">
+    <div class="wrapper cursor-pointer" @click="changeChannel('up')"
+    @contextmenu.prevent="changeChannel('down')">
       <div class="gif-tv">
         <div id="gif_tv_viewport" class="viewport">
           <img id="gif_tv_video" class="video" :src="currentChannelURL" />
@@ -204,35 +205,32 @@ img {
   display: block;
   position: absolute;
   left: 85.6%;
-  transform: translateY(-50%);
+  transform: translateY(-90%);
   padding: 0;
   border-radius: 50%;
-  border: #f40505 solid 5px;
+  border: #f9f3f3 solid 2px;
   background-color: transparent;
   width: 10.2%;
   line-height: 0;
   cursor: pointer;
-  transition: all 200ms ease-in-out;
+  transition: all 100ms ease-in-out;
   overflow: hidden;
 
   /* Add your image here */
   background-image: url('https://www.svgrepo.com/show/500134/white-rabbit.svg');
   opacity: 0.2;
-  background-size: cover; /* Makes the image cover the button */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents tiling */
-
+  background-size: cover; 
   &:hover,
   &:focus {
     outline: none;
   }
   
   &:hover {
-    border-color: #ff5900;
+    border-color: #f8f6f5;
   }
 
   &:active {
-    border-color: #f00e25;
+    border-color: #faf8f8;
   }
 
   &::before {
@@ -249,12 +247,12 @@ img {
 
 @keyframes ping {
     75%, 100% {
-        transform: scale(2);
+        transform: scale(3);
         opacity: 0;
     }
 }
 .animate-ping {
-    animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+    animation: ping 3s cubic-bezier(0, 0, 0.2, 3) infinite;
 }
 
 
