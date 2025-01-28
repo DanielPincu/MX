@@ -8,7 +8,7 @@
         <div>
           <!-- <p class="text-3xl pb-10">{{ greeting }}</p> -->
 
-          <Typing class="text-4xl "/>
+          <Typing class="text-4xl"/>
 
           <!-- <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p> -->
           <div class="glitch-text text-center text-[40px]">
@@ -37,9 +37,9 @@
 
         </div>
       </div>
-      <div class="flex justify-center pt-5 pb-32">
-        <img data-aos="flip-right" data-aos-duration="1000" class="w-full project-card rounded-3xl" src="@/assets/ddd.jpeg">
-      </div>
+      
+        <Glitch class="w-96 md:w-full pl-5" />
+      
     </div>
   </section>
 
@@ -100,7 +100,7 @@
 
 </template>
 <script setup>
-import Glitch from '../../Backups/Glitch.vue';
+import Glitch from './Glitch.vue';
 import Typing from './Typing.vue';
 import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
