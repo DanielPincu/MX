@@ -71,7 +71,7 @@ const initPortfolioCanvas = () => {
   portfolioCtx = canvas.getContext("2d");
   portfolioWidth = canvas.width = window.innerWidth;
   portfolioHeight = canvas.height = window.innerHeight;
-  portfolioFont = 11;
+  portfolioFont = 5;
   portfolioColumns = portfolioWidth / portfolioFont;
   portfolioDrops = new Array(Math.ceil(portfolioColumns)).fill(1);
 };

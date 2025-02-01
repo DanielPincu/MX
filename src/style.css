@@ -128,10 +128,10 @@ nav a.router-link-exact-active {
   }
 }
 
-.project-card {
+/* .project-card {
   animation: border-glow 3s infinite;
   transition: transform 0.5s ease-in-out;
-}
+} */
 
 
 /* Liquid animation */

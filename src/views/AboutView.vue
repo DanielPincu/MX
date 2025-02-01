@@ -74,7 +74,7 @@ const initMatrixCanvas = () => {
   matrixCtx = canvas.getContext("2d");
   matrixWidth = canvas.width = window.innerWidth;
   matrixHeight = canvas.height = window.innerHeight;
-  matrixFont = 11;
+  matrixFont = 7;
   matrixColumns = matrixWidth / matrixFont;
   matrixDrops = new Array(Math.ceil(matrixColumns)).fill(1);
 };

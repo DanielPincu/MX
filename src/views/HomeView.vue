@@ -195,7 +195,7 @@ const initCanvas = () => {
   $ = C.getContext("2d");
   W = C.width = window.innerWidth;
   H = C.height = window.innerHeight;
-  font = 10;
+  font = 8;
   col = W / font;
   arr = new Array(Math.ceil(col)).fill(1);
 };
@@ -208,7 +208,7 @@ const draw = () => {
   for (let i = 0; i < arr.length; i++) {
     let txt = matrix[Math.floor(Math.random() * matrix.length)];
     $.fillText(txt, i * font, arr[i] * font);
-    if (arr[i] * font > H && Math.random() > 0.998) arr[i] = 0;
+    if (arr[i] * font > H && Math.random() > 0.999) arr[i] = 0;
     arr[i]++;
   }
   animationId = requestAnimationFrame(draw);
@@ -225,7 +225,7 @@ const initMatrixCanvasHobbies = () => {
     matrixCtxHobbies = canvasElementHobbies.getContext("2d");
     matrixWidthHobbies = canvasElementHobbies.width = window.innerWidth;
     matrixHeightHobbies = canvasElementHobbies.height = window.innerHeight;
-    matrixFontHobbies = 11;
+    matrixFontHobbies = 8;
     matrixColumnsHobbies = matrixWidthHobbies / matrixFontHobbies;
     matrixDropsHobbies = new Array(Math.ceil(matrixColumnsHobbies)).fill(1);
   }
@@ -258,7 +258,7 @@ const initExpertiseMatrixCanvas = () => {
     expertiseMatrixCtx = canvasElementExpertise.getContext("2d");
     expertiseMatrixWidth = canvasElementExpertise.width = window.innerWidth;
     expertiseMatrixHeight = canvasElementExpertise.height = window.innerHeight;
-    expertiseMatrixFont = 11;
+    expertiseMatrixFont = 7;
     expertiseMatrixColumns = expertiseMatrixWidth / expertiseMatrixFont;
     expertiseMatrixDrops = new Array(Math.ceil(expertiseMatrixColumns)).fill(1);
   }

@@ -73,7 +73,7 @@ const initFooterCanvas = () => {
   ctx = C.getContext("2d");
   W = C.width = C.offsetWidth;
   H = C.height = C.offsetHeight;
-  font = 11;
+  font = 5;
   col = W / font;
   arr = new Array(Math.ceil(col)).fill(1);
 };
