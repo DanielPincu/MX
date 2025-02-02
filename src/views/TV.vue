@@ -25,23 +25,26 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import ddd from '@/assets/ddd.jpeg';
-import tv from '@/assets/tv.png';
-import gif1 from '@/assets/gif1.gif';
-import gif2 from '@/assets/gif2.gif';
-import gif3 from '@/assets/gif3.gif';
-import gif4 from '@/assets/gif4.gif';
+import tv from '@/assets/tvweb.webp';
+import gif1 from '@/assets/gif1.webp';
+import gif2 from '@/assets/gif2.webp';
+import gif3 from '@/assets/gif3.webp';
+import gif4 from '@/assets/gif4.webp';
+import xploading from '@/assets/xploading.gif';
+import code from '@/assets/code.gif';
+import error from '@/assets/error.gif';
 import xp from '@/assets/xp.gif';
 
 const gifTVURLs = [
-  'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXdoYnpvNnE4MGo5YmZ1a3RqczIyb2picjM4aGRpMms2dXY4Z2p1ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LbSdXQbS0XVVC/giphy.gif',
+  xp,
   ddd,
   gif1,
   gif2,
   gif3,
   gif4,
-  'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG85dW04c3djOXZld3B6Z25qZ3d2MjQ3cmZ3eTd6eHpreno5eXI0ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9IgzoKnwFNmISR8I/giphy.gif',
-  'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDBsdm9kaWF2Y200cno2bXF3dWtpN2JnZWRqZHcxcW92NnExdmpybCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KlrMS4vyq5KSY/giphy.gif',
-  'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXdoYnpvNnE4MGo5YmZ1a3RqczIyb2picjM4aGRpMms2dXY4Z2p1ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LbSdXQbS0XVVC/giphy.gif',
+  code,
+  error,
+  xploading,
 ];
 
 const currentChannelURL = ref(gifTVURLs[0]);
@@ -64,13 +67,13 @@ onMounted(() => {
   // Start changing channels automatically every 5 seconds
   channelChangeInterval = setInterval(() => {
     changeChannel();
-  }, 5000);
+  }, 5500);
 });
 
 function changeChannel() {
   const nextIndex = (gifTVURLs.indexOf(currentChannelURL.value) + 1) % gifTVURLs.length;
   currentChannelURL.value = gifTVURLs[nextIndex];
-  channelMessage.value = `Reality Channel ${nextIndex + 1}`;
+  channelMessage.value = `Reality Channel ${nextIndex - 1}`;
 }
 </script>
 
