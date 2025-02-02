@@ -31,7 +31,7 @@
           <li v-for="(item, index) in carouselItems" :key="index" class='item border-2 border-black' :style="{ backgroundImage: `url('${item.image}')` }">
           </li>
         </ul>
-        <span class='nav'>
+        <span class='nav bg-green-300 bg-opacity-50 w-full flex justify-center py-2'>
           <ion-icon class='btn prev' name="arrow-back-outline" @click="activate('prev')"></ion-icon>
           <ion-icon class='btn next' name="arrow-forward-outline" @click="activate('next')"></ion-icon>
         </span>
@@ -209,7 +209,7 @@ button:hover {
 
 .nav {
   position: absolute;
-  bottom: 2rem;
+  bottom: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
