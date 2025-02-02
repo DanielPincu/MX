@@ -31,19 +31,19 @@
       </div> -->
 
       <!-- Portfolio Items (3 per row) -->
-      <div class="projects-container">
+      <div class="projects-container md:p-10 pt-10">
         <router-link
           v-for="portfolioItem in filteredPortfolioItems"
           :key="portfolioItem.id"
           :to="`/detail/${portfolioItem.id}`"
-          class="project project-card opacity-80">
+          class="project opacity-80">
           
           <img
             :src="portfolioItem.image"
             alt="project image"
           />
-          <div class="project__content">
-            <h2>{{ portfolioItem.title }}</h2>
+          <div class="project__content md:-mx-4">
+            <h2 class="pb-32">{{ portfolioItem.title }}</h2>
           </div>
         </router-link>
       </div>
@@ -179,7 +179,6 @@ a {
 }
 
 .projects-container {
-  padding: 3rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4rem;
@@ -192,12 +191,13 @@ a {
   min-width: 225px;
   height: 350px;
   overflow: hidden;
-  box-shadow: -5px 5px 20px 7px black;
   transform: skewY(8deg) rotateY(20deg);
   transition: all 0.5s ease-in-out;
 }
 
 .project__content {
+  background-image: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExODJpMTQydGd4anZlcGV6MHJhdWdiZTZlcGs5ZGFrNGZ1dHhvaW4xbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2uw1oxlG4ZfMpzSZ8O/giphy.gif');
+  background-size: cover;
   position: absolute;
   top: 0;
   left: 0;
@@ -213,7 +213,7 @@ a {
 
 .project:hover {
   transform: skewY(0deg) rotateY(0deg);
-  border: 1px solid yellow;
+  
 }
 .project:hover .project__content {
   opacity: 0.9;
