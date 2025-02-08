@@ -70,7 +70,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 const matrixCanvas = ref(null);
 let matrixAnimationId = null;
-const matrixStr = "А+Б0В-Г1Д=Е2Ё Ж3З И4Й К5Л М6Н О7П Р8С Т9У Ф!Х Ц?Ч Ш.ЩЪ,Ы Ь:ЭЮ;Я";
+const matrixStr = "日ア  イウ  エオ  カキ  クケコ  サシス  セソタチツテト  ナニヌネノハヒフヘホマミム  メモヤユヨラリル  レロワヲンあいうえおかきくけこさし  すせそ  たちつてとな ";
 const matrixChars = matrixStr.split("");
 let matrixCtx, matrixWidth, matrixHeight, matrixFont, matrixColumns, matrixDrops;
 
@@ -313,7 +313,7 @@ const elements = [
 }
 
 /* Small screens */
-@media (max-width: 768px) {
+@media (max-width: 830px) {
     .periodic-table {
         grid-template-columns: repeat(6, 100px);
         grid-template-rows: repeat(4, 100px);
