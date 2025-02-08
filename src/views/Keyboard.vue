@@ -1,22 +1,10 @@
-<script setup>
-import { ref } from 'vue';
 
-const typedText = ref('Hey');
-
-const handleKeyClick = (key) => {
-  if (key === 'Backspace') {
-    typedText.value = typedText.value.slice(0, -1);
-  } else {
-    typedText.value += key;
-  }
-};
-</script>
 
 <template>
   <div class="w-fit">
     <div class="keyboard-container">
     <!-- Display typed text here -->
-    <h1 class="text-4xl">{{ typedText }}<span class="text-4xl animate-pulsing">|</span></h1>
+    <h1 class="text-6xl w-[100px] typed-text"><span>{{ typedText }}</span><span class="animate-pulsing">|</span></h1>
     <div class="keyboard">
       <div class="row">
         <kbd tabindex="1" data-key="`" data-alt="~" @click="handleKeyClick('`')"></kbd>
@@ -93,6 +81,44 @@ const handleKeyClick = (key) => {
   </div>
   </div>
 </template>
+
+
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const typedText = ref('About me');
+
+// Handle key click events
+const handleKeyClick = (key) => {
+  if (key === 'Backspace') {
+    typedText.value = typedText.value.slice(0, -1);
+  } else {
+    typedText.value += key;
+  }
+
+  // Save the text to localStorage
+  saveToLocalStorage(typedText.value);
+};
+
+// Save typed text to localStorage
+const saveToLocalStorage = (text) => {
+  localStorage.setItem('typedText', text);
+};
+
+// Retrieve data from localStorage on page load
+const fetchFromLocalStorage = () => {
+  const savedText = localStorage.getItem('typedText');
+  if (savedText) {
+    typedText.value = savedText;
+  }
+};
+
+// Fetch the saved text when the component mounts
+onMounted(() => {
+  fetchFromLocalStorage();
+});
+</script>
+
 
 <style scoped>
 @import './styles.scss';

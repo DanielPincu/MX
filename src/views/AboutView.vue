@@ -1,17 +1,22 @@
 <template>
-  <div class="error-page h-[1200px] relative">
+  <div class="error-page md:h-[1500px] h-[1000px] relative">
     <div class="noise"></div>
     <div class="overlay"></div>
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="terminal p-5">
-      <div class="pb-32">
-        <div class="glitch-text text-[50px]">
+      <div class="md:pb-0 pb-32">
+
+        <div class="md:flex hidden justify-center pb-5">
+              <Keyboard />
+          </div>
+
+        <div class="glitch-text md:hidden block text-[50px]">
           <span>About me</span>
         </div>
         <div class="glitch-scanline">The Matrix has you!</div>
       </div>
       <h2 class="text-4xl md:hidden block">Hey<span class="text-4xl animate-pulsing">|</span></h2>
-      <Keyboard />
+      
 
       <div class="grid grid-cols-1">
         <div>
@@ -22,7 +27,7 @@
         </div>
       </div>
 
-      <div class="hidden md:block">
+      <div class="hidden xl:block">
         <h1>My Internet Periodic Table</h1>
         <h5>How I waste my time on the Internet</h5>
 
@@ -53,10 +58,9 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
-
+  
   
 </template>
 
