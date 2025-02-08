@@ -1,5 +1,5 @@
 <template>
-  <div class="error-page md:h-[1500px] h-[1000px] relative">
+  <div class="error-page md:h-[1800px] h-[1200px] relative">
     <div class="noise"></div>
     <div class="overlay"></div>
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div class="hidden xl:block">
+      <div class="hidden md:block">
         <h1>My Internet Periodic Table</h1>
         <h5>How I waste my time on the Internet</h5>
 
@@ -293,15 +293,34 @@ const elements = [
       -webkit-text-fill-color: transparent;
   }
   
-  .periodic-table {
-      display: grid;
-      grid-template-columns: repeat(9, 100px);
-      grid-template-rows: repeat(4, 100px);
-      grid-gap: 10px;
-      margin: auto;
-      max-width: 1200px;
-      justify-content: center;
-  }
+/* Default (Large screens) */
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(10, 100px);
+    grid-template-rows: repeat(4, 100px);
+    grid-gap: 10px;
+    margin: auto;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+/* Medium screens */
+@media (max-width: 1024px) {
+    .periodic-table {
+        grid-template-columns: repeat(8, 100px);
+        grid-template-rows: repeat(4, 100px);
+    }
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+    .periodic-table {
+        grid-template-columns: repeat(6, 100px);
+        grid-template-rows: repeat(4, 100px);
+    }
+}
+
+
   
   .periodic-element {
       padding: 4px;

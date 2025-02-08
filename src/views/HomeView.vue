@@ -56,7 +56,7 @@
         <div class="glitch-text pb-10 text-center text-[50px]">
           <span>Expertise</span>
         </div>
-      <div class="grid md:grid-cols-3 gap-8 fade-in container mx-auto">
+      <div class="grid md:grid-cols-1 xl:grid-cols-3 gap-8 fade-in container mx-auto">
         
         <div v-for="skill in expertise" :key="skill.title" class="bg-gray-800 p-6 rounded-lg project-card">
           <h3 class="text-md font-bold mb-2">{{ skill.title }}</h3>

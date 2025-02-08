@@ -121,5 +121,5 @@ onMounted(() => {
 
 
 <style scoped>
-@import './styles.scss';
+@import '../styles.scss';
 </style>
