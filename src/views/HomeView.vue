@@ -94,7 +94,7 @@
 
 
 
-  <PortfolioView id="projects" class="my-32" data-aos="fade-down" data-aos-duration="1000" />
+  <PortfolioView id="projects" class="mt-32" data-aos="fade-down" data-aos-duration="1000" />
 
   
 
