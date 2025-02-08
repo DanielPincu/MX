@@ -1,8 +1,8 @@
 
 
 <template>
-  <div class="w-fit">
-    <div class="keyboard-container">
+  <div class="">
+    <div class="">
     <!-- Display typed text here -->
     <h1 class="text-6xl w-[100px] typed-text"><span>{{ typedText }}</span><span class="animate-pulsing">|</span></h1>
     <div class="keyboard">
