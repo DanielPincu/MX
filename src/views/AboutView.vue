@@ -10,7 +10,8 @@
         </div>
         <div class="glitch-scanline">The Matrix has you!</div>
       </div>
-      <h2 class="text-4xl">Hey<span class="text-4xl animate-pulsing">|</span></h2>
+      <h2 class="text-4xl md:hidden block">Hey<span class="text-4xl animate-pulsing">|</span></h2>
+      <Keyboard />
 
       <div class="grid grid-cols-1">
         <div>
@@ -60,7 +61,7 @@
 </template>
 
 <script setup>
-import Glitch from '@/views/Typing.vue';
+import Keyboard from './Keyboard.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const matrixCanvas = ref(null);
