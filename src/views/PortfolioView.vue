@@ -73,7 +73,7 @@ const FONT_SIZE = 2;
 const FONT_FACE = "Matrix Code NFI, monospace"; 
 const SPEED = 50;
 
-const CHARS = "日ア  イウ  エオ  カキ  クケコ  サシス  セソタチツテト  ナニヌネノハヒフヘホマミム  メモヤユヨラリル  レロワヲンあいうえおかきくけこさし  すせそ  たちつてとな ".split("");
+const CHARS = "abcdefghijklmnopqrstuvwxyz0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~".split("");
 
 let totalColumns;
 let rows = [];
