@@ -1,7 +1,7 @@
 <template>
   <div class="error-page md:h-[1800px] xl:h-[1500px] h-[1200px] relative">
     <div class="noise"></div>
-    <div class="overlay"></div>
+    <!-- <div class="overlay"></div> -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="terminal p-5">
       <div class="md:pb-0 pb-32">
