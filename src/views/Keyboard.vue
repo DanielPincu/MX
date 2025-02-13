@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="typed-text">
-      <span class="text-6xl">{{ typedText }}</span><span class="animate-pulsing text-6xl">|</span>
+      <span class="text-6xl">Hey</span><span class="animate-pulsing text-6xl">|</span>
     </h1>
     <div class="keyboard">
       <div v-for="(row, rowIndex) in keys" :key="rowIndex" class="row">
@@ -19,10 +19,9 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue';
+import { ref } from 'vue';
 
-const typedText = ref('About me');
-
+// Define the key layout for the keyboard
 const keys = ref([
   [
     { code: '`', alt: '~' }, { code: '1', alt: '!' }, { code: '2', alt: '@' },
@@ -53,15 +52,7 @@ const keys = ref([
   ]
 ]);
 
-const handleKeyClick = (key) => {
-  nextTick(() => {
-    if (key === 'backspace') {
-      typedText.value = typedText.value.slice(0, -1);
-    } else if (key !== 'caps' && key !== 'tab' && key !== 'shift' && key !== 'ctrl' && key !== 'alt' && key !== 'win' && key !== 'rctx') {
-      typedText.value += key;
-    }
-  });
-};
+// Removed the typedText and handleKeyClick functionality as it's no longer needed.
 </script>
 
 <style lang="scss" scoped>
