@@ -1,77 +1,102 @@
 <template>
-  <div>
-    <h1 class="typed-text">
-      <span class="text-6xl">{{ typedText }}</span><span class="animate-pulsing text-6xl">|</span>
-    </h1>
-    <div class="keyboard">
-      <div v-for="(row, rowIndex) in keys" :key="rowIndex" class="row">
-        <kbd
-          v-for="(key, keyIndex) in row"
-          :key="keyIndex"
-          :data-key="key.code"
-          :data-alt="key.alt || null"
-          @click="handleKeyClick(key.code)"
-        >
-        </kbd>
+  <div class="">
+    <div class="">
+      <!-- Display typed text here -->
+      <h1 class="text-6xl w-[100px] typed-text">
+        <span>{{ typedText }}</span><span class="animate-pulsing">|</span>
+      </h1>
+      <div class="keyboard">
+        <div class="row">
+          <kbd tabindex="1" data-key="`" data-alt="~" @click="handleKeyClick('`')"></kbd>
+          <kbd data-key="1" data-alt="!" @click="handleKeyClick('1')"></kbd>
+          <kbd data-key="2" data-alt="@" @click="handleKeyClick('2')"></kbd>
+          <kbd data-key="3" data-alt="#" @click="handleKeyClick('3')"></kbd>
+          <kbd data-key="4" data-alt="$" @click="handleKeyClick('4')"></kbd>
+          <kbd data-key="5" data-alt="%" @click="handleKeyClick('5')"></kbd>
+          <kbd data-key="6" data-alt="^" @click="handleKeyClick('6')"></kbd>
+          <kbd data-key="7" data-alt="&" @click="handleKeyClick('7')"></kbd>
+          <kbd data-key="8" data-alt="*" @click="handleKeyClick('8')"></kbd>
+          <kbd data-key="9" data-alt="(" @click="handleKeyClick('9')"></kbd>
+          <kbd data-key="0" data-alt=")" @click="handleKeyClick('0')"></kbd>
+          <kbd data-key="-" data-alt="_" @click="handleKeyClick('-')"></kbd>
+          <kbd data-key="=" data-alt="+" @click="handleKeyClick('=')"></kbd>
+          <kbd data-key="backspace" @click="handleKeyClick('Backspace')"></kbd>
+        </div>
+        <div class="row">
+          <kbd data-key="tab" @click="handleKeyClick('Tab')"></kbd>
+          <kbd data-key="q" @click="handleKeyClick('q')"></kbd>
+          <kbd data-key="w" @click="handleKeyClick('w')"></kbd>
+          <kbd data-key="e" @click="handleKeyClick('e')"></kbd>
+          <kbd data-key="r" @click="handleKeyClick('r')"></kbd>
+          <kbd data-key="t" @click="handleKeyClick('t')"></kbd>
+          <kbd data-key="y" @click="handleKeyClick('y')"></kbd>
+          <kbd data-key="u" @click="handleKeyClick('u')"></kbd>
+          <kbd data-key="i" @click="handleKeyClick('i')"></kbd>
+          <kbd data-key="o" @click="handleKeyClick('o')"></kbd>
+          <kbd data-key="p" @click="handleKeyClick('p')"></kbd>
+          <kbd data-key="[" data-alt="{" @click="handleKeyClick('[')"></kbd>
+          <kbd data-key="]" data-alt="}" @click="handleKeyClick(']')"></kbd>
+          <kbd data-key="\" data-alt="|" id="backslash" @click="handleKeyClick('\\')"></kbd>
+        </div>
+        <div class="row">
+          <kbd data-key="caps" @click="handleKeyClick('Caps')"></kbd>
+          <kbd data-key="a" @click="handleKeyClick('a')"></kbd>
+          <kbd data-key="s" @click="handleKeyClick('s')"></kbd>
+          <kbd data-key="d" @click="handleKeyClick('d')"></kbd>
+          <kbd data-key="f" @click="handleKeyClick('f')"></kbd>
+          <kbd data-key="g" @click="handleKeyClick('g')"></kbd>
+          <kbd data-key="h" @click="handleKeyClick('h')"></kbd>
+          <kbd data-key="j" @click="handleKeyClick('j')"></kbd>
+          <kbd data-key="k" @click="handleKeyClick('k')"></kbd>
+          <kbd data-key="l" @click="handleKeyClick('l')"></kbd>
+          <kbd data-key=";" data-alt=":" @click="handleKeyClick(';')"></kbd>
+          <kbd data-key="'" data-alt='"' id="quote" @click="handleKeyClick('\'')"></kbd>
+          <kbd data-key="enter" @click="handleKeyClick('Enter')"></kbd>
+        </div>
+        <div class="row">
+          <kbd data-key="lshift" @click="handleKeyClick('Shift')"></kbd>
+          <kbd data-key="z" @click="handleKeyClick('z')"></kbd>
+          <kbd data-key="x" @click="handleKeyClick('x')"></kbd>
+          <kbd data-key="c" @click="handleKeyClick('c')"></kbd>
+          <kbd data-key="v" @click="handleKeyClick('v')"></kbd>
+          <kbd data-key="b" @click="handleKeyClick('b')"></kbd>
+          <kbd data-key="n" @click="handleKeyClick('n')"></kbd>
+          <kbd data-key="m" @click="handleKeyClick('m')"></kbd>
+          <kbd data-key="," data-alt="<" @click="handleKeyClick(',')"></kbd>
+          <kbd data-key="." data-alt=">" @click="handleKeyClick('.')"></kbd>
+          <kbd data-key="/" data-alt="?" @click="handleKeyClick('/')"></kbd>
+          <kbd data-key="rshift" @click="handleKeyClick('Shift')"></kbd>
+        </div>
+        <div class="row">
+          <kbd data-key="lctrl" @click="handleKeyClick('Ctrl')"></kbd>
+          <kbd data-key="lwin" @click="handleKeyClick('Win')"></kbd>
+          <kbd data-key="lalt" @click="handleKeyClick('Alt')"></kbd>
+          <kbd data-key="space" @click="handleKeyClick(' ')"></kbd>
+          <kbd data-key="ralt" @click="handleKeyClick('Alt')"></kbd>
+          <kbd data-key="rwin" @click="handleKeyClick('Win')"></kbd>
+          <kbd data-key="rctx" @click="handleKeyClick('Context')"></kbd>
+          <kbd data-key="rctrl" @click="handleKeyClick('Ctrl')"></kbd>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue';
+import { ref } from 'vue';
 
 const typedText = ref('About me');
 
-const keys = ref([
-  [
-    { code: '`', alt: '~' }, { code: '1', alt: '!' }, { code: '2', alt: '@' },
-    { code: '3', alt: '#' }, { code: '4', alt: '$' }, { code: '5', alt: '%' },
-    { code: '6', alt: '^' }, { code: '7', alt: '&' }, { code: '8', alt: '*' },
-    { code: '9', alt: '(' }, { code: '0', alt: ')' }, { code: '-', alt: '_' },
-    { code: '=', alt: '+' }, { code: 'backspace' }
-  ],
-  [
-    { code: 'tab' }, { code: 'q' }, { code: 'w' }, { code: 'e' }, { code: 'r' },
-    { code: 't' }, { code: 'y' }, { code: 'u' }, { code: 'i' }, { code: 'o' },
-    { code: 'p' }, { code: '[', alt: '{' }, { code: ']', alt: '}' }, { code: '\\', alt: '|' }
-  ],
-  [
-    { code: 'caps' }, { code: 'a' }, { code: 's' }, { code: 'd' }, { code: 'f' },
-    { code: 'g' }, { code: 'h' }, { code: 'j' }, { code: 'k' }, { code: 'l' },
-    { code: ';', alt: ':' }, { code: "'", alt: '"' }, { code: 'enter' }
-  ],
-  [
-    { code: 'lshift' }, { code: 'z' }, { code: 'x' }, { code: 'c' },
-    { code: 'v' }, { code: 'b' }, { code: 'n' }, { code: 'm' },
-    { code: ',', alt: '<' }, { code: '.', alt: '>' }, { code: '/', alt: '?' }, { code: 'rshift' }
-  ],
-  [
-    { code: 'lctrl' }, { code: 'lwin' }, { code: 'lalt' },
-    { code: 'space' }, { code: 'ralt' }, { code: 'rwin' },
-    { code: 'rctx' }, { code: 'rctrl' }
-  ]
-]);
-
+// Handle key click events
 const handleKeyClick = (key) => {
-  nextTick(() => {
-    if (key === 'backspace') {
-      typedText.value = typedText.value.slice(0, -1);
-    } else if (key !== 'caps' && key !== 'tab' && key !== 'shift' && key !== 'ctrl' && key !== 'alt' && key !== 'win' && key !== 'rctx') {
-      typedText.value += key;
-    }
-  });
+  if (key === 'Backspace') {
+    typedText.value = typedText.value.slice(0, -1);
+  } else {
+    typedText.value += key;
+  }
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 @import '../styles.scss';
-
-@keyframes pulsing {
-  50% { opacity: 0; }
-}
-
-.animate-pulsing {
-  animation: pulsing 0.3s infinite;
-}
 </style>
