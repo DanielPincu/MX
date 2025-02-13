@@ -7,7 +7,7 @@
           <div
             id="gif_tv_pixels"
             class="pixels"
-            :style="{ backgroundImage: 'url(' + overlayImage + ')' }"
+            
           ></div>
           <div class="meta-left">
             <span id="gif_tv_message_channel">{{ channelMessage }}</span>
