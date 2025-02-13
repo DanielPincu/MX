@@ -35,7 +35,7 @@ const getPortfolio = () => {
       image1: xp,
       image2: tv,
       image3: trap3,
-      link: 'https://www.google.com',
+      link: 'https://projects.danielpincu.com/wordpress',
       category: 'Web Application'
     },
     {
