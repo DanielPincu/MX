@@ -26,7 +26,7 @@
           </button>
 
         <Transition name="slide-in">
-        <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-full  bg-black bg-opacity-90 transform transition-transform duration-300 ease-in-out">
+        <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-[99.88%] transform transition-transform duration-300 ease-in-out">
               <!-- Close Button -->
               <button @click="closeAbout" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
               
@@ -123,16 +123,16 @@ const getScrollbarWidth = () => {
   return window.innerWidth - document.documentElement.clientWidth;
 };
 
-watch(isAboutOpen, (newValue) => {
-  const scrollbarWidth = getScrollbarWidth();
-  if (newValue) {
-    document.body.style.overflow = "hidden";
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
-  } else {
-    document.body.style.overflow = "";
-    document.body.style.paddingRight = "";
-  }
-});
+// watch(isAboutOpen, (newValue) => {
+//   const scrollbarWidth = getScrollbarWidth();
+//   if (newValue) {
+//     document.body.style.overflow = "hidden";
+//     document.body.style.paddingRight = `${scrollbarWidth}px`;
+//   } else {
+//     document.body.style.overflow = "";
+//     document.body.style.paddingRight = "";
+//   }
+// });
 
 const canvas = ref(null);
 let animationId = null;
@@ -201,14 +201,14 @@ const initCanvas = () => {
 };
 
 const draw = () => {
-  $.fillStyle = "rgba(0,0,0,.01)";
+  $.fillStyle = "rgba(0,0,0,.015)";
   $.fillRect(0, 0, W, H);
   $.fillStyle = "#0f0";
   $.font = font + "px system-ui";
   for (let i = 0; i < arr.length; i++) {
     let txt = matrix[Math.floor(Math.random() * matrix.length)];
     $.fillText(txt, i * font, arr[i] * font);
-    if (arr[i] * font > H && Math.random() > 0.999) arr[i] = 0;
+    if (arr[i] * font > H && Math.random() > 0.9995) arr[i] = 0;
     arr[i]++;
   }
   animationId = requestAnimationFrame(draw);
