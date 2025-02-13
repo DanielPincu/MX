@@ -421,7 +421,7 @@
   #matrix-container {
     width: 100%;
     height: 10vh; /* Adjust as needed */
-    overflow: hidden; /* Hide scrollbars */
+    overflow: hidden; 
     background-color: black;
   }
   

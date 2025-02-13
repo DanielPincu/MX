@@ -39,15 +39,14 @@
       <component :is="Component" />
     </RouterView>
 
-    <!-- Footer -->
-    <Footer />
+    <!-- Footer here -->
+    
   </div>
 </template>
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, watch } from 'vue'
-import Footer from './views/Footer.vue'
 
 const isMenuOpen = ref(false)
 const navLinks = [

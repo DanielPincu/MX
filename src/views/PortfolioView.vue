@@ -2,9 +2,9 @@
   <div class="relative min-h-screen bg-gray-900 text-gray-100 mt-16 project-card">
     <!-- Matrix Canvas -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-    <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
-        <div class="glitch-text pb-10 pt-20 text-center text-[50px]">
+        <div class="glitch-text pb-10 text-center text-[50px]">
+          <Cipher />
           <span>Projects showcase</span>
         </div>
     <div class="relative px-6 py-20">
@@ -57,6 +57,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import getPortfolio from '@/modules/getPortfolio';
+import Cipher from '../views/Cipher.vue';
 
 const { portfolioItems } = getPortfolio();
 const selectedCategory = ref('');
