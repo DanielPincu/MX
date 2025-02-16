@@ -65,7 +65,7 @@ const handleKeyClick = (key) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles.scss';
+@use '../styles.scss' as *;
 
 @keyframes pulsing {
   50% { opacity: 0; }
