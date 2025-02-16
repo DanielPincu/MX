@@ -11,6 +11,8 @@
           <p>{{ specificPortfolioItem.description }}</p>
           <br>
           <p>{{ specificPortfolioItem.extra_description }}</p>
+          <br>
+          <p>{{ specificPortfolioItem.more }}</p>
 
           <div class="mt-5">
             <p><strong>Technologies Used:</strong> {{ specificPortfolioItem.technologies.join(', ') }}</p>
@@ -25,13 +27,13 @@
       </div>
 
       <!-- Image Slider -->
-      <h2 class="z-40 text-3xl relative text-center mb-10 bg-slate-800">Project Gallery</h2>
-      <div class="slider-container">
+      <h2 class="z-40 text-3xl relative text-center mb-10 bg-slate-800 hidden md:block">Project Gallery</h2>
+      <div class="slider-container w-full h-[100vh] hidden md:block">
         <ul class='slider' ref="slider">
           <li v-for="(item, index) in carouselItems" :key="index" class='item border-2 border-black' :style="{ backgroundImage: `url('${item.image}')` }">
           </li>
         </ul>
-        <span class='nav bg-green-300 bg-opacity-50 w-full flex justify-center py-2'>
+        <span class='nav top-20 h-3/4  w-full flex justify-between items-center py-2'>
           <ion-icon class='btn prev' name="arrow-back-outline" @click="activate('prev')"></ion-icon>
           <ion-icon class='btn next' name="arrow-forward-outline" @click="activate('next')"></ion-icon>
         </span>
@@ -130,8 +132,6 @@ button:hover {
 
 .slider-container {
   position: relative;
-  max-width: 100vw;
-  height: 70vh;
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
@@ -209,7 +209,6 @@ button:hover {
 
 .nav {
   position: absolute;
-  bottom: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;

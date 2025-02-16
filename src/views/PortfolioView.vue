@@ -31,7 +31,7 @@
       </div> -->
 
       <!-- Portfolio Items (3 per row) -->
-      <div class="grid grid-cols-3 md:p-10 pt-10 gap-10">
+      <div class="grid md:grid-cols-3 grid-cols-1 md:p-10 pt-10 gap-10">
         <router-link
           v-for="portfolioItem in filteredPortfolioItems"
           :key="portfolioItem.id"

@@ -4,9 +4,15 @@ import trap1 from '@/assets/trap1.png'
 import trap2 from '@/assets/trap2.png'
 import trap3 from '@/assets/trap3.png'
 
-import chatognito from '@/assets/chatognito.png'
-import tv from '@/assets/tvweb.webp'
-import xp from '@/assets/xp.webp'
+import chat0 from '@/assets/chat0.png'
+import chat1 from '@/assets/chat1.png'
+import chat2 from '@/assets/chat2.png'
+import chat3 from '@/assets/chat3.png'
+
+import kate0 from '@/assets/kate0.png'
+import kate1 from '@/assets/kate1.png'
+import kate2 from '@/assets/kate2.png'
+import kate3 from '@/assets/kate3.png'
 
 const getPortfolio = () => {
   const portfolioItems = ref([
@@ -14,8 +20,9 @@ const getPortfolio = () => {
       id: 1,
       title: 'Trapholt Museum',
       description: "A comprehensive digital transformation for Trapholt Museum, a renowned cultural institution in Kolding, Denmark. The redesign aimed to enhance user engagement, improve accessibility, and showcase the museum’s diverse art collection through an interactive and intuitive web experience.",
-      extra_description: "The project was a collaboration with the prestigious design agency Kontrapunkt. I was responsible for both the design and development of the website, ensuring a seamless and immersive experience for visitors. The website was built with a strong emphasis on user experience, employing a clean, modern design that aligns with the museum’s branding. One of the key challenges was implementing a dynamic content management system that allowed museum staff to update exhibitions and upcoming events effortlessly. Additionally, I optimized performance to ensure fast loading times, integrated advanced accessibility features such as screen-reader compatibility, and made the entire platform mobile-responsive. The project successfully elevated the museum’s online presence, resulting in increased visitor engagement and improved ticket sales.",
-      technologies: ['Vue.js', 'Tailwind CSS', 'Nuxt.js', 'Vercel'],
+      extra_description: "The project not only delivered on its promise of intuitive navigation, immersive imagery, and interactive elements to elevate the user experience but also integrated essential functionalities like event listings,a multiple language selector, and online ticketing demo, thus optimizing visitor engagement and accessibility.",
+      more: "The website was built using plain HTML/CSS/Javascript, to ensure optimal performance and SEO. The site was deployed on Vercel, ensuring fast load times and seamless user interactions. The result was a visually stunning and user-friendly website that effectively showcases Trapholt Museum’s rich history and diverse art collection.",
+      technologies: ['HTML', 'CSS', 'Javascript', 'Vercel'],
       role: 'Frontend Developer',
       year: 2024,
       image: trap0,
@@ -28,27 +35,33 @@ const getPortfolio = () => {
     {
       id: 2,
       title: 'Chatognito',
-      description: 'A state-of-the-art privacy-focused chat application designed to enhance user security and ensure complete anonymity. Chatognito leverages end-to-end encryption to provide a secure messaging experience without compromising on speed or usability.',
-      extra_description: "Chatognito is designed with a strong focus on security and user privacy. The app provides robust encryption for messages, making them unreadable to anyone other than the intended recipient. Key features include self-destructing messages, secure group chats, and anonymous login mechanisms that ensure no personally identifiable information is stored. The backend leverages Firebase for real-time database synchronization while utilizing Node.js to handle authentication and security protocols. Additionally, the app was developed with a minimalistic yet engaging UI to ensure a seamless user experience. This project was particularly challenging due to the need for secure communication protocols while maintaining performance and responsiveness. By integrating Firebase Firestore, real-time updates are instant and smooth, making Chatognito an ideal choice for privacy-conscious users.",
+      description: 'Chatognito is a privacy-focused chat application designed to provide a seamless and secure messaging experience. It offers a dual login system, allowing you to either log in anonymously with a nickname or sign in using your Google account, with your associated Google name displayed.',
+      extra_description: "Powered by Firebase as its backend database, Chatognito ensures smooth performance and real-time communication. Built with Vue 3 and the latest script setup syntax, it provides an intuitive and modern interface. The app supports GIF display and selection, adding a fun element to conversations. Whether you're chatting publicly or having a private 1-to-1 chat, Chatognito offers the flexibility to connect with others in a secure and private space.",
+      more: "With its retro Y2K aesthetic, Chatognito evokes the nostalgic feel of the early 2000s, inspired by the iconic Windows XP style. Its playful design and familiar interface bring a touch of the past into the modern digital world, making every chat session feel like a journey back to a simpler time.",
       technologies: ['Vue.js', 'Firebase', 'Node.js'],
       role: 'Full-Stack Developer',
       year: 2024,
-      image: chatognito,
-      image1: xp,
-      image2: tv,
-      image3: trap3,
-      link: 'https://projects.danielpincu.com/wordpress',
+      image: chat0,
+      image1: chat1,
+      image2: chat2,
+      image3: chat3,
+      
+      link: 'https://chatognito.com',
       category: 'Web Application'
     },
     {
       id: 3,
-      title: 'E-commerce Platform',
-      description: 'A highly scalable and modern e-commerce platform designed to provide users with a seamless and intuitive online shopping experience. This project integrates a powerful product filtering system, dynamic product pages, and a streamlined checkout process for maximum efficiency.',
-      extra_description: "This e-commerce platform was designed to handle high volumes of traffic while providing an elegant and fluid shopping experience. A key challenge in this project was ensuring optimal performance and usability across all devices. To achieve this, I implemented a client-side state management system using Pinia, which improved responsiveness and reduced unnecessary API calls. The platform also features an advanced product filtering mechanism, enabling users to easily find their desired products using categories, price ranges, and keyword searches. Integrated with Stripe API, the checkout process is secure, fast, and hassle-free. Furthermore, the UI/UX was carefully crafted to ensure user engagement, with a focus on smooth transitions, product image zooming, and a visually appealing interface. The platform successfully increased conversion rates for businesses, making it a valuable tool for online retailers.",
+      title: "Kate's Corner",
+      description: 'This webshop was built entirely in WordPress, with a custom-developed theme created from scratch as a complete tailored solution. It leverages WooCommerce for handling shop functionality and integrates Stripe as the payment processor. To ensure a high level of security, the platform also implements a two-factor authentication (2FA) system. Security was a top priority in this project. It follows the latest security best practices, including securing Advanced Custom Fields (ACF) to prevent XSS attacks. Additionally, the webshop is fully SEO-optimized, enhancing visibility and search performance.',
+      extra_description: "The result was a webshop that not only met but exceeded expectations in both functionality and aesthetics, setting a new standard within our team for efficient, secure, and user-focused digital solutions. This project further strengthened my expertise in developing high-quality eCommerce platforms that drive engagement, improve accessibility, and prioritize security.",
+      more: "The website supports multilingual functionality, using Polylang to provide seamless translations between English and Danish, ensuring accessibility for a broader audience. The site also features a blog section, allowing Kate to share updates, news, and insights with her customers.",
       technologies: ['Vue.js', 'Pinia', 'Stripe API'],
       role: 'Frontend Developer',
       year: 2023,
-      image: trap0,
+      image: kate0,
+      image1: kate1,
+      image2: kate2,
+      image3: kate3,
       link: 'https://www.google.com',
       category: 'E-commerce'
     },
