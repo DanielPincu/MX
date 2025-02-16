@@ -31,7 +31,7 @@
       </div> -->
 
       <!-- Portfolio Items (3 per row) -->
-      <div class="projects-container md:p-10 pt-10">
+      <div class="grid grid-cols-3 md:p-10 pt-10 gap-10">
         <router-link
           v-for="portfolioItem in filteredPortfolioItems"
           :key="portfolioItem.id"
@@ -177,14 +177,6 @@ a {
   flex-direction: column;
   justify-content: center;
   gap: 3rem;
-}
-
-.projects-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4rem;
-  width: 100%;
-  overflow: hidden;
 }
 
 .project {

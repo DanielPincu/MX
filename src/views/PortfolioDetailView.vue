@@ -61,7 +61,7 @@ const carouselItems = computed(() => {
     { image: specificPortfolioItem.image },
     { image: specificPortfolioItem.image1 },
     { image: specificPortfolioItem.image2 },
-    { image: specificPortfolioItem.image }  // Repeating the first image to maintain 4 items
+    { image: specificPortfolioItem.image3 }  // Repeating the first image to maintain 4 items
   ].filter(item => item.image)  // This removes any items with undefined images
 })
 

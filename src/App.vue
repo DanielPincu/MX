@@ -41,6 +41,23 @@
 
     <!-- Footer here -->
     
+
+    <footer class="bg-black text-center py-4 project-card mt-auto relative">
+      <canvas ref="footerCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+      <div class="relative z-10">
+        <p class="mb-4">&copy; 2024 Daniel Pincu. All rights reserved.</p>
+        <!-- Social Media Links -->
+        <div class="flex justify-center space-x-6 mt-2">
+          <a href="https://github.com/danielpincu" target="_blank" aria-label="GitHub Profile" class="text-green-400 hover:text-white transition-colors">
+            <i class="fab fa-github text-3xl"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/danielpincu/" target="_blank" aria-label="LinkedIn Profile" class="text-green-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin text-3xl"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+
   </div>
 </template>
 

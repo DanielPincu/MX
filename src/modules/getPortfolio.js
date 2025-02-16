@@ -1,11 +1,12 @@
 import { ref } from 'vue'
-import image1 from '@/assets/test.jpeg'
-import chatognito from '@/assets/chatognito.png'
-import tv from '@/assets/tvweb.webp'
-import xp from '@/assets/xp.webp'
+import trap0 from '@/assets/trap0.png'
 import trap1 from '@/assets/trap1.png'
 import trap2 from '@/assets/trap2.png'
 import trap3 from '@/assets/trap3.png'
+
+import chatognito from '@/assets/chatognito.png'
+import tv from '@/assets/tvweb.webp'
+import xp from '@/assets/xp.webp'
 
 const getPortfolio = () => {
   const portfolioItems = ref([
@@ -17,9 +18,10 @@ const getPortfolio = () => {
       technologies: ['Vue.js', 'Tailwind CSS', 'Nuxt.js', 'Vercel'],
       role: 'Frontend Developer',
       year: 2024,
-      image: image1,
+      image: trap0,
       image1: trap1,
       image2: trap2,
+      image3: trap3,
       link: 'https://semester-project-kappa.vercel.app/',
       category: 'Web Design'
     },
@@ -46,7 +48,7 @@ const getPortfolio = () => {
       technologies: ['Vue.js', 'Pinia', 'Stripe API'],
       role: 'Frontend Developer',
       year: 2023,
-      image: image1,
+      image: trap0,
       link: 'https://www.google.com',
       category: 'E-commerce'
     },
@@ -58,7 +60,7 @@ const getPortfolio = () => {
       technologies: ['Vue.js', 'GSAP', 'Three.js'],
       role: 'UI/UX Designer & Developer',
       year: 2024,
-      image: image1,
+      image: trap0,
       link: 'https://www.google.com',
       category: 'Web Design'
     }
