@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center bg-black rounded-3xl shadow-xl mb-5 border-2 border-blue-300 crd-blue" id="contact" data-aos="flip-right" data-aos-duration="1000">
       <div class="container mx-auto">
-        <h1 class="flex justify-center text-2xl md:text-3xl dark:text-slate-200 mx-auto pt-10">Drop me a message<span class="animate-pulsing">|</span></h1>
+        <h1 class="flex justify-center text-2xl md:text-3xl dark:text-slate-200 mx-auto pt-10">Drop me a message<span class="animate-pulse">|</span></h1>
         <form target="_blank" action="https://formspree.io/f/mgegplkr" method="POST" class="w-full p-8 my-4 md:px-12">
           <div class="grid grid-cols-1 gap-5 md:grid-cols-2 my-5">
             <input type="text" name="name" class="w-full bg-gray-200 text-gray-900 mt-2 p-3 rounded-lg" placeholder="Full Name" required>
@@ -35,4 +35,3 @@
     form.value = { name: '', email: '', subject: '', message: '' };
   };
   </script>
-  

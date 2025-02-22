@@ -305,6 +305,7 @@ onUnmounted(() => {
 
 <style scoped>
 
+
 .glitch-text {
   position: relative;
   font-family: 'Courier New', monospace;

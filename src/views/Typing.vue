@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-slate-400 inline-block" v-html="output"></p><span class="inline-block text-slate-400 animate-pulsing">|</span>
+    <p class="text-slate-400 inline-block" v-html="output"></p><span class="inline-block text-slate-400 animate-pulse">|</span>
   </div>
 </template>
 
