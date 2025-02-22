@@ -3,7 +3,7 @@
     <!-- Matrix Canvas -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <!-- <div class="overlay"></div> -->
-        <div class="glitch-text py-10 text-center text-[50px]">
+        <div class="glitch-text py-20 text-center text-[50px]">
           <!-- <Cipher /> -->
           <span>Projects showcase</span>
         </div>

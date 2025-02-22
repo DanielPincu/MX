@@ -1,19 +1,18 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <header class="fixed w-screen bg-black z-30">
-      <nav class="">
-        <div class="flex ">
+      <nav class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
           <h3 class="text-3xl"></h3>
-          <!-- <h1 class="text-slate-400">Reality is just a constant feed of false signals</h1> -->
+          <h1 class="text-slate-400">Reality is just a constant feed of false signals</h1>
           <!-- Burger Button Visible on All Screen Sizes -->
-          <!-- <div class="">
+          <div class="">
             <button @click="toggleMenu" class="text-green-400 focus:outline-none md:block">
               <svg :class="{ 'rotate-90': isMenuOpen }" class="w-10 h-10 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
               </svg>
             </button>
-          </div> -->
-          <Cipher />
+          </div>
         </div>
       </nav>
       <!-- Menu Items -->

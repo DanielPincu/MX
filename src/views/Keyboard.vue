@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="typed-text">
+    <h1 class="typed-text py-12">
       <span class="text-6xl">{{ typedText }}</span><span class="animate-pulsing text-6xl">|</span>
     </h1>
     <div class="keyboard">
@@ -21,7 +21,7 @@
 <script setup>
 import { ref, nextTick } from 'vue';
 
-const typedText = ref('About me');
+const typedText = ref('Hello, World');
 
 const keys = ref([
   [
