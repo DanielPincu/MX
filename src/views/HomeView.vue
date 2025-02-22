@@ -1,5 +1,5 @@
 <template>
-  <section data-aos="fade-down" data-aos-duration="1000" id="home" class="video-banner project-card">
+  <section id="home" class="video-banner project-card">
     <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -44,11 +44,11 @@
   </section>
 
 
-  <AboutView class="project-card my-32" data-aos="fade-down" data-aos-duration="1000" />
+  <AboutView class="project-card my-32" />
 
 
 
-  <section data-aos="fade-down" data-aos-duration="1000" id="expertise" class="py-20 relative project-card">
+  <section id="expertise" class="py-20 relative project-card">
     <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise2"></div>
     <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
@@ -69,7 +69,7 @@
 
 
 
-  <section id="hobbies" data-aos="fade-down" data-aos-duration="1000" class="my-32 bg-gray-900 project-card relative">
+  <section id="hobbies" class="my-32 bg-gray-900 project-card relative">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise3"></div>
     <!-- <div class="overlay2"></div> -->
@@ -94,7 +94,7 @@
 
 
 
-  <PortfolioView id="projects" class="mt-32" data-aos="fade-down" data-aos-duration="1000" />
+  <PortfolioView id="projects" class="mt-32" />
 
   
 

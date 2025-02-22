@@ -1,5 +1,5 @@
 <template>
-  <div class="error-page h-[800px] relative">
+  <div class="error-page h-[1100px] md:h-[800px] relative">
     <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
