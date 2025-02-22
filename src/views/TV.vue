@@ -36,15 +36,12 @@ import error from '@/assets/error.gif';
 import xp from '@/assets/xp.gif';
 
 const gifTVURLs = [
-  xp,
+xploading,
   ddd,
   gif1,
   gif2,
-  gif3,
-  gif4,
   code,
   error,
-  xploading,
 ];
 
 const currentChannelURL = ref(gifTVURLs[0]);
