@@ -28,7 +28,7 @@
 
       <!-- Image Slider -->
       <h2 class="z-40 text-3xl relative text-center mb-10 bg-slate-800 hidden md:block">Project Gallery</h2>
-      <div class="slider-container w-full h-[100vh] hidden md:block">
+      <div class="slider-container w-3/4 h-[100vh] hidden md:block mx-auto mb-20">
         <ul class='slider' ref="slider">
           <li v-for="(item, index) in carouselItems" :key="index" class='item border-2 border-black' :style="{ backgroundImage: `url('${item.image}')` }">
           </li>
