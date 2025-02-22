@@ -144,7 +144,7 @@
     flickerCursor(cursor, cursor.cursorXPos, cursor.cursorYPos, 3);
     setTimeout(() => {
       typewrite(cursor, consoleLines[0]);
-    }, 2000);
+    }, 3000);
     setTimeout(() => {
       flickerCursor(cursor, cursor.cursorXPos, cursor.cursorYPos, 4);
     }, 4300);
