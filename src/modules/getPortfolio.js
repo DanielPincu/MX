@@ -14,6 +14,22 @@ import kate1 from '@/assets/kate1.png'
 import kate2 from '@/assets/kate2.png'
 import kate3 from '@/assets/kate3.png'
 
+import port0 from '@/assets/port0.png'
+import port1 from '@/assets/port1.png'
+import port2 from '@/assets/port2.png'
+import port3 from '@/assets/port3.png'
+
+import board0 from '@/assets/board0.png'
+import board1 from '@/assets/board1.png'
+import board2 from '@/assets/board2.png'
+import board3 from '@/assets/board3.png'
+
+import un0 from '@/assets/un0.png'
+import un1 from '@/assets/un1.png'
+import un2 from '@/assets/un2.png'
+import un3 from '@/assets/un3.png'
+import un4 from '@/assets/un4.png'
+
 const getPortfolio = () => {
   const portfolioItems = ref([
     {
@@ -62,21 +78,56 @@ const getPortfolio = () => {
       image1: kate1,
       image2: kate2,
       image3: kate3,
-      link: 'https://www.google.com',
+      link: 'https://projects.danielpincu.com/wordpress/',
       category: 'E-commerce'
     },
     {
       id: 4,
       title: 'Interactive Portfolio Website',
       description: 'A fully interactive portfolio website designed to showcase my projects, skills, and experience through an engaging and visually dynamic interface.',
-      extra_description: "The goal of this project was to create a portfolio website that reflects my expertise in UI/UX design and web development. To achieve this, I integrated animations using GSAP, providing smooth transitions and interactive elements that enhance user engagement. The website features a detailed project showcase, a personalized about section, and an integrated contact form that allows potential clients or employers to reach out directly. One of the standout features is the use of Three.js for interactive 3D elements, giving the site a unique and modern feel. The challenge was balancing aesthetics with performance optimization, ensuring that animations and visual elements do not impact load times or responsiveness. By leveraging Vue.js' reactivity and component-based architecture, I was able to create a fast, highly interactive, and aesthetically pleasing digital portfolio.",
-      technologies: ['Vue.js', 'GSAP', 'Three.js'],
+      extra_description: "The goal of this project was to create a portfolio website that reflects my expertise in UI/UX design and web development. I used Firebase as the database to handle dynamic content, ensuring smooth data flow across the site. The website features a personalized about section, a detailed project showcase, and an integrated contact form for potential clients or employers to reach out directly. One of the key features is the fully implemented dark mode and white mode toggle, which allows users to customize their experience. The website is built with reusable, dynamic components, leveraging Vue.js to ensure both high performance and user interactivity. The challenge was to balance aesthetics with performance, making sure that the visual design and functionality remain optimized without compromising load times or responsiveness.",
+      technologies: ['Vue.js', 'Firebase', 'Vercel Deploy'],
       role: 'UI/UX Designer & Developer',
       year: 2024,
-      image: trap0,
-      link: 'https://www.google.com',
+      image: port0,
+      image1: port1,
+      image2: port2,
+      image3: port3,
+      link: 'https://portfolio-firebase-mu.vercel.app/',
       category: 'Web Design'
-    }
+    },
+    {
+      id: 5,
+      title: 'Esbjerg Board Games',
+      description: 'Esbjerg Board Games is a community-focused project aimed at bringing board game enthusiasts together for regular events in Esbjerg, Denmark, offering a platform where users can discover, join, and engage in local gaming sessions.',
+      extra_description: "Built with WordPress and PHP, the site offers full customization for the editor, allowing for easy management of content and structure. It incorporates a role-based access system, with different user permissions for admins and editors, ensuring proper content management and security. Custom post types and Advanced Custom Fields are used to create tailored content, providing flexibility in how information about events, games, and community activities is presented. For added security, the site features two-factor authentication, protecting user accounts and sensitive data. Additionally, the website is fully optimized for SEO, ensuring that it ranks well on search engines while maintaining strong security standards to protect against potential threats. The combination of these features makes Esbjerg Board Games a robust and reliable platform for its growing community.",
+      technologies: ['Wordpress', 'PHP', '2FA'],
+      role: 'Front-End Developer',
+      year: 2024,
+      image: board0,
+      image1: board1,
+      image2: board2,
+      image3: board3,
+      link: 'https://esbjergboardgames.dk',
+      category: 'Web Design'
+    },
+    {
+      id: 6,
+      title: 'United Nations',
+      description: "For our school project focused on the UN's Sustainable Development Goal 13 (Climate Action), my teammate and I created a dynamic WordPress website to raise awareness about climate change, its effects, and sustainable living practices.",
+      extra_description: "The site is designed to provide essential information on climate change, its impacts, and practical steps for sustainable living. The website features a dynamic front page where custom sections pull content directly from the WordPress dashboard, allowing for easy updates. Its responsive design ensures a seamless experience across all devices. Additionally, the site includes a blog that covers various climate-related topics, as well as a newsletter and contact form for users to subscribe or request more information. This project highlights our ability to work together to create a dynamic and responsive site that supports climate action objectives.",
+      technologies: ['Wordpress', 'PHP', 'CSS'],
+      role: 'Front-End Developer',
+      year: 2024,
+      image: un0,
+      image1: un1,
+      image2: un2,
+      image3: un3,
+      image4: un4,
+      link: 'https://esbjergboardgames.dk',
+      category: 'Web Design'
+    },
+    
   ]);
 
   return { portfolioItems }

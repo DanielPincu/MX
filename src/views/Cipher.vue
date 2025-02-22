@@ -11,7 +11,7 @@
   let ctx = null;
   
   // --- Constants and Variables ---
-  const INIT_CHARSIZE = 13;
+  const INIT_CHARSIZE = 10;
   const INIT_FILL_STYLE = "rgba(0,173,2,1)";
   const INIT_FONT = "bold 14px Monospace";
   const INIT_FONT2 = `bold ${INIT_CHARSIZE}px Monospace`;
@@ -35,7 +35,6 @@
     "rgba(29,98,32,0)",
   ];
   
-  const CHARACTERS = "日アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンあいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん";
   
   let padding = 17;
   let nColumns = 0;
