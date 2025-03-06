@@ -1,5 +1,5 @@
 <template>
-  <div class="error-page h-[1100px] md:h-[800px] relative">
+  <div class="error-page h-[1100px] md:h-[900px] relative">
     <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -20,7 +20,7 @@
 
       <div class="grid grid-cols-1">
         <div>
-          <p class="output text-2xl">I’m Daniel Pincu, a web developer who bends the fabric of the digital world. Behind every line of code lies a choice: to remain in the known, or to break free into the unknown. I build experiences that shift the balance, pulling users into a space where form and function converge in perfect harmony. The red pill whispers of transformation, where every interaction is a new possibility. The blue pill offers comfort, grounding users in a familiar, flowing reality. From front-end to back-end, I shape the unseen, crafting environments that move, adapt, and connect. Welcome to a world beyond code—where the web is not just built, but awakened.</p>
+          <p class="output md:text-2xl text-xl">I’m Daniel Pincu, an aspiring web developer who bends the fabric of the digital world. Behind every line of code lies a choice: to remain in the known or to break free into the unknown. I build experiences that shift the balance, pulling users into a space where form and function converge in perfect harmony. The red pill whispers of transformation, where every interaction is a new possibility. The blue pill offers comfort grounding users in a familiar, flowing reality. <br><br> Currently, I’m at my internship at the-basics.dk, where I refine my skills and push the boundaries of digital experiences. Very soon I will pursue my top-up degree in web development, diving deeper into the craft of shaping the web. <br><br> Welcome to a world beyond code—where the web is not just built, but awakened.</p>
         </div>
         <div>
           

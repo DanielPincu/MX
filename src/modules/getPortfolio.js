@@ -30,6 +30,11 @@ import un2 from '@/assets/un2.png'
 import un3 from '@/assets/un3.png'
 import un4 from '@/assets/un4.png'
 
+import task0 from '@/assets/task0.png'
+import task1 from '@/assets/task1.png'
+import task2 from '@/assets/task2.png'
+import task3 from '@/assets/task3.png'
+
 const getPortfolio = () => {
   const portfolioItems = ref([
     {
@@ -91,8 +96,8 @@ const getPortfolio = () => {
       year: 2024,
       image: port0,
       image1: port1,
-      image2: port2,
-      image3: port3,
+      image2: port3,
+      image3: port1,
       link: 'https://portfolio-firebase-mu.vercel.app/',
       category: 'Web Design'
     },
@@ -100,7 +105,7 @@ const getPortfolio = () => {
       id: 5,
       title: 'Esbjerg Board Games',
       description: 'Esbjerg Board Games is a community-focused project aimed at bringing board game enthusiasts together for regular events in Esbjerg, Denmark, offering a platform where users can discover, join, and engage in local gaming sessions.',
-      extra_description: "Built with WordPress and PHP, the site offers full customization for the editor, allowing for easy management of content and structure. It incorporates a role-based access system, with different user permissions for admins and editors, ensuring proper content management and security. Custom post types and Advanced Custom Fields are used to create tailored content, providing flexibility in how information about events, games, and community activities is presented. For added security, the site features two-factor authentication, protecting user accounts and sensitive data. Additionally, the website is fully optimized for SEO, ensuring that it ranks well on search engines while maintaining strong security standards to protect against potential threats. The combination of these features makes Esbjerg Board Games a robust and reliable platform for its growing community.",
+      extra_description: 'Built with WordPress and PHP, the site offers full customization for the editor, allowing for easy management of content and structure. It incorporates a role-based access system, with different user permissions for admins and editors, ensuring proper content management and security. Custom post types and Advanced Custom Fields are used to create tailored content, providing flexibility in how information about events, games, and community activities is presented. For added security, the site features two-factor authentication, protecting user accounts and sensitive data. Additionally, the website is fully optimized for SEO, ensuring that it ranks well on search engines while maintaining strong security standards to protect against potential threats. The combination of these features makes Esbjerg Board Games a robust and reliable platform for its growing community. Take a look into the development process if you are curious  <a href="https://drive.google.com/file/d/1XiKCjRyyvJQ-X6UG18dOnvUTmtgvcVAJ/view?usp=sharing"></a> Yes, a glitch I have to address. But you can visit the live website by clicking the button below.',
       technologies: ['Wordpress', 'PHP', '2FA'],
       role: 'Front-End Developer',
       year: 2024,
@@ -115,7 +120,7 @@ const getPortfolio = () => {
       id: 6,
       title: 'United Nations',
       description: "For our school project focused on the UN's Sustainable Development Goal 13 (Climate Action), my teammate and I created a dynamic WordPress website to raise awareness about climate change, its effects, and sustainable living practices.",
-      extra_description: "The site is designed to provide essential information on climate change, its impacts, and practical steps for sustainable living. The website features a dynamic front page where custom sections pull content directly from the WordPress dashboard, allowing for easy updates. Its responsive design ensures a seamless experience across all devices. Additionally, the site includes a blog that covers various climate-related topics, as well as a newsletter and contact form for users to subscribe or request more information. This project highlights our ability to work together to create a dynamic and responsive site that supports climate action objectives.",
+      extra_description: "The site is designed to provide essential information on climate change, its impacts, and practical steps for sustainable living. The website features a dynamic front page where custom sections pull content directly from the WordPress dashboard, allowing for easy updates. Its responsive design ensures a seamless experience across all devices. Additionally, the site includes a blog that covers various climate-related topics, as well as a newsletter and contact form for users to subscribe or request more information. This project highlights our ability to work together to create a dynamic and responsive site that supports climate action objectives. Take a look into the development process if you're curious",
       technologies: ['Wordpress', 'PHP', 'CSS'],
       role: 'Front-End Developer',
       year: 2024,
@@ -124,7 +129,22 @@ const getPortfolio = () => {
       image2: un2,
       image3: un3,
       image4: un4,
-      link: 'https://esbjergboardgames.dk',
+      link: 'https://projects.danielpincu.com/wordpress2/',
+      category: 'Web Design'
+    },
+    {
+      id: 7,
+      title: 'TaskHub',
+      description: "For our school project on TypeScript and CI/CD, I developed TaskHub, a task management web application built with Vite and TypeScript. The project focused on modern development practices, automation, and a seamless user experience.",
+      extra_description: "TaskHub allows users to add, edit, and remove tasks, providing an intuitive and efficient way to manage tasks. It features a light mode and dark mode toggle, ensuring a customizable user experience. The project is integrated with GitHub Live and a test environment, leveraging CI/CD pipelines for automated deployment and testing. Designed with responsiveness in mind, the application delivers a smooth experience across all devices. This project highlights our ability to build scalable, maintainable, and user-friendly applications using modern web technologies",
+      technologies: ['Vite, TypeScript, CSS, CI/CD, GitHub Live/Test Environment'],
+      role: 'Front-End Developer',
+      year: 2024,
+      image: task1,
+      image1: task0,
+      image2: task2,
+      image3: task3,
+      link: 'https://www.youtube.com/watch?v=dIwXC3LD0uE&ab_channel=DanielPincu',
       category: 'Web Design'
     },
     
