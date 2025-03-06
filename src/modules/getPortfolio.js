@@ -127,6 +127,22 @@ const getPortfolio = () => {
       link: 'https://esbjergboardgames.dk',
       category: 'Web Design'
     },
+     {
+      id: 7,
+      title: 'Fantasy Quest Esbjerg',
+      description: "I led the development of a fully responsive, SEO-optimized website for Fantasy Quest Esbjerg, collaborating with a design team to create a new visual identity for the brand.",
+      extra_description: "For my 2nd semester’s exam, I worked together with my team on a project for Fantasy Quest Esbjerg. While I have a passion for web development, this project gave me the opportunity to expand my knowledge of UX research and designing both physical and digital products. In the video below, you can see my creations. Although you won't see the full UX conclusions from my report, I can assure you that each design was crafted with the user's best interests in mind. Alongside my teammate, I was deeply involved in coding the website, ensuring that the development aligned with the vision of the project. As a web developer, this was a core aspect of my contribution to the team. Feel free to check out the website!",
+      technologies: ['Vue3', 'JS', 'CSS'],
+      role: 'Front-End Developer',
+      year: 2024,
+      image: un0,
+      image1: un1,
+      image2: un2,
+      image3: un3,
+      image4: un4,
+      link: 'https://exam-6d170.web.app/',
+      category: 'Web Design'
+    },
     
   ]);
 
