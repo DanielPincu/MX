@@ -156,7 +156,7 @@ const getPortfolio = () => {
       image1: kate1,
       image2: kate2,
       image3: kate3,
-      link: 'https://projects.danielpincu.com/wordpress/',
+      link: 'https://projects.danielpincu.com/kates-corner/',
       category: 'E-commerce'
     },
     
@@ -174,7 +174,7 @@ const getPortfolio = () => {
       image2: un2,
       image3: un3,
       image4: un4,
-      link: 'https://projects.danielpincu.com/wordpress2/',
+      link: 'https://projects.danielpincu.com/un/',
       category: 'Web Design'
     },
     
