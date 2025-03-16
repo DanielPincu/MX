@@ -156,7 +156,7 @@ const getPortfolio = () => {
       image1: kate1,
       image2: kate2,
       image3: kate3,
-      link: 'https://projects.danielpincu.com/kates-corner/',
+      link: 'https://projects.danielpincu.com/kcorner/',
       category: 'E-commerce'
     },
     

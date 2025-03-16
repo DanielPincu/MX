@@ -45,6 +45,9 @@
     <footer class="bg-black text-center py-4 project-card mt-auto relative">
       <canvas ref="footerCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
       <div class="relative z-10">
+        <p class="">
+          <a href="mailto:echo@danielpincu.com" class="text-green-400 hover:text-white transition-colors">echo@danielpincu.com</a>
+        </p>
         <p class="mb-4">&copy; 2024 Daniel Pincu. All rights reserved.</p>
         <!-- Social Media Links -->
         <div class="flex justify-center space-x-6 mt-2">
@@ -55,8 +58,11 @@
             <i class="fab fa-linkedin text-3xl"></i>
           </a>
         </div>
+        <!-- Email Address -->
+        
       </div>
     </footer>
+
 
   </div>
 </template>
