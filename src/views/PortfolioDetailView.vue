@@ -34,8 +34,8 @@
           </li>
         </ul>
         <span class='nav top-20 h-3/4  w-full flex justify-between items-center py-2'>
-          <ion-icon class='btn prev' name="arrow-back-outline" @click="activate('prev')"></ion-icon>
-          <ion-icon class='btn next' name="arrow-forward-outline" @click="activate('next')"></ion-icon>
+          <i class='btn prev' name="arrow-back-outline" @click="activate('prev')"><==</i>
+          <i class='btn next' name="arrow-forward-outline" @click="activate('next')">==></i>
         </span>
       </div>
     </div>
