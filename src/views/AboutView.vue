@@ -20,7 +20,13 @@
 
       <div class="grid grid-cols-1">
         <div>
-          <p class="output md:text-2xl text-xl">I’m Daniel Pincu, an aspiring web developer who bends the fabric of the digital world. Behind every line of code lies a choice: to remain in the known or to break free into the unknown. I build experiences that shift the balance, pulling users into a space where form and function converge in perfect harmony. The red pill whispers of transformation, where every interaction is a new possibility. The blue pill offers comfort grounding users in a familiar, flowing reality. <br><br> Currently, I’m at my internship at the-basics.dk, where I refine my skills and push the boundaries of digital experiences. Very soon I will pursue my top-up degree in web development, diving deeper into the craft of shaping the web. <br><br> Welcome to a world beyond code—where the web is not just built, but awakened.</p>
+          <p class="output md:text-2xl text-xl mx-4">
+            I’m Daniel Pincu, an aspiring web developer stepping into the code that shapes our reality. Like in <em>The Matrix</em>, every line I write is a choice: remain in the safety of the familiar, or break free into the unknown. My mission is to craft digital experiences where design and logic converge, pulling users into spaces that blur the line between illusion and function. The red pill calls toward transformation — each click, each interaction, a doorway to something new — while the blue pill offers the comfort of patterns, grounding users in worlds they already know.<br><br>
+            Right now, I am enrolled in the Web Development top-up program at <strong>EASV Esbjerg</strong>, decoding the systems of the web and strengthening my skills. At the same time, I am seeking opportunities to plug into real-world projects—places where I can refine my craft, challenge limits, and push digital boundaries further than ever before.<br><br>
+            This is more than code. This is awakening — the moment when the web stops being static and becomes alive.
+          </p>
+
+
         </div>
         <div>
           

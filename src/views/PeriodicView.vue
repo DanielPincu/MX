@@ -1,8 +1,6 @@
 <template>
     <div>
-      <h1>My Internet Periodic Table</h1>
-      <h5>How I waste my time on the Internet</h5>
-  
+    
       <div class="periodic-table">
         <div class="empty-spacer-1"></div>
         <div class="empty-spacer-2"></div>

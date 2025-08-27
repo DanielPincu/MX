@@ -21,8 +21,15 @@
           </div>
 
           <a target="_blank" :href="specificPortfolioItem.link">
-            <button class="text-white mt-5 bg-blue-400 rounded-full px-10 py-2">Visit Project</button>
+            <button class="text-white mt-5 bg-blue-500 hover:bg-red-500 rounded-full px-10 py-2">Visit Project</button>
           </a>
+
+          <button 
+            @click="goBack" 
+            class="text-white mt-5 bg-red-500 hover:bg-blue-500 rounded-full px-16 py-2 mx-1"
+          >
+            Go Back
+        </button>
         </div>
       </div>
 
@@ -43,6 +50,14 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goBack = () => {
+  router.back();
+};
+
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import getPortfolio from '@/modules/getPortfolio'
@@ -126,9 +141,9 @@ button {
   transition: background-color 0.3s ease-in-out;
 }
 
-button:hover {
-  background-color: #2563eb;
-}
+/* button:hover {
+  background-color: red;
+} */
 
 .slider-container {
   position: relative;

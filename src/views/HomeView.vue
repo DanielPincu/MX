@@ -87,6 +87,14 @@
           </div>
         </div>
       </div>
+       <div class="hidden xl:block">
+
+        <div class="glitch-text pb-10 pt-20 text-center text-[50px]">
+          <span>My Internet periodic table</span>
+          <p class="text-green-600 text-sm">How I spend my time online? <br> That's a 400 Bad Request question</p>
+        </div>
+        <PeriodicView />
+       </div>
     </div>
   </section>
 
@@ -106,6 +114,7 @@ import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
 import { ref, watch, onMounted, onUnmounted } from 'vue';
+import PeriodicView from './PeriodicView.vue';
 
 onMounted(() => {
   window.scrollTo(0, 0);
@@ -178,16 +187,56 @@ const expertiseTitle = ref("Expertise");
 const expertise = ref([
   {
     title: "Front-End Development",
-    description: "With a passion for crafting seamless user experiences, I specialize in building responsive and interactive web applications. My expertise in HTML5, CSS3, and JavaScript allows me to bring designs to life while ensuring optimal performance across devices."
+    description: "With a passion for crafting seamless user experiences, I specialize in building responsive and interactive web applications. My expertise in HTML, CSS/Tailwind/Bootstrap and JavaScript allows me to bring designs to life while ensuring optimal performance across devices."
   },
   {
     title: "VueJS",
-    description: "As a dedicated Vue.js developer, I leverage its powerful features to create dynamic single-page applications. My proficiency in Vue's ecosystem enables me to build scalable and maintainable codebases that enhance user engagement and satisfaction."
+    description: "As a Vue.js developer, I leverage its powerful features to create dynamic single-page applications. My passion for Vue's simplicity enables me to build scalable and maintainable codebases that enhance user engagement and satisfaction."
   },
+
+  {
+  title: "React",
+  description:
+    "Alongside Vue, I am also learning React. I use it to practice building reusable components, managing state, and improving performance in front-end applications. I am also exploring React’s ecosystem, such as hooks and routing, to better understand how modern web apps are structured.",
+},
+
+
+  {
+  title: "PHP",
+  description:
+    "As part of my studies, I am learning PHP to understand backend logic, work with forms, and create simple dynamic web applications. I am also exploring how PHP connects with databases and can be used to build custom features for websites.",
+},
+
+{
+  title: "MySQL",
+  description:
+    "I am starting to learn MySQL to manage data, write queries, and connect databases with web applications. My focus is on understanding relational databases, how tables link together, and how to use MySQL with PHP for dynamic content.",
+},
+
   {
     title: "WordPress",
-    description: "With extensive experience in WordPress, I develop custom themes and plugins tailored to meet client needs. My knowledge of PHP allows me to extend functionality and optimize performance, ensuring a robust and user-friendly experience."
-  }
+    description: "With extensive experience in WordPress, I develop custom themes tailored to meet client needs. My knowledge of PHP allows me to extend functionality and optimize performance, ensuring a robust and user-friendly experience."
+  },
+
+  {
+  title: "GitHub",
+  description:
+    "I always use GitHub as part of my workflow for version control and collaboration. By practicing commits, branches, and pull requests, I am building confidence in managing code and contributing to projects in a structured way.",
+},
+
+{
+  title: "IoT",
+  description:
+    "I am exploring the Internet of Things by connecting sensors and microcontrollers to the web. Through small projects, I am learning how hardware and software work together, building a foundation for creating smart and connected applications.",
+},
+
+{
+  title: "AI Enthusiast",
+  description:
+    "I am curious about artificial intelligence and how it shapes the future of web development and beyond. As an enthusiast, I enjoy experimenting with AI tools, learning about machine learning concepts, and exploring how AI can enhance digital experiences.",
+},
+
+
 ]);
 
 const initCanvas = () => {

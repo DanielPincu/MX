@@ -75,7 +75,7 @@ import Cipher from './views/Cipher.vue';
 const isMenuOpen = ref(false)
 const navLinks = [
   { to: '/', text: 'Home' },
-  { to: '/about', text: 'About' },
+  // { to: '/about', text: 'About' },
   { to: '/portfolio', text: 'Portfolio' }
 ]
 
