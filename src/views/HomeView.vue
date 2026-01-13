@@ -187,31 +187,51 @@ const expertiseTitle = ref("Expertise");
 const expertise = ref([
   {
     title: "Front-End Development",
-    description: "With a passion for crafting seamless user experiences, I specialize in building responsive and interactive web applications. My expertise in HTML, CSS/Tailwind/Bootstrap and JavaScript allows me to bring designs to life while ensuring optimal performance across devices."
+    description: "With a passion for crafting seamless user experiences, I specialize in building responsive and interactive web applications. My expertise in HTML, CSS/Tailwind/Bootstrap and TypeScript allows me to bring designs to life while ensuring optimal performance across devices."
   },
   {
     title: "VueJS",
     description: "As a Vue.js developer, I leverage its powerful features to create dynamic single-page applications. My passion for Vue's simplicity enables me to build scalable and maintainable codebases that enhance user engagement and satisfaction."
   },
+  {
+    title: "React",
+    description:
+      "Alongside Vue, I am also learning React. I use it to practice building reusable components, managing state, and improving performance in front-end applications. I am also exploring React’s ecosystem, such as hooks and routing, to better understand how modern web apps are structured.",
+  },
+  {
+    title: "PHP",
+    description:
+      "As part of my studies, I am learning PHP to understand backend logic, and create dynamic web applications. I am also exploring how PHP connects with databases and can be used to build custom features for websites.",
+  },
+  {
+    title: "MySQL",
+    description:
+      "I am starting to learn MySQL to manage data, write queries, and connect databases with web applications. My focus is on understanding relational databases, how tables link together, and how to use MySQL with PHP for dynamic content.",
+  },
+  
+  
+  {
+    title: "MongoDB",
+    description:
+      "I am learning MongoDB to understand NoSQL databases and document-based data modeling. I explore how MongoDB differs from relational databases and how it can be used for flexible and scalable data storage in modern applications.",
+  },
+  {
+    title: "API Development",
+    description:
+      "I am learning how to design and build APIs to enable communication between frontend and backend systems. My focus is on understanding REST principles, handling requests and responses, and building reusable endpoints for web applications.",
+  },
 
   {
-  title: "React",
-  description:
-    "Alongside Vue, I am also learning React. I use it to practice building reusable components, managing state, and improving performance in front-end applications. I am also exploring React’s ecosystem, such as hooks and routing, to better understand how modern web apps are structured.",
-},
-
+    title: "GitHub",
+    description:
+      "I always use GitHub as part of my workflow for version control and collaboration. By practicing commits, branches, and pull requests, I am building confidence in managing code and contributing to projects in a structured way.",
+  },
 
   {
-  title: "PHP",
-  description:
-    "As part of my studies, I am learning PHP to understand backend logic, work with forms, and create simple dynamic web applications. I am also exploring how PHP connects with databases and can be used to build custom features for websites.",
-},
-
-{
-  title: "MySQL",
-  description:
-    "I am starting to learn MySQL to manage data, write queries, and connect databases with web applications. My focus is on understanding relational databases, how tables link together, and how to use MySQL with PHP for dynamic content.",
-},
+    title: "DevOps",
+    description:
+      "I am exploring DevOps concepts such as deployment, environment configuration, and automation. Through practice, I am learning how development and operations work together to deliver reliable and scalable applications.",
+  },
 
   {
     title: "WordPress",
@@ -219,23 +239,15 @@ const expertise = ref([
   },
 
   {
-  title: "GitHub",
-  description:
-    "I always use GitHub as part of my workflow for version control and collaboration. By practicing commits, branches, and pull requests, I am building confidence in managing code and contributing to projects in a structured way.",
-},
-
-{
-  title: "IoT",
-  description:
-    "I am exploring the Internet of Things by connecting sensors and microcontrollers to the web. Through small projects, I am learning how hardware and software work together, building a foundation for creating smart and connected applications.",
-},
-
-{
-  title: "AI Enthusiast",
-  description:
-    "I am curious about artificial intelligence and how it shapes the future of web development and beyond. As an enthusiast, I enjoy experimenting with AI tools, learning about machine learning concepts, and exploring how AI can enhance digital experiences.",
-},
-
+    title: "IoT",
+    description:
+      "I am exploring the Internet of Things by connecting sensors and microcontrollers to the web. Through small projects, I am learning how hardware and software work together, building a foundation for creating smart and connected applications.",
+  },
+  {
+    title: "AI Enthusiast",
+    description:
+      "I am curious about artificial intelligence and how it shapes the future of web development and beyond. As an enthusiast, I enjoy experimenting with AI tools, learning about machine learning concepts, and exploring how AI can enhance digital experiences.",
+  },
 
 ]);
 

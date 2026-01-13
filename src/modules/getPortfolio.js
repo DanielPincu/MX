@@ -45,6 +45,11 @@ import ck1 from '@/assets/ck1.png'
 import ck2 from '@/assets/ck2.png'
 import ck3 from '@/assets/ck3.png'
 
+import glitch0 from '@/assets/glitch1.png'
+import glitch1 from '@/assets/glitch1.png'
+import glitch2 from '@/assets/glitch2.png'
+import glitch3 from '@/assets/glitch3.png'
+
 const getPortfolio = () => {
   const portfolioItems = ref([
 
@@ -62,12 +67,29 @@ const getPortfolio = () => {
       image2: chat2,
       image3: chat3,
       
-      link: 'https://chatognito.com',
+      link: 'https://messenger-95a5d.web.app/',
       category: 'Web Application'
     },
 
     {
       id: 2,
+      title: 'Glitch Social',
+      description: 'Glitch Social is a custom-built social media platform designed to replicate and explore the core mechanics of modern social networks. It allows users to create accounts, manage personal profiles, publish posts with optional media, interact through comments and likes, follow or block other users, and receive notifications based on activity.',
+      extra_description: "The platform is powered by a PHP backend using an MVC-based, object-oriented architecture and a MariaDB relational database. The database is fully normalized to Third Normal Form (3NF) to ensure data integrity and scalability. PHP handles authentication, session management, input validation, and secure communication with the database via PDO and prepared statements. User-uploaded images are validated and resized server-side, and external API integration enables GIF search and embedding within posts.",
+      more: "Glitch Social places a strong emphasis on security and data consistency. Features such as password hashing, CSRF protection, session-based authentication, and environment-based configuration are implemented to protect user data. Database-level constraints, indexes, triggers, and views are used to enforce business rules, improve performance, and automate tasks such as notifications and cleanup actions. The interface combines a modern social-media experience with a subtle retro-inspired aesthetic, resulting in a platform that feels both familiar and technically robust.",
+      technologies: ['PHP', 'MariaDB', 'JavaScript', 'Tailwind CSS', 'PDO'],
+      role: 'Full-Stack Developer',
+      year: 2025,
+      image: glitch0,
+      image1: glitch1,
+      image2: glitch2,
+      image3: glitch3,
+      link: 'https://danielpincu.dev/',
+      category: 'Web Application'
+    },
+
+    {
+      id: 3,
       title: 'Fantasy Quest Esbjerg',
       description: "I led the development of a fully responsive, SEO-optimized website for Fantasy Quest Esbjerg, collaborating with a design team to create a new visual identity for the brand.",
       extra_description: "For my 2nd semester’s exam, I worked together with my team on a project for Fantasy Quest Esbjerg. This project gave me the opportunity to expand my knowledge of using Firebase as a database and learning more about API calls. As a web developer, this was a core aspect of my contribution to the team, ensuring that the development aligned with the vision of the project. Feel free to check out the website and the github repository!",
@@ -83,9 +105,9 @@ const getPortfolio = () => {
     },
 
     {
-      id: 3,
+      id: 4,
       title: 'Esbjerg Board Games',
-      description: 'Esbjerg Board Games is a community-focused project aimed at bringing board game enthusiasts together for regular events in Esbjerg, Denmark, offering a platform where users can discover, join, and engage in local gaming sessions.',
+      description: 'SCHEDULED MAINTENANCE - Temporary Down! Esbjerg Board Games is a community-focused project aimed at bringing board game enthusiasts together for regular events in Esbjerg, Denmark, offering a platform where users can discover, join, and engage in local gaming sessions.',
       extra_description: 'Built with WordPress and PHP, the site offers full customization for the editor, allowing for easy management of content and structure. It incorporates a role-based access system, with different user permissions for admins and editors, ensuring proper content management and security. Custom post types and Advanced Custom Fields are used to create tailored content, providing flexibility in how information about events, games, and community activities is presented. For added security, the site features two-factor authentication, protecting user accounts and sensitive data. Additionally, the website is fully optimized for SEO, ensuring that it ranks well on search engines while maintaining strong security standards to protect against potential threats. The combination of these features makes Esbjerg Board Games a robust and reliable platform for its growing community. Take a look into the development process if you are curious  <a href="https://drive.google.com/file/d/1XiKCjRyyvJQ-X6UG18dOnvUTmtgvcVAJ/view?usp=sharing"></a> Yes, a glitch I have to address. But you can visit the live website by clicking the button below.',
       technologies: ['Wordpress', 'PHP', '2FA'],
       role: 'Full-stack Developer',
@@ -100,7 +122,7 @@ const getPortfolio = () => {
 
 
     {
-  id: 4,
+  id: 5,
   title: 'CK Cookies & Cakes',
   description: "A complete web shop built from scratch for CK Cookies & Cakes, a local cookie shop in Esbjerg. The project focused on creating an intuitive and visually appealing online store that allows customers to browse and purchase delicious cookies and cakes with ease.",
   extra_description: "The site features seamless product browsing, a fully integrated WooCommerce shopping cart, and easy checkout. Additional functionalities include custom product pages, seasonal promotions, and responsive design to ensure a smooth experience on all devices.",
@@ -118,7 +140,7 @@ const getPortfolio = () => {
 
 
     {
-      id: 5,
+      id: 6,
       title: 'Trapholt Museum',
       description: "A comprehensive digital transformation for Trapholt Museum, a renowned cultural institution in Kolding, Denmark. The redesign aimed to enhance user engagement, improve accessibility, and showcase the museum’s diverse art collection through an interactive and intuitive web experience.",
       extra_description: "The project not only delivered on its promise of intuitive navigation, immersive imagery, and interactive elements to elevate the user experience but also integrated essential functionalities like event listings,a multiple language selector, and online ticketing demo, thus optimizing visitor engagement and accessibility.",
@@ -136,7 +158,7 @@ const getPortfolio = () => {
     
 
     {
-      id: 6,
+      id: 7,
       title: 'Interactive Portfolio Website',
       description: 'A fully interactive portfolio website designed to showcase my projects, skills, and experience through an engaging and visually dynamic interface.',
       extra_description: "The goal of this project was to create a portfolio website that reflects my expertise in UI/UX design and web development. I used Firebase as the database to handle dynamic content, ensuring smooth data flow across the site. The website features a personalized about section, a detailed project showcase, and an integrated contact form for potential clients or employers to reach out directly. One of the key features is the fully implemented dark mode and white mode toggle, which allows users to customize their experience. The website is built with reusable, dynamic components, leveraging Vue.js to ensure both high performance and user interactivity. The challenge was to balance aesthetics with performance, making sure that the visual design and functionality remain optimized without compromising load times or responsiveness.",
@@ -152,7 +174,7 @@ const getPortfolio = () => {
     },
 
     {
-      id: 7,
+      id: 8,
       title: 'TaskHub',
       description: "For our school project on TypeScript and CI/CD, I developed TaskHub, a task management web application built with Vite and TypeScript. The project focused on modern development practices, automation, and a seamless user experience.",
       extra_description: "TaskHub allows users to add, edit, and remove tasks, providing an intuitive and efficient way to manage tasks. It features a light mode and dark mode toggle, ensuring a customizable user experience. The project is integrated with GitHub Live and a test environment, leveraging CI/CD pipelines for automated deployment and testing. Designed with responsiveness in mind, the application delivers a smooth experience across all devices. This project highlights our ability to build scalable, maintainable, and user-friendly applications using modern web technologies",
@@ -168,7 +190,7 @@ const getPortfolio = () => {
     },
 
     {
-      id: 8,
+      id: 9,
       title: "Kate's Corner",
       description: 'This webshop was built entirely in WordPress, with a custom-developed theme created from scratch as a complete tailored solution. It leverages WooCommerce for handling shop functionality and integrates Stripe as the payment processor. To ensure a high level of security, the platform also implements a two-factor authentication (2FA) system. Security was a top priority in this project. It follows the latest security best practices, including securing Advanced Custom Fields (ACF) to prevent XSS attacks. Additionally, the webshop is fully SEO-optimized, enhancing visibility and search performance.',
       extra_description: "The result was a webshop that not only met but exceeded expectations in both functionality and aesthetics, setting a new standard within our team for efficient, secure, and user-focused digital solutions. This project further strengthened my expertise in developing high-quality eCommerce platforms that drive engagement, improve accessibility, and prioritize security.",
@@ -186,7 +208,7 @@ const getPortfolio = () => {
     
     
     {
-      id: 9,
+      id: 10,
       title: 'United Nations',
       description: "For our school project focused on the UN's Sustainable Development Goal 13 (Climate Action), my teammate and I created a dynamic WordPress website to raise awareness about climate change, its effects, and sustainable living practices.",
       extra_description: "The site is designed to provide essential information on climate change, its impacts, and practical steps for sustainable living. The website features a dynamic front page where custom sections pull content directly from the WordPress dashboard, allowing for easy updates. Its responsive design ensures a seamless experience across all devices. Additionally, the site includes a blog that covers various climate-related topics, as well as a newsletter and contact form for users to subscribe or request more information. This project highlights our ability to work together to create a dynamic and responsive site that supports climate action objectives.",
