@@ -1,48 +1,71 @@
 <template>
-  <div class="relative pt-32 mb-32 project-card">
+  <div class="relative pt-28 mb-24 project-card detail-page">
     <canvas ref="portfolioCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div v-if="!specificPortfolioItem">
       No portfolio item exists
     </div>
-    <div v-else>
-      <div class="md:grid relative grid-cols-1 gap-10 container mx-auto px-5">
-        <div class="pb-20">
-          <h1 class="text-center text-3xl pb-5">{{ specificPortfolioItem.title }}</h1>
-          <p>{{ specificPortfolioItem.description }}</p>
-          <br>
-          <p>{{ specificPortfolioItem.extra_description }}</p>
-          <br>
-          <p>{{ specificPortfolioItem.more }}</p>
-
-          <div class="mt-5">
-            <p><strong>Technologies Used:</strong> {{ specificPortfolioItem.technologies.join(', ') }}</p>
-            <p><strong>Role:</strong> {{ specificPortfolioItem.role }}</p>
-            <p><strong>Year:</strong> {{ specificPortfolioItem.year }}</p>
+    <div v-else class="relative z-10">
+      <div class="container mx-auto px-5">
+        <div class="detail-hero">
+          <div>
+            <p class="detail-kicker">{{ specificPortfolioItem.category }} / {{ specificPortfolioItem.year }}</p>
+            <h1>{{ specificPortfolioItem.title }}</h1>
+            <p class="detail-lead">{{ specificPortfolioItem.description }}</p>
           </div>
 
-          <a target="_blank" :href="specificPortfolioItem.link">
-            <button class="text-white mt-5 bg-blue-500 hover:bg-red-500 rounded-full px-10 py-2">Visit Project</button>
-          </a>
+          <div class="detail-actions">
+            <a target="_blank" :href="specificPortfolioItem.link" rel="noopener">
+              <button class="primary-action">Visit Project</button>
+            </a>
 
-          <button 
-            @click="goBack" 
-            class="text-white mt-5 bg-red-500 hover:bg-blue-500 rounded-full px-16 py-2 mx-1"
-          >
-            Go Back
-        </button>
+            <button @click="goBack" class="secondary-action">
+              Go Back
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-layout">
+          <article class="detail-copy">
+            <p>{{ specificPortfolioItem.extra_description }}</p>
+            <p v-if="specificPortfolioItem.more">{{ specificPortfolioItem.more }}</p>
+          </article>
+
+          <aside class="project-dossier">
+            <div>
+              <span>Role</span>
+              <strong>{{ specificPortfolioItem.role }}</strong>
+            </div>
+            <div>
+              <span>Year</span>
+              <strong>{{ specificPortfolioItem.year }}</strong>
+            </div>
+            <div>
+              <span>Technologies</span>
+              <div class="detail-tech">
+                <em v-for="tech in specificPortfolioItem.technologies" :key="tech">{{ tech }}</em>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
 
+      <section class="container mx-auto px-5 mb-12 mobile-gallery">
+        <h2>Project Gallery</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <img v-for="(item, index) in carouselItems" :key="`mobile-${index}`" :src="item.image" :alt="`${specificPortfolioItem.title} screenshot ${index + 1}`">
+        </div>
+      </section>
+
       <!-- Image Slider -->
-      <h2 class="z-40 text-3xl relative text-center mb-10 bg-slate-800 hidden md:block">Project Gallery</h2>
-      <div class="slider-container w-3/4 h-[100vh] hidden md:block mx-auto mb-20">
+      <h2 class="z-40 text-3xl relative text-center mb-10 hidden md:block gallery-title">Project Gallery</h2>
+      <div class="slider-container w-3/4 h-[82vh] hidden md:block mx-auto mb-20">
         <ul class='slider' ref="slider">
           <li v-for="(item, index) in carouselItems" :key="index" class='item border-2 border-black' :style="{ backgroundImage: `url('${item.image}')` }">
           </li>
         </ul>
-        <span class='nav top-20 h-3/4  w-full flex justify-between items-center py-2'>
-          <i class='btn prev' name="arrow-back-outline" @click="activate('prev')"><==</i>
-          <i class='btn next' name="arrow-forward-outline" @click="activate('next')">==></i>
+        <span class='nav top-20 h-3/4 w-full flex justify-between items-center py-2'>
+          <button class='btn prev' name="arrow-back-outline" @click="activate('prev')" aria-label="Previous image"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class='btn next' name="arrow-forward-outline" @click="activate('next')" aria-label="Next image"><i class="fa-solid fa-arrow-right"></i></button>
         </span>
       </div>
     </div>
@@ -138,7 +161,7 @@ onUnmounted(() => {
 
 <style scoped>
 button {
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease, border-color 0.2s ease;
 }
 
 /* button:hover {
@@ -149,6 +172,146 @@ button {
   position: relative;
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  border: 1px solid rgba(32, 255, 128, 0.42);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.detail-page {
+  min-height: 100vh;
+}
+
+.detail-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid rgba(32, 255, 128, 0.28);
+}
+
+.detail-kicker {
+  color: #f0ce00;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.82rem;
+  margin-bottom: 0.85rem;
+}
+
+.detail-hero h1 {
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  line-height: 0.95;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(32, 255, 128, 0.38);
+}
+
+.detail-lead {
+  max-width: 70rem;
+  margin-top: 1.4rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.75;
+}
+
+.detail-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 13rem;
+}
+
+.primary-action,
+.secondary-action {
+  width: 100%;
+  border-radius: 999px;
+  padding: 0.8rem 1.3rem;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.primary-action {
+  background: linear-gradient(135deg, #0f8f3f, #2266ff);
+  box-shadow: 0 0 24px rgba(32, 255, 128, 0.22);
+}
+
+.secondary-action {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.primary-action:hover,
+.secondary-action:hover {
+  transform: translateY(-2px);
+  border-color: #f0ce00;
+}
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.34fr);
+  gap: 2rem;
+  padding: 2rem 0 4rem;
+}
+
+.detail-copy {
+  display: grid;
+  gap: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  font-size: 1.03rem;
+}
+
+.project-dossier {
+  border: 1px solid rgba(32, 255, 128, 0.36);
+  background: rgba(0, 13, 5, 0.76);
+  box-shadow: inset 0 0 24px rgba(32, 255, 128, 0.08);
+  padding: 1.25rem;
+  display: grid;
+  gap: 1.2rem;
+  align-self: start;
+}
+
+.project-dossier span {
+  display: block;
+  color: #8fffb8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 0.4rem;
+}
+
+.project-dossier strong {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.detail-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.detail-tech em {
+  font-style: normal;
+  color: #f3ffd8;
+  border: 1px solid rgba(240, 206, 0, 0.42);
+  padding: 0.3rem 0.55rem;
+  font-size: 0.78rem;
+  background: rgba(240, 206, 0, 0.08);
+}
+
+.gallery-title,
+.mobile-gallery h2 {
+  color: #fff;
+  text-shadow: 0 0 18px rgba(32, 255, 128, 0.5);
+}
+
+.mobile-gallery {
+  display: none;
+}
+
+.mobile-gallery img {
+  width: 100%;
+  border: 1px solid rgba(32, 255, 128, 0.38);
+  object-fit: cover;
+  aspect-ratio: 16 / 10;
 }
 
 .item {
@@ -268,5 +431,20 @@ button {
   .item:nth-child(4) { left: calc(50% + 160px); }
   .item:nth-child(5) { left: calc(50% + 320px); }
   .item:nth-child(6) { left: calc(50% + 480px); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .detail-hero,
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-actions {
+    min-width: 0;
+  }
+
+  .mobile-gallery {
+    display: block;
+  }
 }
 </style>

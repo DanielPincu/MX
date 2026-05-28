@@ -1,15 +1,34 @@
 <template>
-    <div>
+    <div class="matrix-periodic-console">
+      <div class="periodic-console-header">
+        <span></span>
+        <p>internet compounds / operator log</p>
+      </div>
     
       <div class="periodic-table">
         <div class="empty-spacer-1"></div>
         <div class="empty-spacer-2"></div>
   
         <!-- Periodic Elements -->
-        <div v-for="(item, index) in elements" :key="index" :class="item.classes" :data-description="item.description" class="periodic-element">
+        <div
+          v-for="(item, index) in elements"
+          :key="index"
+          :class="item.classes"
+          :data-description="item.description"
+          class="periodic-element"
+          tabindex="0"
+        >
           <div class="periodic-element-inner">
+            <div class="atomic-number">{{ String(index + 1).padStart(2, '0') }}</div>
             <div class="title">{{ item.title }}</div>
             <div class="description">{{ item.descriptionText }}</div>
+            <div class="element-corners" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <div class="element-readout" aria-hidden="true">
+              <span>decode</span>
+              <strong>{{ item.title }}</strong>
+            </div>
           </div>
         </div>
       </div>
@@ -136,20 +155,89 @@
       }
   }
   
-  @mixin background-gradient($color1, $color2) {
-      background: linear-gradient(to bottom right, $color1 0%, $color2 100%);
+  @mixin matrix-category($accent, $accent-soft) {
+      border-color: rgba($accent, 0.35);
+      background:
+          linear-gradient(180deg, rgba($accent, 0.12), transparent 42%),
+          linear-gradient(180deg, #141b15, #050705 72%);
+
+      .periodic-element-inner {
+          border-color: rgba($accent, 0.2);
+      }
+
+      .title {
+          color: rgba($accent-soft, 0.95);
+          text-shadow: 0 0 8px rgba($accent, 0.45);
+      }
+
+      .description,
+      .atomic-number {
+          color: rgba($accent-soft, 0.72);
+      }
   }
-  
-  @mixin text-gradient($color1, $color2) {
-      background: -webkit-linear-gradient($color1, $color2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+  .matrix-periodic-console {
+      position: relative;
+      width: min(100%, 1120px);
+      margin: 0 auto;
+      padding: 3rem 1.25rem 1.5rem;
+      border: 1px solid rgba(35, 255, 129, 0.28);
+      border-radius: 14px 14px 22px 22px;
+      background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 22%),
+          repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.02) 0 1px, transparent 1px 5px),
+          radial-gradient(circle at 50% 0%, rgba(35, 255, 129, 0.12), transparent 44%),
+          linear-gradient(180deg, #101510, #020402 74%);
+      box-shadow:
+          inset 0 1rem 1.2rem rgba(0, 0, 0, 0.78),
+          0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
+          0 0 34px rgba(35, 255, 129, 0.1);
+      contain: layout paint;
+  }
+
+  .matrix-periodic-console::before {
+      content: "The Matrix has you...";
+      position: absolute;
+      top: 0.9rem;
+      right: 1.25rem;
+      color: rgba(35, 255, 129, 0.52);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(35, 255, 129, 0.55);
+  }
+
+  .periodic-console-header {
+      position: absolute;
+      top: 0.85rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      pointer-events: none;
+  }
+
+  .periodic-console-header span {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 999px;
+      background: #23ff81;
+      box-shadow: 0 0 12px rgba(35, 255, 129, 0.7);
+  }
+
+  .periodic-console-header p {
+      color: rgba(143, 255, 184, 0.62);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-shadow: 0 0 9px rgba(35, 255, 129, 0.32);
   }
   
   .periodic-table {
       display: grid;
-      grid-template-columns: repeat(9, 100px);
-      grid-template-rows: repeat(4, 100px);
+      grid-template-columns: repeat(9, minmax(78px, 96px));
+      grid-template-rows: repeat(4, minmax(78px, 96px));
       grid-gap: 10px;
       margin: auto;
       max-width: 1200px;
@@ -157,33 +245,150 @@
   }
   
   .periodic-element {
-      padding: 4px;
       position: relative;
       z-index: 1;
       cursor: default;
-      transition: all 0.3s ease;
+      border: 1px solid rgba(143, 255, 184, 0.18);
+      border-bottom: 5px solid rgba(0, 0, 0, 0.9);
+      border-radius: 7px 7px 12px 12px;
+      background: linear-gradient(180deg, #172219, #071009 55%, #030603);
+      box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.08),
+          inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.7),
+          0 0.18rem 0 rgba(0, 0, 0, 0.9),
+          0 0 8px rgba(35, 255, 129, 0.06);
+      transition: transform 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
+      contain: paint;
+
       .periodic-element-inner {
-          background: #202e38;
-          padding: 10px 15px;
+          position: relative;
+          background: transparent;
+          border: 1px solid rgba(143, 255, 184, 0.08);
+          border-radius: 5px 5px 9px 9px;
+          padding: 8px 10px;
           width: 100%;
           height: 100%;
-          transition: inherit;
+          overflow: hidden;
       }
+
+      .periodic-element-inner::before,
+      .periodic-element-inner::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          opacity: 0;
+      }
+
+      .periodic-element-inner::before {
+          background:
+              linear-gradient(90deg, transparent, rgba(202, 255, 216, 0.34), transparent),
+              repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.12) 0 1px, transparent 1px 5px);
+          transform: translateX(-120%);
+      }
+
+      .periodic-element-inner::after {
+          background:
+              linear-gradient(90deg, rgba(35, 255, 129, 0.16), transparent 14% 86%, rgba(240, 206, 0, 0.16)),
+              repeating-linear-gradient(90deg, transparent 0 12px, rgba(35, 255, 129, 0.16) 13px 14px);
+      }
+
+      .element-corners {
+          position: absolute;
+          inset: 4px;
+          z-index: 3;
+          pointer-events: none;
+          opacity: 0;
+      }
+
+      .element-corners span {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          border-color: rgba(240, 206, 0, 0.9);
+      }
+
+      .element-corners span:nth-child(1) {
+          top: 0;
+          left: 0;
+          border-top: 2px solid;
+          border-left: 2px solid;
+      }
+
+      .element-corners span:nth-child(2) {
+          top: 0;
+          right: 0;
+          border-top: 2px solid;
+          border-right: 2px solid;
+      }
+
+      .element-corners span:nth-child(3) {
+          bottom: 0;
+          left: 0;
+          border-bottom: 2px solid;
+          border-left: 2px solid;
+      }
+
+      .element-corners span:nth-child(4) {
+          right: 0;
+          bottom: 0;
+          border-right: 2px solid;
+          border-bottom: 2px solid;
+      }
+
+      .element-readout {
+          position: absolute;
+          left: 7px;
+          right: 7px;
+          bottom: 6px;
+          z-index: 3;
+          display: flex;
+          justify-content: space-between;
+          gap: 0.4rem;
+          border-top: 1px solid rgba(35, 255, 129, 0.22);
+          border-bottom: 1px solid rgba(35, 255, 129, 0.22);
+          background: rgba(0, 8, 3, 0.76);
+          padding: 0.25rem 0.35rem;
+          color: rgba(202, 255, 216, 0.72);
+          font-size: 0.48rem;
+          letter-spacing: 0.12em;
+          line-height: 1;
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(7px);
+          pointer-events: none;
+      }
+
+      .element-readout strong {
+          color: #fff7aa;
+      }
+
+      .atomic-number {
+          position: absolute;
+          top: 7px;
+          left: 8px;
+          font: 700 10px/1 "Courier New", monospace;
+          letter-spacing: 0.08em;
+      }
+
       .title {
-          font: 700 34px/1.3 "Poppins", sans-serif;
-          margin: 0.3em 0 0;
-          transition: 0.8s ease 600ms;
+          font: 800 32px/1 "Courier New", monospace;
+          margin: 0.55em 0 0;
+          letter-spacing: 0;
       }
       .description {
-          font: 500 12px "Poppins", sans-serif;
-          margin-top: -0.2em;
+          font: 700 10px/1.15 "Courier New", monospace;
+          margin-top: 0.45em;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
       }
       &:after {
           z-index: 10;
           content: attr(data-description);
-          background: #f9f8f7;
-          color: #333;
-          width: 180px;
+          background: rgba(0, 8, 3, 0.96);
+          color: rgba(221, 255, 230, 0.92);
+          width: 210px;
           position: absolute;
           top: 80%;
           opacity: 0;
@@ -194,24 +399,131 @@
           line-height: 1.4;
           padding: 10px;
           margin: 0 0 0 -50px;
-          border-radius: 6px;
+          border: 1px solid rgba(35, 255, 129, 0.35);
+          border-radius: 4px;
           text-align: center;
+          box-shadow: 0 14px 26px rgba(0, 0, 0, 0.55);
       }
-      &:hover {
-          transform: scale(1.12);
+
+      &:hover,
+      &:focus-visible {
+          transform: translateY(-4px);
+          border-color: rgba(240, 206, 0, 0.7);
+          box-shadow:
+              inset 0 1px 0 rgba(255, 255, 255, 0.12),
+              inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.62),
+              0 0.18rem 0 rgba(0, 0, 0, 0.9),
+              0 0 16px rgba(35, 255, 129, 0.18);
           z-index: 10;
-          .periodic-element-inner {
-              background: transparent;
+          animation: periodic-tile-warp 680ms steps(2, end);
+
+          .periodic-element-inner::before {
+              animation: periodic-source-sweep 760ms cubic-bezier(0.2, 0.8, 0.2, 1);
           }
-          .title,
-          .description {
-              -webkit-text-fill-color: #222;
+
+          .periodic-element-inner::after {
+              animation: periodic-interference 760ms steps(4, end);
           }
+
+          .element-corners {
+              animation: periodic-lock-corners 900ms steps(2, end);
+          }
+
+          .element-readout {
+              animation: periodic-readout-decode 1050ms steps(4, end);
+          }
+
+          .title {
+              animation: periodic-title-glitch 620ms steps(2, end);
+              text-shadow:
+                  2px 0 rgba(35, 255, 129, 0.8),
+                  -2px 0 rgba(240, 206, 0, 0.65),
+                  0 0 14px rgba(35, 255, 129, 0.55);
+          }
+
+          .description,
+          .atomic-number {
+              animation: periodic-micro-jitter 580ms steps(2, end);
+          }
+
           &:after {
               top: 105%;
               opacity: 1;
           }
       }
+  }
+
+  @keyframes periodic-tile-warp {
+      0% { transform: translateY(-4px) skewX(0deg); }
+      14% { transform: translateY(-6px) skewX(-2deg); }
+      28% { transform: translateY(-4px) skewX(2deg); }
+      42% { transform: translateY(-7px) skewX(-1deg); }
+      56%, 100% { transform: translateY(-4px) skewX(0deg); }
+  }
+
+  @keyframes periodic-source-sweep {
+      0% { opacity: 0; transform: translateX(-120%); }
+      12% { opacity: 1; }
+      68% { opacity: 0.95; transform: translateX(115%); }
+      100% { opacity: 0; transform: translateX(140%); }
+  }
+
+  @keyframes periodic-interference {
+      0%, 100% { opacity: 0; transform: translateX(0); }
+      12% { opacity: 0.62; transform: translateX(-5px); }
+      24% { opacity: 0.28; transform: translateX(6px); }
+      38% { opacity: 0.7; transform: translateX(-3px); }
+      56% { opacity: 0.18; transform: translateX(4px); }
+  }
+
+  @keyframes periodic-lock-corners {
+      0%, 100% {
+          opacity: 0;
+          transform: scale(1.08);
+      }
+      8%, 54% {
+          opacity: 1;
+          transform: scale(1);
+      }
+      22% {
+          opacity: 0.35;
+          transform: scale(0.96);
+      }
+      38% {
+          opacity: 1;
+          transform: scale(1.02);
+      }
+  }
+
+  @keyframes periodic-readout-decode {
+      0%, 100% {
+          opacity: 0;
+          transform: translateY(7px);
+      }
+      12%, 76% {
+          opacity: 1;
+          transform: translateY(0);
+      }
+      24% {
+          transform: translateY(0) translateX(-4px);
+      }
+      36% {
+          transform: translateY(0) translateX(4px);
+      }
+  }
+
+  @keyframes periodic-title-glitch {
+      0%, 100% { transform: translateX(0); }
+      18% { transform: translateX(-4px); }
+      36% { transform: translateX(5px); }
+      52% { transform: translateX(-2px); }
+  }
+
+  @keyframes periodic-micro-jitter {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(2px); }
+      40% { transform: translateX(-2px); }
+      60% { transform: translateX(1px); }
   }
   
   a.periodic-element {
@@ -219,60 +531,56 @@
   }
   
   .social-media {
-      @include background-gradient(#f3f9a6,#cbc634);
-      .title,
-      .description {
-          @include text-gradient(#f3f9a6,#cbc634);
-      }
+      @include matrix-category(#f0ce00, #fff2a6);
   }
   
   .fun-stuff {
-      @include background-gradient(#ff616d,#ffc171);
-      .title,
-      .description {
-          @include text-gradient(#ff616d,#ffc171);
-      }
+      @include matrix-category(#ff6b5f, #ffd0a7);
   }
   
   .just-trying {
-      @include background-gradient(#37cfdc,#5a88e5);
-      .title,
-      .description {
-          @include text-gradient(#37cfdc,#5a88e5);
-      }
+      @include matrix-category(#4fd8df, #b4f7ff);
   }
   
   .intense-work {
-      @include background-gradient(#58ac30,#a7df62);
-      .title,
-      .description {
-          @include text-gradient(#58ac30,#a7df62);
-      }
+      @include matrix-category(#23ff81, #caffd8);
   }
   
   .legend-table {
-      padding: 15px;
+      padding: 18px 15px 5px;
       text-align: center;
-      font-size: 15px;
-      margin: 2em auto 0;
+      font-size: 13px;
+      margin: 1.4em auto 0;
+
+      &__wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.65rem 1rem;
+      }
+
       &__marker {
-          width: 25px;
-          height: 25px;
-          margin: 5px 5px 10px;
+          width: 18px;
+          height: 18px;
+          margin: 0;
           display: inline-block;
           vertical-align: middle;
-          box-shadow: 0.5px 1px rgba(0, 0, 0, 0.15);
+          border-radius: 3px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          box-shadow: inset 0 -4px 6px rgba(0, 0, 0, 0.4);
       }
       &__text {
           display: inline-block;
           vertical-align: middle;
-          margin: 0 25px 5px 5px;
-          @include text-gradient(#ccc,#eee);
+          margin: 0 0.4rem 0 -0.45rem;
+          color: rgba(221, 255, 230, 0.72);
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
       }
       &__direction {
           display: inline-block;
           margin: 10px 15px 10px 10px;
-          @include text-gradient(#ccc,#eee);
+          color: rgba(221, 255, 230, 0.72);
       }
   }
   
@@ -284,6 +592,17 @@
       &-2 {
           grid-column: 1;
           grid-row: 4;
+      }
+  }
+
+  @media (max-width: 1024px) {
+      .matrix-periodic-console {
+          overflow-x: auto;
+          justify-content: flex-start;
+      }
+
+      .periodic-table {
+          min-width: 920px;
       }
   }
   
