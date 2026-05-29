@@ -1,8 +1,7 @@
 <template>
   <div class="retro-typewriter">
-    <span class="retro-prompt">></span>
     <span class="retro-text">{{ displayedText }}</span>
-    <span v-if="isTyping || showCursor" class="retro-cursor" :class="{ 'retro-cursor--blink': !isTyping }">█</span>
+    <span v-if="isTyping || showCursor" class="retro-cursor mb-2" :class="{ 'retro-cursor--blink': !isTyping }">▌</span>
   </div>
 </template>
 
@@ -12,10 +11,17 @@ import { getAudioContext, isAudioReady } from '@/modules/audioContext.js'
 
 const bootComplete = inject('bootComplete', ref(false))
 
-const fullText = 'My name is Daniel Pincu'
+const sentences = [
+  'My name is Daniel Pincu',
+  'I\'m a web developer',
+  'I build digital experiences',
+  'Code · radio · pixels',
+  'Full-stack & signal processor'
+]
 const displayedText = ref('')
 const isTyping = ref(false)
 const showCursor = ref(true)
+let sentenceIndex = 0
 
 // ── Hover / Teletype sound (same as portfolio card hover) ──
 // Modem-style baud sound using frequency-shift keying + noise
@@ -90,36 +96,65 @@ const playKeyclick = () => {
   }
 }
 
-const typeChar = (index) => {
-  if (index <= fullText.length) {
-    displayedText.value = fullText.substring(0, index)
-    if (index < fullText.length) {
+let typeTimeout = null
+let pauseTimeout = null
+
+const clearAllTimeouts = () => {
+  if (typeTimeout) { clearTimeout(typeTimeout); typeTimeout = null }
+  if (pauseTimeout) { clearTimeout(pauseTimeout); pauseTimeout = null }
+}
+
+const typeSentence = (index) => {
+  const sentence = sentences[sentenceIndex]
+  if (!sentence) return
+  if (index <= sentence.length) {
+    displayedText.value = sentence.substring(0, index)
+    if (index < sentence.length) {
       playKeyclick()
-      const delay = 35 + Math.random() * 45
-      setTimeout(() => typeChar(index + 1), delay)
+      const delay = 30 + Math.random() * 50
+      typeTimeout = setTimeout(() => typeSentence(index + 1), delay)
     } else {
       isTyping.value = false
       showCursor.value = true
+      // Pause, then erase and go to next sentence
+      pauseTimeout = setTimeout(() => {
+        eraseSentence(sentence.length)
+      }, 2200)
     }
   }
 }
 
-const startTyping = () => {
-  // Audio was already initialized by BootScreen on user gesture, so it should be ready.
-  // But if not (e.g. skip boot), proceed silently — playKeyclick handles that gracefully.
+const eraseSentence = (index) => {
+  if (index >= 0) {
+    displayedText.value = sentences[sentenceIndex].substring(0, index)
+    if (index > 0) {
+      const delay = 15 + Math.random() * 25
+      typeTimeout = setTimeout(() => eraseSentence(index - 1), delay)
+    } else {
+      // Move to next sentence
+      sentenceIndex = (sentenceIndex + 1) % sentences.length
+      pauseTimeout = setTimeout(() => {
+        startTypingCycle()
+      }, 400)
+    }
+  }
+}
+
+const startTypingCycle = () => {
+  clearAllTimeouts()
   displayedText.value = ''
   isTyping.value = true
   showCursor.value = true
-  setTimeout(() => typeChar(0), 200)
+  typeTimeout = setTimeout(() => typeSentence(0), 300)
 }
 
 watch(bootComplete, (val) => {
-  if (val) startTyping()
+  if (val) startTypingCycle()
 })
 
 onMounted(() => {
   if (bootComplete.value) {
-    startTyping()
+    startTypingCycle()
   }
 })
 </script>
@@ -127,19 +162,18 @@ onMounted(() => {
 <style scoped>
 .retro-typewriter {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 0.15rem;
   font-family: 'VT323', 'Courier New', monospace;
   font-size: inherit;
-  line-height: 1.3;
-  letter-spacing: 0.02em;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
-.retro-prompt {
-  color: rgba(var(--mx-accent-rgb), 0.5);
-  font-weight: bold;
-  font-size: 0.85em;
-  user-select: none;
+.retro-text,
+.retro-cursor {
+  font-size: inherit;
+  line-height: 1;
 }
 
 .retro-text {
@@ -151,12 +185,7 @@ onMounted(() => {
 }
 
 .retro-cursor {
-  display: inline-block;
   color: var(--mx-accent-soft);
-  font-weight: bold;
-  font-size: 0.9em;
-  line-height: 1;
-  margin-left: 0.05rem;
   text-shadow:
     0 0 6px rgba(var(--mx-accent-rgb), 0.6),
     0 0 14px rgba(var(--mx-accent-rgb), 0.25);

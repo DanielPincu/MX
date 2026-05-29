@@ -15,50 +15,51 @@
           <span class="matrix-node matrix-node-br"></span>
         </div>
         <div class="hero-terminal">
-          
-          
-          
-          <!-- <p class="text-3xl pb-10">{{ greeting }}</p> -->
 
-          <Typing class="text-3xl md:text-4xl"/>
+          <div class="hero-modern-layout">
 
-          <!-- <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p> -->
-          <div class="glitch-text text-center text-[36px] md:text-[48px] leading-tight">
-              <span>Welcome to <br class="md:hidden block"> The Matrix</span>
+            <!-- Left column -->
+            <div class="hero-modern-left">
+              <!-- Minimal badge -->
+              
+
+              <Typing class="hero-modern-typing" />
+
+             
+
+              <div class="hero-modern-actions">
+                <a href="#projects"><button class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
+                  <span><span class="md:inline-block hidden">See</span> projects</span>
+                  <div class="liquid"></div>
+                </button></a>
+                <button @click="toggleAbout" class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
+                  <span>Contact <span class="md:inline-block hidden">me</span></span>
+                  <div class="liquid2"></div>
+                </button>
+              </div>
+
+              <!-- Subtle meta -->
+              
+            </div>
+
+            <!-- Right column -->
+            <div class="hero-modern-right">
+             
+              <div class="hero-tv-dock">
+                <Glitch class="hero-tv" />
+              </div>
+            </div>
+
           </div>
 
-          <div class="hero-tv-dock">
-            <Glitch class="hero-tv" />
-          </div>
-
-        
-          
-          
         </div>
-        <div class="hero-stats">
-          
-        </div>
-        <div class="hero-actions flex flex-row gap-5 md:gap-10 my-4 md:my-6">
-          <a href="#projects"><button class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
-            <span><span class="md:inline-block hidden">See</span> projects</span>
-            <div class="liquid"></div>
-          </button></a>
-          <button @click="toggleAbout" class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
-            <span>Contact <span class="md:inline-block hidden">me</span></span>
-            <div class="liquid2"></div>
-          </button>
 
         <Transition name="slide-in">
-        <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-[99.88%] transform transition-transform duration-300 ease-in-out">
-              <!-- Close Button -->
-              <button @click="closeAbout" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
-              
-           <ContactView />
-        </div>
-
-      </Transition>
-
-        </div>
+          <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-[99.88%] transform transition-transform duration-300 ease-in-out">
+            <button @click="closeAbout" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
+            <ContactView />
+          </div>
+        </Transition>
       </div>
     </div>
   </section>
@@ -770,6 +771,145 @@ onUnmounted(() => {
 .hero-terminal > * {
   position: relative;
   z-index: 1;
+}
+
+/* ══════════════════════════════════════════
+   MODERN HERO LAYOUT
+   ══════════════════════════════════════════ */
+
+.hero-modern-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  min-height: 200px;
+}
+
+.hero-modern-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+}
+
+.hero-modern-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.hero-modern-badge {
+  display: inline-flex;
+  font-family: 'VT323','Courier New',monospace;
+  font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+  color: rgba(var(--mx-accent-soft-rgb), 0.35);
+  background: rgba(0,0,0,0.2);
+  padding: 0.15rem 0.5rem 0.15rem 0.4rem;
+  border-left: 2px solid rgba(var(--mx-accent-rgb), 0.25);
+  letter-spacing: 0.04em;
+  width: fit-content;
+}
+
+.hero-modern-typing {
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem) !important;
+  min-height: clamp(2.8rem, 5vw, 3.8rem);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hero-modern-typing :deep(.retro-text) {
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  display: block;
+  min-height: inherit;
+  line-height: 1.2;
+}
+
+.hero-modern-tagline {
+  font-family: 'VT323','Courier New',monospace;
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  color: rgba(var(--mx-accent-soft-rgb), 0.28);
+  letter-spacing: 0.05em;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.hero-modern-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 0.3rem;
+}
+
+.hero-modern-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'VT323','Courier New',monospace;
+  font-size: clamp(0.45rem, 0.6vw, 0.55rem);
+  color: rgba(var(--mx-accent-rgb), 0.18);
+  letter-spacing: 0.04em;
+  margin-top: 0.2rem;
+}
+
+.hero-meta-sep {
+  opacity: 0.5;
+}
+
+.hero-modern-screen-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'VT323','Courier New',monospace;
+  font-size: clamp(0.45rem, 0.6vw, 0.55rem);
+  color: rgba(var(--mx-accent-soft-rgb), 0.25);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.hero-screen-dot {
+  display: block;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: rgba(255,77,77,0.6);
+  animation: hero-screen-dot-blink 1.6s step-end infinite;
+}
+
+@keyframes hero-screen-dot-blink {
+  0%, 100% { opacity: 0.6; }
+  40% { opacity: 0.1; }
+}
+
+.hero-screen-small {
+  color: rgba(var(--mx-accent-rgb), 0.15);
+  margin-left: auto;
+}
+
+@media (max-width: 820px) {
+  .hero-modern-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .hero-modern-left {
+    text-align: center;
+    align-items: center;
+  }
+  .hero-modern-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-modern-badge {
+    align-self: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-modern-meta {
+    display: none;
+  }
 }
 
 .terminal-bar {
