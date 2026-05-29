@@ -14,22 +14,41 @@
           </RouterLink>
 
           <div class="hidden md:flex nav-status" aria-hidden="true">
-            The reality is just another signal to decode conversion...
+            The reality is just another terminal...
           </div>
 
-          <div class="theme-switcher" aria-label="Color theme">
-            <button
-              v-for="theme in themes"
-              :key="theme.name"
-              type="button"
-              class="theme-dot"
-              :class="[`theme-dot--${theme.name}`, { active: currentTheme === theme.name }]"
-              :aria-label="`Use ${theme.label} theme`"
-              :aria-pressed="currentTheme === theme.name"
-              @click="setTheme(theme.name)"
-            >
-              <span></span>
-            </button>
+          <div class="theme-mixer" aria-label="Color theme mixer">
+            <div class="mixer-group">
+              <span class="mixer-label">RGB</span>
+              <button
+                v-for="theme in rgbThemes"
+                :key="theme.name"
+                type="button"
+                class="theme-dot"
+                :class="[`theme-dot--${theme.name}`, { active: currentTheme === theme.name }]"
+                :aria-label="`Use ${theme.label} theme`"
+                :aria-pressed="currentTheme === theme.name"
+                @click="setTheme(theme.name)"
+              >
+                <span></span>
+              </button>
+            </div>
+            <div class="mixer-sep"></div>
+            <div class="mixer-group">
+              <span class="mixer-label">CMYK</span>
+              <button
+                v-for="theme in cmykThemes"
+                :key="theme.name"
+                type="button"
+                class="theme-dot"
+                :class="[`theme-dot--${theme.name}`, { active: currentTheme === theme.name }]"
+                :aria-label="`Use ${theme.label} theme`"
+                :aria-pressed="currentTheme === theme.name"
+                @click="setTheme(theme.name)"
+              >
+                <span></span>
+              </button>
+            </div>
           </div>
 
           <div>
@@ -155,10 +174,16 @@ onMounted(() => {
   }
 })
 
-const themes = [
+const rgbThemes = [
+  { name: 'red', label: 'Red' },
   { name: 'green', label: 'Green' },
-  { name: 'blue', label: 'Blue' },
-  { name: 'red', label: 'Red' }
+  { name: 'blue', label: 'Blue' }
+]
+const cmykThemes = [
+  { name: 'cyan', label: 'Cyan' },
+  { name: 'magenta', label: 'Magenta' },
+  { name: 'yellow', label: 'Yellow' },
+  { name: 'black', label: 'Black' }
 ]
 const currentTheme = ref(localStorage.getItem('mx-theme') || 'green')
 
