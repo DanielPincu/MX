@@ -1,5 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col app-shell">
+    <BootScreen v-if="!isBootComplete" @boot-complete="handleBootComplete" />
+
     <header class="fixed w-screen z-30 site-header">
       <nav class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center gap-4">
@@ -115,9 +117,19 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted, provide } from 'vue'
+import BootScreen from '@/components/BootScreen.vue'
 
+const isBootComplete = ref(false)
 const isMenuOpen = ref(false)
+
+provide('bootComplete', isBootComplete)
+
+const handleBootComplete = () => {
+  isBootComplete.value = true
+  sessionStorage.setItem('mx-boot-complete', 'true')
+}
+
 const themes = [
   { name: 'green', label: 'Green' },
   { name: 'blue', label: 'Blue' },
