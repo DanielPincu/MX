@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col app-shell">
     <BootScreen v-if="!isBootComplete" @boot-complete="handleBootComplete" />
 
-    <header class="fixed w-screen z-30 site-header">
+    <header class="fixed left-0 right-0 z-30 site-header">
       <nav class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center gap-4">
           <RouterLink to="/" class="brand-lockup" @click="closeMenu">
@@ -68,10 +68,10 @@
             </div>
 
             <div class="cipher-lines">
-              <p>&gt; carrier found at 8.04MHz</p>
-              <p>&gt; handshake: <span>READY.</span></p>
-              <p>&gt; decoded route: follow the rain</p>
-              <p>&gt; payload: portfolio hidden in plain sight</p>
+              <p>> carrier found at 8.04MHz</p>
+              <p>> handshake: <span>READY.</span></p>
+              <p>> decoded route: follow the rain</p>
+              <p>> payload: portfolio hidden in plain sight</p>
             </div>
           </div>
 
@@ -120,15 +120,40 @@ import { RouterLink, RouterView } from 'vue-router'
 import { ref, watch, onMounted, provide } from 'vue'
 import BootScreen from '@/components/BootScreen.vue'
 
-const isBootComplete = ref(false)
+const isBootComplete = ref(sessionStorage.getItem('mx-boot-complete') === 'true')
 const isMenuOpen = ref(false)
+const siteHeaderRef = ref(null)
 
 provide('bootComplete', isBootComplete)
+
+const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth
 
 const handleBootComplete = () => {
   isBootComplete.value = true
   sessionStorage.setItem('mx-boot-complete', 'true')
+  document.documentElement.style.overflow = ""
+  document.documentElement.style.paddingRight = ""
 }
+
+// Hide viewport scrollbar during boot and compensate so no layout shift
+if (!isBootComplete.value) {
+  const sbw = getScrollbarWidth()
+  if (sbw > 0) {
+    document.documentElement.style.paddingRight = `${sbw}px`
+  }
+  document.documentElement.style.overflow = "hidden"
+}
+
+onMounted(() => {
+  if (!isBootComplete.value) {
+    // Compensate the fixed header to match body content width
+    const sbw = getScrollbarWidth()
+    const header = document.querySelector('.site-header')
+    if (header && sbw > 0) {
+      header.style.paddingRight = `${sbw}px`
+    }
+  }
+})
 
 const themes = [
   { name: 'green', label: 'Green' },
