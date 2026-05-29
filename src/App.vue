@@ -12,20 +12,7 @@
           </RouterLink>
 
           <div class="hidden md:flex nav-status" aria-hidden="true">
-            <span class="status-dot"></span>
-            Reality is just another terminal
-          </div>
-
-          <div class="hidden md:flex items-center gap-6">
-            <RouterLink
-              v-for="link in navLinks"
-              :key="`desktop-${link.to}`"
-              :to="link.to"
-              class="desktop-link"
-              exact-active-class="router-link-exact-active"
-            >
-              {{ link.text }}
-            </RouterLink>
+            The reality is just another signal to decode conversion...
           </div>
 
           <div class="theme-switcher" aria-label="Color theme">
@@ -44,10 +31,20 @@
           </div>
 
           <div>
-            <button @click="toggleMenu" class="menu-button text-green-300 focus:outline-none md:block" :aria-expanded="isMenuOpen" aria-label="Open navigation">
-              <svg :class="{ 'rotate-90': isMenuOpen }" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
+            <button
+              @click="toggleMenu"
+              class="menu-button cryptic-button text-green-300 focus:outline-none md:block"
+              :class="{ 'menu-button--hidden': isMenuOpen }"
+              :disabled="isMenuOpen"
+              :aria-expanded="isMenuOpen"
+              aria-label="Open hidden signal"
+            >
+              <span class="cipher-sigil" :class="{ active: isMenuOpen }" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
             </button>
           </div>
         </div>
@@ -56,23 +53,28 @@
       <Transition name="slide-in">
         <div v-if="isMenuOpen" class="fixed top-0 right-0 h-full w-[min(22rem,86vw)] menu-panel p-5 transform transition-transform duration-300 ease-in-out">
           <div class="flex items-center justify-between mb-8">
-            <span class="text-green-300 uppercase tracking-[0.35em] text-xs">navigation</span>
-            <button @click="closeMenu" class="icon-button text-white" aria-label="Close navigation"><i class="fa text-2xl fa-times" aria-hidden="true"></i></button>
+            <span class="menu-kicker">signal / 64</span>
+            <button @click="closeMenu" class="icon-button text-white" aria-label="Close hidden signal"><i class="fa text-2xl fa-times" aria-hidden="true"></i></button>
           </div>
-          
-          <RouterLink 
-            v-for="link in navLinks" 
-            :key="link.to" 
-            :to="link.to" 
-            @click="closeMenu"
-            class="drawer-link"
-            exact-active-class="router-link-exact-active"
-          >
-            {{ link.text }}
-          </RouterLink>
+
+          <div class="easter-console" aria-label="Encrypted message">
+            <div class="sigil-large" aria-hidden="true">
+              <span>01</span>
+              <span>10</span>
+              <span>64</span>
+              <span>MX</span>
+            </div>
+
+            <div class="cipher-lines">
+              <p>&gt; carrier found at 8.04MHz</p>
+              <p>&gt; handshake: <span>READY.</span></p>
+              <p>&gt; decoded route: follow the rain</p>
+              <p>&gt; payload: portfolio hidden in plain sight</p>
+            </div>
+          </div>
 
           <div class="mt-10 panel-readout">
-            <p>Signal: open for internships, collaborations, and weirdly useful web ideas.</p>
+            <p>Transmission accepts internships, collaborations, and weirdly useful web ideas.</p>
             <a href="mailto:echo@danielpincu.com">echo@danielpincu.com</a>
           </div>
         </div>
@@ -114,7 +116,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, watch } from 'vue'
-import Cipher from './views/Cipher.vue';
 
 const isMenuOpen = ref(false)
 const themes = [
@@ -123,11 +124,6 @@ const themes = [
   { name: 'red', label: 'Red' }
 ]
 const currentTheme = ref(localStorage.getItem('mx-theme') || 'green')
-const navLinks = [
-  { to: '/', text: 'Home' },
-  // { to: '/about', text: 'About' },
-  { to: '/portfolio', text: 'Portfolio' }
-]
 
 const applyTheme = (theme) => {
   document.documentElement.dataset.theme = theme

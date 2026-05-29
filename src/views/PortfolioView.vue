@@ -1,13 +1,15 @@
 <template>
-  <div class="relative min-h-screen bg-gray-900 text-gray-100 mt-16 project-card">
+  <div class="relative min-h-screen bg-gray-900 text-gray-100 mt-16 project-card portfolio-page">
     <!-- Matrix Canvas -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <!-- <div class="overlay"></div> -->
-        <div class="glitch-text text-center text-[42px] md:text-[50px] pt-12">
+        <div class="cipher-top">
           <Cipher />
+        </div>
+        <div class="glitch-text text-center text-[42px] md:text-[50px] portfolio-heading">
           <span>Projects showcase</span>
         </div>
-    <div class="relative px-6 py-16">
+    <div class="relative px-6 portfolio-content">
       <!-- Heading -->
       
       <section class="matrix-showcase-console">
@@ -304,6 +306,34 @@ img {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.portfolio-page {
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.cipher-top {
+  position: relative;
+  z-index: 2;
+  min-height: clamp(4.5rem, 10vw, 7.5rem);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0;
+}
+
+.portfolio-heading {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.portfolio-content {
+  z-index: 2;
+  padding-top: 0;
+  padding-bottom: clamp(4rem, 7vw, 6rem);
 }
 
 

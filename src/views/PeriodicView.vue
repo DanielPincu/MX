@@ -32,25 +32,6 @@
           </div>
         </div>
       </div>
-  
-      <!-- Legend Table -->
-      <div class="legend-table">
-        <div class="legend-table__wrapper">
-          <span class="legend-table__marker social-media"></span>
-          <span class="legend-table__text">Social Media</span>
-          <span class="legend-table__marker intense-work"></span>
-          <span class="legend-table__text">Serious Work</span>
-          <span class="legend-table__marker just-trying"></span>
-          <span class="legend-table__text">Personal Development</span>
-          <span class="legend-table__marker fun-stuff"></span>
-          <span class="legend-table__text">Fun Stuff</span>
-        </div>
-        
-      </div>
-  
-      
-  
-     
     </div>
   </template>
   
@@ -180,7 +161,7 @@
       position: relative;
       width: min(100%, 1120px);
       margin: 0 auto;
-      padding: 3rem 1.25rem 1.5rem;
+      padding: clamp(3.25rem, 5vw, 4rem) clamp(1rem, 3vw, 1.75rem) clamp(2rem, 4vw, 2.75rem);
       border: 1px solid rgba(var(--mx-accent-rgb), 0.28);
       border-radius: 14px 14px 22px 22px;
       background:
@@ -239,7 +220,7 @@
       grid-template-columns: repeat(9, minmax(78px, 96px));
       grid-template-rows: repeat(4, minmax(78px, 96px));
       grid-gap: 10px;
-      margin: auto;
+      margin: 0 auto;
       max-width: 1200px;
       justify-content: center;
   }
@@ -544,44 +525,6 @@
   
   .intense-work {
       @include matrix-category(#23ff81, #caffd8);
-  }
-  
-  .legend-table {
-      padding: 18px 15px 5px;
-      text-align: center;
-      font-size: 13px;
-      margin: 1.4em auto 0;
-
-      &__wrapper {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 0.65rem 1rem;
-      }
-
-      &__marker {
-          width: 18px;
-          height: 18px;
-          margin: 0;
-          display: inline-block;
-          vertical-align: middle;
-          border-radius: 3px;
-          border: 1px solid rgba(255, 255, 255, 0.18);
-          box-shadow: inset 0 -4px 6px rgba(0, 0, 0, 0.4);
-      }
-      &__text {
-          display: inline-block;
-          vertical-align: middle;
-          margin: 0 0.4rem 0 -0.45rem;
-          color: rgba(221, 255, 230, 0.72);
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-      }
-      &__direction {
-          display: inline-block;
-          margin: 10px 15px 10px 10px;
-          color: rgba(221, 255, 230, 0.72);
-      }
   }
   
   .empty-spacer {

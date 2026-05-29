@@ -3,41 +3,42 @@
     <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-    <div class="video-content hero-layout relative z-10 mt-28 lg:grid grid-cols-[1fr_0.9fr] items-center justify-around w-full px-5 md:px-10 gap-10">
+    <div class="video-content hero-layout relative z-10 mt-[6.35rem] flex items-center justify-center w-full px-5 md:px-10">
       <div class="hero-copy-column flex flex-col justify-center items-center">
         <div class="hero-construct" aria-hidden="true">
-          <span class="rail rail-left">LOAD "PORTFOLIO",8,1 READY. RUN</span>
-          <span class="rail rail-right">38911 BASIC BYTES FREE SYS 49152</span>
+          <span class="matrix-conduit matrix-conduit-top"></span>
+          <span class="matrix-conduit matrix-conduit-left"></span>
+          <span class="matrix-conduit matrix-conduit-right"></span>
+          <span class="matrix-node matrix-node-tl"></span>
+          <span class="matrix-node matrix-node-tr"></span>
+          <span class="matrix-node matrix-node-bl"></span>
+          <span class="matrix-node matrix-node-br"></span>
         </div>
         <div class="hero-terminal">
           
-          <div class="hero-lock-readout" aria-hidden="true">
-            <span>**** COMMODORE 64 BASIC V2 ****</span>
-            <strong>READY.</strong>
-          </div>
-          <div class="hero-c64-badge" aria-hidden="true">
-            <span>64</span>
-            <p>personal computer</p>
-          </div>
+          
+          
           <!-- <p class="text-3xl pb-10">{{ greeting }}</p> -->
 
           <Typing class="text-3xl md:text-4xl"/>
 
           <!-- <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p> -->
-          <div class="glitch-text text-center lg:text-left text-[36px] md:text-[48px] leading-tight">
+          <div class="glitch-text text-center text-[36px] md:text-[48px] leading-tight">
               <span>Welcome to <br class="md:hidden block"> The Matrix</span>
           </div>
-          <div class="hero-c64-prompt" aria-hidden="true">
-            <span>READY.</span>
-            <strong>RUN</strong>
+
+          <div class="hero-tv-dock">
+            <Glitch class="hero-tv" />
           </div>
+
+        
           
           
         </div>
         <div class="hero-stats">
           
         </div>
-        <div class="hero-actions flex flex-row gap-5 md:gap-10 my-10">
+        <div class="hero-actions flex flex-row gap-5 md:gap-10 my-4 md:my-6">
           <a href="#projects"><button class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 2xl:px-0 rounded-full w-[100px] md:w-48">
             <span><span class="md:inline-block hidden">See</span> projects</span>
             <div class="liquid"></div>
@@ -59,18 +60,15 @@
 
         </div>
       </div>
-      
-        <Glitch class="w-full max-w-sm md:max-w-none md:w-full md:pl-5" />
-      
     </div>
   </section>
 
 
-  <AboutView class="project-card my-32" />
+  <AboutView class="project-card site-section" />
 
 
 
-  <section id="expertise" class="py-20 relative project-card">
+  <section id="expertise" class="site-section section-pad relative project-card">
     <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise2"></div>
     <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
@@ -94,7 +92,7 @@
 
 
 
-  <section id="hobbies" class="my-32 bg-gray-900 project-card relative">
+  <section id="hobbies" class="site-section bg-gray-900 project-card relative">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise3"></div>
     <!-- <div class="overlay2"></div> -->
@@ -104,7 +102,7 @@
           <span>Hobbies and Interests</span>
         </div>
 
-      <div class="hobby-ticker overflow-hidden mb-32">
+      <div class="hobby-ticker overflow-hidden">
         <div class="hobby-ticker-content space-x-8 inline-block">
           <div v-for="hobby in hobbies" :key="hobby.name" class="hobby-item bg-opacity-60 project-card bg-gray-800 p-6 rounded-lg text-center inline-block flex-shrink-0 w-64">
             <i :class="['fas', hobby.icon, 'text-4xl mb-4']"></i>
@@ -112,13 +110,15 @@
           </div>
         </div>
       </div>
-       <div class="hidden xl:block">
+       <div class="hidden xl:block periodic-section">
 
-        <div class="glitch-text pb-10 pt-20 text-center text-[50px]">
+        <div class="glitch-text periodic-title text-center text-[50px]">
           <span>My Internet periodic table</span>
           <p class="text-green-600 text-sm">How I spend my time online? <br> That's a 400 Bad Request question</p>
         </div>
-        <PeriodicView />
+        <div class="periodic-wrap">
+          <PeriodicView />
+        </div>
        </div>
     </div>
   </section>
@@ -127,7 +127,7 @@
 
 
 
-  <PortfolioView id="projects" class="mt-32" />
+  <PortfolioView id="projects" class="site-section-top" />
 
   
 
@@ -477,10 +477,40 @@ onUnmounted(() => {
    background-color: rgba(255,255,255,.1); /* Optional background for visibility */
 }
 
+.site-section {
+  margin-block: clamp(4.5rem, 8vw, 7rem);
+}
+
+.site-section-top {
+  margin-top: clamp(4.5rem, 8vw, 7rem);
+}
+
+.section-pad {
+  padding-block: clamp(4rem, 7vw, 6rem);
+}
+
+.periodic-section {
+  margin-top: clamp(4rem, 7vw, 6rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.periodic-title {
+  padding-top: 0;
+  padding-bottom: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+.periodic-title p {
+  margin-top: 0.55rem;
+}
+
+.periodic-wrap {
+  padding-inline: clamp(1rem, 3vw, 2rem);
+}
+
 .hero-layout {
-  max-width: 1540px;
+  max-width: min(96vw, 1320px);
   margin-inline: auto;
-  min-height: calc(100vh - 5rem);
+  min-height: calc(100dvh - 6rem);
   position: relative;
   align-content: center;
   isolation: isolate;
@@ -520,7 +550,7 @@ onUnmounted(() => {
 
 .hero-copy-column {
   position: relative;
-  width: 100%;
+  width: min(100%, 82rem);
   align-self: center;
 }
 
@@ -538,48 +568,134 @@ onUnmounted(() => {
 
 .hero-construct {
   position: absolute;
-  inset: -3.25rem -2rem -1.5rem;
+  inset: -2.35rem 0 -1.5rem;
   pointer-events: none;
   z-index: 0;
 }
 
-.rail {
+.matrix-conduit,
+.matrix-node {
   position: absolute;
-  top: 2.5rem;
-  bottom: 1rem;
-  width: 2.35rem;
+  display: block;
+  pointer-events: none;
+}
+
+.matrix-conduit {
   overflow: hidden;
-  writing-mode: vertical-rl;
-  color: rgba(var(--mx-accent-soft-rgb), 0.72);
-  font: 800 0.78rem/1 "VT323", "Courier New", monospace;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.8);
-  border: 2px solid rgba(var(--mx-accent-rgb), 0.28);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.38);
   background:
-    linear-gradient(180deg, rgba(var(--mx-warm-rgb), 0.08), transparent 16% 84%, rgba(var(--mx-blue-vibe-rgb), 0.1)),
-    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.14) 0 1px, transparent 1px 7px),
-    var(--mx-panel);
+    linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.12), rgba(0, 0, 0, 0.22), rgba(var(--mx-blue-vibe-rgb), 0.1)),
+    repeating-linear-gradient(90deg, rgba(var(--mx-accent-soft-rgb), 0.18) 0 1px, transparent 1px 11px),
+    rgba(0, 10, 4, 0.58);
   box-shadow:
-    inset 0 0 14px rgba(var(--mx-accent-rgb), 0.08),
-    0 0 24px rgba(var(--mx-accent-rgb), 0.1);
+    inset 0 0 22px rgba(var(--mx-accent-rgb), 0.14),
+    0 0 28px rgba(var(--mx-accent-rgb), 0.12);
 }
 
-.rail-left {
+.matrix-conduit::before,
+.matrix-conduit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.matrix-conduit::before {
+  opacity: 0.8;
+  background:
+    repeating-linear-gradient(180deg,
+      transparent 0 0.55rem,
+      rgba(var(--mx-accent-rgb), 0.34) 0.55rem 0.65rem,
+      transparent 0.65rem 1.35rem);
+  animation: matrix-conduit-fall 4.8s linear infinite;
+}
+
+.matrix-conduit::after {
+  background:
+    linear-gradient(180deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.65), transparent);
+  filter: blur(1px);
+  opacity: 0.52;
+  animation: matrix-conduit-sweep 3.6s ease-in-out infinite;
+}
+
+.matrix-conduit-top {
+  top: 0;
   left: 0;
-  writing-mode: vertical-lr;
-  text-align: left;
-  animation: hero-rail-left 7s steps(18, end) infinite;
+  right: 0;
+  height: 2.35rem;
 }
 
-.rail-right {
+.matrix-conduit-top::before {
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0 0.65rem,
+      rgba(var(--mx-accent-rgb), 0.36) 0.65rem 0.78rem,
+      transparent 0.78rem 1.55rem);
+  animation-name: matrix-conduit-flow;
+}
+
+.matrix-conduit-top::after {
+  background: linear-gradient(90deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.65), transparent);
+  animation-name: matrix-conduit-sweep-x;
+}
+
+.matrix-conduit-left,
+.matrix-conduit-right {
+  top: 0;
+  bottom: 0;
+  width: 2.35rem;
+}
+
+.matrix-conduit-left {
+  left: 0;
+}
+
+.matrix-conduit-right {
   right: 0;
-  animation: hero-rail-right 8s steps(20, end) infinite;
+}
+
+.matrix-conduit-right::before {
+  animation-duration: 5.8s;
+  animation-direction: reverse;
+}
+
+.matrix-node {
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.8);
+  background:
+    radial-gradient(circle, var(--mx-accent-soft) 0 18%, rgba(var(--mx-accent-rgb), 0.38) 19% 42%, transparent 43%),
+    rgba(0, 0, 0, 0.52);
+  box-shadow:
+    0 0 14px rgba(var(--mx-accent-rgb), 0.82),
+    inset 0 0 10px rgba(var(--mx-accent-rgb), 0.36);
+  animation: matrix-node-pulse 2.4s steps(2, end) infinite;
+}
+
+.matrix-node-tl {
+  top: 0.65rem;
+  left: 0.65rem;
+}
+
+.matrix-node-tr {
+  top: 0.65rem;
+  right: 0.65rem;
+}
+
+.matrix-node-bl {
+  bottom: 0.65rem;
+  left: 0.65rem;
+}
+
+.matrix-node-br {
+  bottom: 0.65rem;
+  right: 0.65rem;
 }
 
 .hero-terminal {
   position: relative;
-  width: min(100%, 56rem);
+  width: calc(100% - 4.7rem);
+  margin-inline: 2.35rem;
   border: 6px solid rgba(var(--mx-accent-rgb), 0.62);
   border-bottom: 6px solid rgba(0, 0, 0, 0.88);
   border-radius: 0;
@@ -595,7 +711,7 @@ onUnmounted(() => {
     0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
     0 0 34px rgba(var(--mx-accent-rgb), 0.14),
     18px 0 42px rgba(var(--mx-blue-vibe-rgb), 0.06);
-  padding: clamp(1.25rem, 4vw, 2rem);
+  padding: clamp(0.9rem, 2.2vw, 1.45rem);
   text-align: center;
   isolation: isolate;
   overflow: hidden;
@@ -605,10 +721,11 @@ onUnmounted(() => {
 .hero-actions {
   position: relative;
   z-index: 2;
-  width: min(100%, 56rem);
+  width: calc(100% - 4.7rem);
   justify-content: center;
   align-items: center;
   margin-inline: auto;
+  margin-block: clamp(0.65rem, 1.3vh, 1rem);
   padding-top: 0.3rem;
 }
 
@@ -707,7 +824,7 @@ onUnmounted(() => {
   background: var(--mx-panel);
   color: rgba(var(--mx-accent-soft-rgb), 0.78);
   padding: 0.45rem 0.6rem;
-  margin-bottom: 1.35rem;
+  margin-bottom: clamp(0.7rem, 1.4vh, 1rem);
   font-family: 'VT323', 'Courier New', monospace;
   font-size: clamp(0.82rem, 1.7vw, 1.12rem);
   letter-spacing: 0.16em;
@@ -727,7 +844,7 @@ onUnmounted(() => {
   grid-template-columns: auto auto;
   align-items: end;
   gap: 0.55rem;
-  margin: 0 auto 1.15rem;
+  margin: 0 auto clamp(0.55rem, 1.2vh, 0.85rem);
   color: #ffffff;
   font-family: 'VT323', 'Courier New', monospace;
   text-transform: uppercase;
@@ -737,14 +854,14 @@ onUnmounted(() => {
 .hero-c64-badge span {
   display: block;
   color: var(--mx-accent-soft);
-  font-size: clamp(2.6rem, 7vw, 5.1rem);
+  font-size: clamp(2.25rem, 5.5vw, 4.2rem);
   line-height: 0.8;
   letter-spacing: 0;
 }
 
 .hero-c64-badge p {
   color: var(--mx-accent-soft);
-  font-size: clamp(1rem, 2vw, 1.45rem);
+  font-size: clamp(0.9rem, 1.65vw, 1.22rem);
   line-height: 0.9;
   letter-spacing: 0.08em;
 }
@@ -753,7 +870,7 @@ onUnmounted(() => {
   display: flex;
   justify-content: center;
   gap: 1.2rem;
-  margin-top: 1.2rem;
+  margin-top: clamp(0.65rem, 1.4vh, 1rem);
   color: var(--mx-accent-soft);
   font-family: 'VT323', 'Courier New', monospace;
   font-size: clamp(1.15rem, 2.5vw, 1.7rem);
@@ -771,6 +888,32 @@ onUnmounted(() => {
   vertical-align: -0.1em;
   background: var(--mx-accent-soft);
   animation: c64-cursor-blink 1s steps(2, end) infinite;
+}
+
+.hero-tv-dock {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 34rem);
+  margin: clamp(0.65rem, 1.4vh, 1rem) auto 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero-tv {
+  width: min(100%, 29rem);
+  max-width: 100%;
+  padding-left: 0 !important;
+}
+
+.hero-tv :deep(.wrapper) {
+  max-width: none;
+}
+
+.hero-tv :deep(.gif-tv) {
+  margin-right: 0;
 }
 
 .hero-copy {
@@ -1058,14 +1201,53 @@ onUnmounted(() => {
   }
 }
 
-@keyframes hero-rail-left {
-  0% { transform: translateY(-10px); }
-  100% { transform: translateY(44px); }
+@keyframes matrix-conduit-fall {
+  0% { transform: translateY(-1.35rem); }
+  100% { transform: translateY(1.35rem); }
 }
 
-@keyframes hero-rail-right {
-  0% { transform: translateY(38px); }
-  100% { transform: translateY(-16px); }
+@keyframes matrix-conduit-flow {
+  0% { transform: translateX(-1.55rem); }
+  100% { transform: translateX(1.55rem); }
+}
+
+@keyframes matrix-conduit-sweep {
+  0%, 72%, 100% {
+    opacity: 0;
+    transform: translateY(-110%);
+  }
+  82% {
+    opacity: 0.7;
+  }
+  94% {
+    opacity: 0;
+    transform: translateY(110%);
+  }
+}
+
+@keyframes matrix-conduit-sweep-x {
+  0%, 68%, 100% {
+    opacity: 0;
+    transform: translateX(-110%);
+  }
+  80% {
+    opacity: 0.72;
+  }
+  94% {
+    opacity: 0;
+    transform: translateX(110%);
+  }
+}
+
+@keyframes matrix-node-pulse {
+  0%, 100% {
+    opacity: 0.62;
+    transform: scale(0.88);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 @keyframes hero-decode-jitter {
@@ -1100,9 +1282,35 @@ onUnmounted(() => {
   }
 }
 
+@media (min-width: 1024px) and (max-height: 920px) {
+  .hero-layout {
+    min-height: calc(100dvh - 5.5rem);
+  }
+
+  .hero-terminal {
+    padding: 0.85rem 1.25rem 1rem;
+  }
+
+  .hero-lock-readout {
+    padding-block: 0.32rem;
+  }
+
+  .hero-tv {
+    width: min(100%, 26rem);
+  }
+
+  .hero-actions {
+    margin-block: 0.7rem;
+  }
+}
+
 @media (max-width: 640px) {
   .hero-layout {
     min-height: auto;
+  }
+
+  .hero-tv-dock {
+    margin-top: 0.8rem;
   }
 
   .hero-copy-column::before,

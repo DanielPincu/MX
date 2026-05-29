@@ -44,19 +44,6 @@
             </div>
           </div>
   
-          <!-- Legend Table -->
-          <div class="legend-table">
-            <div class="legend-table__wrapper">
-              <span class="legend-table__marker social-media"></span>
-              <span class="legend-table__text">Social Media</span>
-              <span class="legend-table__marker intense-work"></span>
-              <span class="legend-table__text">Serious Work</span>
-              <span class="legend-table__marker just-trying"></span>
-              <span class="legend-table__text">Personal Development</span>
-              <span class="legend-table__marker fun-stuff"></span>
-              <span class="legend-table__text">Fun Stuff</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -417,32 +404,6 @@
         .title,
         .description {
             @include text-gradient(#58ac30,#a7df62);
-        }
-    }
-    
-    .legend-table {
-        padding: 15px;
-        text-align: center;
-        font-size: 15px;
-        margin: 2em auto 0;
-        &__marker {
-            width: 25px;
-            height: 25px;
-            margin: 5px 5px 10px;
-            display: inline-block;
-            vertical-align: middle;
-            box-shadow: 0.5px 1px rgba(0, 0, 0, 0.15);
-        }
-        &__text {
-            display: inline-block;
-            vertical-align: middle;
-            margin: 0 25px 5px 5px;
-            @include text-gradient(#ccc,#eee);
-        }
-        &__direction {
-            display: inline-block;
-            margin: 10px 15px 10px 10px;
-            @include text-gradient(#ccc,#eee);
         }
     }
     
