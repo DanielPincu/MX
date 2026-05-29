@@ -28,6 +28,21 @@
             </RouterLink>
           </div>
 
+          <div class="theme-switcher" aria-label="Color theme">
+            <button
+              v-for="theme in themes"
+              :key="theme.name"
+              type="button"
+              class="theme-dot"
+              :class="[`theme-dot--${theme.name}`, { active: currentTheme === theme.name }]"
+              :aria-label="`Use ${theme.label} theme`"
+              :aria-pressed="currentTheme === theme.name"
+              @click="setTheme(theme.name)"
+            >
+              <span></span>
+            </button>
+          </div>
+
           <div>
             <button @click="toggleMenu" class="menu-button text-green-300 focus:outline-none md:block" :aria-expanded="isMenuOpen" aria-label="Open navigation">
               <svg :class="{ 'rotate-90': isMenuOpen }" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -102,11 +117,29 @@ import { ref, watch } from 'vue'
 import Cipher from './views/Cipher.vue';
 
 const isMenuOpen = ref(false)
+const themes = [
+  { name: 'green', label: 'Green' },
+  { name: 'blue', label: 'Blue' },
+  { name: 'red', label: 'Red' }
+]
+const currentTheme = ref(localStorage.getItem('mx-theme') || 'green')
 const navLinks = [
   { to: '/', text: 'Home' },
   // { to: '/about', text: 'About' },
   { to: '/portfolio', text: 'Portfolio' }
 ]
+
+const applyTheme = (theme) => {
+  document.documentElement.dataset.theme = theme
+  localStorage.setItem('mx-theme', theme)
+}
+
+const setTheme = (theme) => {
+  currentTheme.value = theme
+  applyTheme(theme)
+}
+
+applyTheme(currentTheme.value)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -137,7 +170,7 @@ watch(isMenuOpen, (newValue) => {
 <style scoped>
 /* Highlight the active link with the specified color */
 .router-link-exact-active {
-  color: #F0CE00;
+  color: var(--mx-warm);
 }
 
 /* Slide-in animation */

@@ -134,7 +134,7 @@ const initPortfolioCanvas = () => {
 const drawPortfolio = () => {
   portfolioCtx.fillStyle = "rgba(0,0,0,.05)";
   portfolioCtx.fillRect(0, 0, portfolioWidth, portfolioHeight);
-  portfolioCtx.fillStyle = "#0f0";
+  portfolioCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
   portfolioCtx.font = portfolioFont + "px system-ui";
   for (let i = 0; i < portfolioDrops.length; i++) {
     let txt = portfolioChars[Math.floor(Math.random() * portfolioChars.length)];
@@ -172,7 +172,7 @@ button {
   position: relative;
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-  border: 1px solid rgba(32, 255, 128, 0.42);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.42);
   background: rgba(0, 0, 0, 0.55);
 }
 
@@ -186,11 +186,11 @@ button {
   gap: 2rem;
   align-items: end;
   padding: 3rem 0 2rem;
-  border-bottom: 1px solid rgba(32, 255, 128, 0.28);
+  border-bottom: 1px solid rgba(var(--mx-accent-rgb), 0.28);
 }
 
 .detail-kicker {
-  color: #f0ce00;
+  color: var(--mx-warm);
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 0.82rem;
@@ -201,7 +201,7 @@ button {
   font-size: clamp(2.4rem, 7vw, 6rem);
   line-height: 0.95;
   color: #fff;
-  text-shadow: 0 0 24px rgba(32, 255, 128, 0.38);
+  text-shadow: 0 0 24px rgba(var(--mx-accent-rgb), 0.38);
 }
 
 .detail-lead {
@@ -229,8 +229,8 @@ button {
 }
 
 .primary-action {
-  background: linear-gradient(135deg, #0f8f3f, #2266ff);
-  box-shadow: 0 0 24px rgba(32, 255, 128, 0.22);
+  background: linear-gradient(135deg, #0f8f3f, var(--mx-blue-vibe));
+  box-shadow: 0 0 24px rgba(var(--mx-accent-rgb), 0.22);
 }
 
 .secondary-action {
@@ -240,7 +240,7 @@ button {
 .primary-action:hover,
 .secondary-action:hover {
   transform: translateY(-2px);
-  border-color: #f0ce00;
+  border-color: var(--mx-warm);
 }
 
 .detail-layout {
@@ -259,9 +259,9 @@ button {
 }
 
 .project-dossier {
-  border: 1px solid rgba(32, 255, 128, 0.36);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.36);
   background: rgba(0, 13, 5, 0.76);
-  box-shadow: inset 0 0 24px rgba(32, 255, 128, 0.08);
+  box-shadow: inset 0 0 24px rgba(var(--mx-accent-rgb), 0.08);
   padding: 1.25rem;
   display: grid;
   gap: 1.2rem;
@@ -270,7 +270,7 @@ button {
 
 .project-dossier span {
   display: block;
-  color: #8fffb8;
+  color: var(--mx-accent-soft);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -291,16 +291,16 @@ button {
 .detail-tech em {
   font-style: normal;
   color: #f3ffd8;
-  border: 1px solid rgba(240, 206, 0, 0.42);
+  border: 1px solid rgba(var(--mx-warm-rgb), 0.42);
   padding: 0.3rem 0.55rem;
   font-size: 0.78rem;
-  background: rgba(240, 206, 0, 0.08);
+  background: rgba(var(--mx-warm-rgb), 0.08);
 }
 
 .gallery-title,
 .mobile-gallery h2 {
   color: #fff;
-  text-shadow: 0 0 18px rgba(32, 255, 128, 0.5);
+  text-shadow: 0 0 18px rgba(var(--mx-accent-rgb), 0.5);
 }
 
 .mobile-gallery {
@@ -309,7 +309,7 @@ button {
 
 .mobile-gallery img {
   width: 100%;
-  border: 1px solid rgba(32, 255, 128, 0.38);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.38);
   object-fit: cover;
   aspect-ratio: 16 / 10;
 }

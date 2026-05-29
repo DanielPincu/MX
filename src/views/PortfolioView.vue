@@ -140,6 +140,9 @@ const calculateColumns = () => {
 const renderMatrix = () => {
   const canvas = matrixCanvas.value;
   const matrix = canvas.getContext("2d");
+  const styles = getComputedStyle(document.documentElement);
+  const accent = styles.getPropertyValue("--mx-accent").trim() || "rgba(168, 255, 200, 1)";
+  const soft = styles.getPropertyValue("--mx-accent-soft").trim() || "rgba(168, 255, 200, 1)";
 
   matrix.fillStyle = "rgba(2, 2, 4, 0.04)";
   matrix.fillRect(0, 0, canvas.width, canvas.height);
@@ -149,11 +152,11 @@ const renderMatrix = () => {
   for (let i = 0; i < rows.length; i++) {
     let randChar = getRandomChar();
 
-    matrix.fillStyle = "rgba(168, 255, 200, 1)";
+    matrix.fillStyle = soft;
     matrix.fillText(randChar, i * FONT_SIZE, rows[i][0] * FONT_SIZE);
 
     if (rows[i][1] && rows[i][1] !== "") {
-      matrix.fillStyle = "rgba(0, 143, 17, 1)";
+      matrix.fillStyle = accent;
       matrix.fillText(
         rows[i][1],
         i * FONT_SIZE,
@@ -321,18 +324,18 @@ a {
   width: min(96vw, 1720px);
   margin: 0 auto;
   padding: 3rem 1.25rem 1.4rem;
-  border: 1px solid rgba(35, 255, 129, 0.28);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.28);
   border-radius: 14px 14px 22px 22px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.028), transparent 22%),
-    repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.015) 0 1px, transparent 1px 5px),
-    radial-gradient(circle at 50% 0%, rgba(35, 255, 129, 0.08), transparent 46%),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.015) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 50% 0%, rgba(var(--mx-accent-rgb), 0.08), transparent 46%),
     linear-gradient(180deg, rgba(16, 21, 16, 0.72), rgba(2, 4, 2, 0.54) 74%);
   backdrop-filter: blur(1px);
   box-shadow:
     inset 0 1rem 1.2rem rgba(0, 0, 0, 0.5),
     0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
-    0 0 28px rgba(35, 255, 129, 0.08);
+    0 0 28px rgba(var(--mx-accent-rgb), 0.08);
   contain: layout paint;
 }
 
@@ -341,11 +344,11 @@ a {
   position: absolute;
   top: 0.9rem;
   right: 1.25rem;
-  color: rgba(35, 255, 129, 0.52);
+  color: rgba(var(--mx-accent-rgb), 0.52);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  text-shadow: 0 0 10px rgba(35, 255, 129, 0.55);
+  text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.55);
 }
 
 .showcase-console-header {
@@ -363,27 +366,27 @@ a {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 999px;
-  background: #23ff81;
-  box-shadow: 0 0 12px rgba(35, 255, 129, 0.7);
+  background: var(--mx-accent);
+  box-shadow: 0 0 12px rgba(var(--mx-accent-rgb), 0.7);
 }
 
 .showcase-console-header p {
-  color: rgba(143, 255, 184, 0.62);
+  color: rgba(var(--mx-accent-soft-rgb), 0.62);
   font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  text-shadow: 0 0 9px rgba(35, 255, 129, 0.32);
+  text-shadow: 0 0 9px rgba(var(--mx-accent-rgb), 0.32);
 }
 
 .category-dock {
-  border-bottom: 1px solid rgba(35, 255, 129, 0.14);
+  border-bottom: 1px solid rgba(var(--mx-accent-rgb), 0.14);
   padding-bottom: 1.25rem;
 }
 
 .category-button {
-  border: 1px solid rgba(143, 255, 184, 0.22);
+  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.22);
   border-bottom: 4px solid rgba(0, 0, 0, 0.86);
-  color: rgba(202, 255, 216, 0.86);
+  color: rgba(var(--mx-accent-soft-rgb), 0.86);
   background: linear-gradient(180deg, #172219, #071009 58%, #030603);
   padding: 0.72rem 1rem 0.58rem;
   border-radius: 7px 7px 11px 11px;
@@ -400,9 +403,9 @@ a {
 .category-button:hover,
 .category-button.active {
   transform: translateY(-2px);
-  border-color: rgba(240, 206, 0, 0.78);
+  border-color: rgba(var(--mx-warm-rgb), 0.78);
   background:
-    linear-gradient(180deg, rgba(240, 206, 0, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(var(--mx-warm-rgb), 0.12), transparent 42%),
     linear-gradient(180deg, #1b1c12, #071009 58%, #030603);
   color: #fff7aa;
 }
@@ -412,18 +415,18 @@ a {
   min-width: 225px;
   min-height: 430px;
   overflow: hidden;
-  border: 1px solid rgba(143, 255, 184, 0.18);
+  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.18);
   border-bottom: 6px solid rgba(0, 0, 0, 0.9);
   border-radius: 8px 8px 14px 14px;
   background:
-    linear-gradient(180deg, rgba(35, 255, 129, 0.055), transparent 34%),
+    linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.055), transparent 34%),
     linear-gradient(180deg, rgba(20, 27, 21, 0.78), rgba(5, 7, 5, 0.66) 72%);
   backdrop-filter: blur(0.5px);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     inset 0 -0.5rem 0.65rem rgba(0, 0, 0, 0.72),
     0 0.22rem 0 rgba(0, 0, 0, 0.9),
-    0 0 10px rgba(35, 255, 129, 0.06);
+    0 0 10px rgba(var(--mx-accent-rgb), 0.06);
   transition: transform 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
   isolation: isolate;
   contain: paint;
@@ -435,7 +438,7 @@ a {
   inset: 0;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.32) 42%, rgba(0, 0, 0, 0.9) 100%),
-    repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.035) 0 1px, transparent 1px 5px);
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.035) 0 1px, transparent 1px 5px);
   z-index: 1;
   pointer-events: none;
 }
@@ -447,7 +450,7 @@ a {
   left: 50%;
   z-index: 3;
   width: min(82%, 18rem);
-  border: 1px solid rgba(240, 206, 0, 0.6);
+  border: 1px solid rgba(var(--mx-warm-rgb), 0.6);
   background: rgba(0, 8, 3, 0.84);
   color: #fff7aa;
   font-size: 0.72rem;
@@ -457,7 +460,7 @@ a {
   padding: 0.62rem 0.75rem;
   opacity: 0;
   transform: translate(-50%, -50%) scaleX(0.55);
-  box-shadow: 0 0 18px rgba(240, 206, 0, 0.18);
+  box-shadow: 0 0 18px rgba(var(--mx-warm-rgb), 0.18);
   pointer-events: none;
 }
 
@@ -473,7 +476,7 @@ a {
   position: absolute;
   width: 2.1rem;
   height: 2.1rem;
-  border-color: rgba(240, 206, 0, 0.9);
+  border-color: rgba(var(--mx-warm-rgb), 0.9);
 }
 
 .project-corners span:nth-child(1) {
@@ -513,11 +516,11 @@ a {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  border-top: 1px solid rgba(35, 255, 129, 0.2);
-  border-bottom: 1px solid rgba(35, 255, 129, 0.2);
+  border-top: 1px solid rgba(var(--mx-accent-rgb), 0.2);
+  border-bottom: 1px solid rgba(var(--mx-accent-rgb), 0.2);
   background: rgba(0, 8, 3, 0.72);
   padding: 0.4rem 0.55rem;
-  color: rgba(202, 255, 216, 0.72);
+  color: rgba(var(--mx-accent-soft-rgb), 0.72);
   font-size: 0.62rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -535,7 +538,7 @@ a {
   position: absolute;
   inset: 0.75rem;
   bottom: 8.5rem;
-  border: 1px solid rgba(143, 255, 184, 0.12);
+  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.12);
   border-radius: 5px;
   overflow: hidden;
   background: rgba(3, 6, 3, 0.66);
@@ -553,15 +556,15 @@ a {
 
 .project-frame::before {
   background:
-    linear-gradient(90deg, transparent, rgba(202, 255, 216, 0.32), transparent),
-    repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.12) 0 1px, transparent 1px 5px);
+    linear-gradient(90deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.32), transparent),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.12) 0 1px, transparent 1px 5px);
   transform: translateX(-120%);
 }
 
 .project-frame::after {
   background:
-    linear-gradient(90deg, rgba(35, 255, 129, 0.18), transparent 14% 86%, rgba(240, 206, 0, 0.18)),
-    repeating-linear-gradient(90deg, transparent 0 16px, rgba(35, 255, 129, 0.18) 17px 18px);
+    linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.18), transparent 14% 86%, rgba(var(--mx-warm-rgb), 0.18)),
+    repeating-linear-gradient(90deg, transparent 0 16px, rgba(var(--mx-accent-rgb), 0.18) 17px 18px);
   mix-blend-mode: screen;
 }
 
@@ -605,9 +608,9 @@ a {
 
 .project-meta span,
 .tech-row span {
-  border: 1px solid rgba(143, 255, 184, 0.22);
+  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.22);
   background: rgba(0, 8, 3, 0.82);
-  color: rgba(202, 255, 216, 0.82);
+  color: rgba(var(--mx-accent-soft-rgb), 0.82);
   padding: 0.3rem 0.55rem;
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -631,7 +634,7 @@ a {
 }
 
 .project__content p {
-  color: rgba(202, 255, 216, 0.68);
+  color: rgba(var(--mx-accent-soft-rgb), 0.68);
   text-align: center;
   margin-top: 0.5rem;
   text-transform: uppercase;
@@ -649,12 +652,12 @@ a {
 
 .project:hover {
   transform: translateY(-4px);
-  border-color: rgba(240, 206, 0, 0.72);
+  border-color: rgba(var(--mx-warm-rgb), 0.72);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -0.5rem 0.65rem rgba(0, 0, 0, 0.62),
     0 0.22rem 0 rgba(0, 0, 0, 0.9),
-    0 0 18px rgba(35, 255, 129, 0.14);
+    0 0 18px rgba(var(--mx-accent-rgb), 0.14);
   animation: matrix-card-warp 680ms steps(2, end);
 }
 
@@ -695,9 +698,9 @@ a {
 .project:hover h2 {
   animation: title-glitch 620ms steps(2, end);
   text-shadow:
-    2px 0 rgba(35, 255, 129, 0.8),
-    -2px 0 rgba(240, 206, 0, 0.65),
-    0 0 14px rgba(35, 255, 129, 0.55);
+    2px 0 rgba(var(--mx-accent-rgb), 0.8),
+    -2px 0 rgba(var(--mx-warm-rgb), 0.65),
+    0 0 14px rgba(var(--mx-accent-rgb), 0.55);
 }
 
 

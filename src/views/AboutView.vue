@@ -63,7 +63,7 @@ const initMatrixCanvas = () => {
 const drawMatrix = () => {
   matrixCtx.fillStyle = "rgba(0,0,0,.02)";
   matrixCtx.fillRect(0, 0, matrixWidth, matrixHeight);
-  matrixCtx.fillStyle = "#0f0";
+  matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
   matrixCtx.font = matrixFont + "px system-ui";
   for (let i = 0; i < matrixDrops.length; i++) {
     let txt = matrixChars[Math.floor(Math.random() * matrixChars.length)];

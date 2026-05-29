@@ -181,17 +181,17 @@
       width: min(100%, 1120px);
       margin: 0 auto;
       padding: 3rem 1.25rem 1.5rem;
-      border: 1px solid rgba(35, 255, 129, 0.28);
+      border: 1px solid rgba(var(--mx-accent-rgb), 0.28);
       border-radius: 14px 14px 22px 22px;
       background:
           linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 22%),
-          repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.02) 0 1px, transparent 1px 5px),
-          radial-gradient(circle at 50% 0%, rgba(35, 255, 129, 0.12), transparent 44%),
+          repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.02) 0 1px, transparent 1px 5px),
+          radial-gradient(circle at 50% 0%, rgba(var(--mx-accent-rgb), 0.12), transparent 44%),
           linear-gradient(180deg, #101510, #020402 74%);
       box-shadow:
           inset 0 1rem 1.2rem rgba(0, 0, 0, 0.78),
           0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
-          0 0 34px rgba(35, 255, 129, 0.1);
+          0 0 34px rgba(var(--mx-accent-rgb), 0.1);
       contain: layout paint;
   }
 
@@ -200,11 +200,11 @@
       position: absolute;
       top: 0.9rem;
       right: 1.25rem;
-      color: rgba(35, 255, 129, 0.52);
+      color: rgba(var(--mx-accent-rgb), 0.52);
       font-size: 0.72rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(35, 255, 129, 0.55);
+      text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.55);
   }
 
   .periodic-console-header {
@@ -222,16 +222,16 @@
       width: 0.5rem;
       height: 0.5rem;
       border-radius: 999px;
-      background: #23ff81;
-      box-shadow: 0 0 12px rgba(35, 255, 129, 0.7);
+      background: var(--mx-accent);
+      box-shadow: 0 0 12px rgba(var(--mx-accent-rgb), 0.7);
   }
 
   .periodic-console-header p {
-      color: rgba(143, 255, 184, 0.62);
+      color: rgba(var(--mx-accent-soft-rgb), 0.62);
       font-size: 0.62rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      text-shadow: 0 0 9px rgba(35, 255, 129, 0.32);
+      text-shadow: 0 0 9px rgba(var(--mx-accent-rgb), 0.32);
   }
   
   .periodic-table {
@@ -248,7 +248,7 @@
       position: relative;
       z-index: 1;
       cursor: default;
-      border: 1px solid rgba(143, 255, 184, 0.18);
+      border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.18);
       border-bottom: 5px solid rgba(0, 0, 0, 0.9);
       border-radius: 7px 7px 12px 12px;
       background: linear-gradient(180deg, #172219, #071009 55%, #030603);
@@ -256,14 +256,14 @@
           inset 0 1px 0 rgba(255, 255, 255, 0.08),
           inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.7),
           0 0.18rem 0 rgba(0, 0, 0, 0.9),
-          0 0 8px rgba(35, 255, 129, 0.06);
+          0 0 8px rgba(var(--mx-accent-rgb), 0.06);
       transition: transform 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
       contain: paint;
 
       .periodic-element-inner {
           position: relative;
           background: transparent;
-          border: 1px solid rgba(143, 255, 184, 0.08);
+          border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.08);
           border-radius: 5px 5px 9px 9px;
           padding: 8px 10px;
           width: 100%;
@@ -283,15 +283,15 @@
 
       .periodic-element-inner::before {
           background:
-              linear-gradient(90deg, transparent, rgba(202, 255, 216, 0.34), transparent),
-              repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.12) 0 1px, transparent 1px 5px);
+              linear-gradient(90deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.34), transparent),
+              repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.12) 0 1px, transparent 1px 5px);
           transform: translateX(-120%);
       }
 
       .periodic-element-inner::after {
           background:
-              linear-gradient(90deg, rgba(35, 255, 129, 0.16), transparent 14% 86%, rgba(240, 206, 0, 0.16)),
-              repeating-linear-gradient(90deg, transparent 0 12px, rgba(35, 255, 129, 0.16) 13px 14px);
+              linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.16), transparent 14% 86%, rgba(var(--mx-warm-rgb), 0.16)),
+              repeating-linear-gradient(90deg, transparent 0 12px, rgba(var(--mx-accent-rgb), 0.16) 13px 14px);
       }
 
       .element-corners {
@@ -306,7 +306,7 @@
           position: absolute;
           width: 16px;
           height: 16px;
-          border-color: rgba(240, 206, 0, 0.9);
+          border-color: rgba(var(--mx-warm-rgb), 0.9);
       }
 
       .element-corners span:nth-child(1) {
@@ -346,11 +346,11 @@
           display: flex;
           justify-content: space-between;
           gap: 0.4rem;
-          border-top: 1px solid rgba(35, 255, 129, 0.22);
-          border-bottom: 1px solid rgba(35, 255, 129, 0.22);
+          border-top: 1px solid rgba(var(--mx-accent-rgb), 0.22);
+          border-bottom: 1px solid rgba(var(--mx-accent-rgb), 0.22);
           background: rgba(0, 8, 3, 0.76);
           padding: 0.25rem 0.35rem;
-          color: rgba(202, 255, 216, 0.72);
+          color: rgba(var(--mx-accent-soft-rgb), 0.72);
           font-size: 0.48rem;
           letter-spacing: 0.12em;
           line-height: 1;
@@ -399,7 +399,7 @@
           line-height: 1.4;
           padding: 10px;
           margin: 0 0 0 -50px;
-          border: 1px solid rgba(35, 255, 129, 0.35);
+          border: 1px solid rgba(var(--mx-accent-rgb), 0.35);
           border-radius: 4px;
           text-align: center;
           box-shadow: 0 14px 26px rgba(0, 0, 0, 0.55);
@@ -408,12 +408,12 @@
       &:hover,
       &:focus-visible {
           transform: translateY(-4px);
-          border-color: rgba(240, 206, 0, 0.7);
+          border-color: rgba(var(--mx-warm-rgb), 0.7);
           box-shadow:
               inset 0 1px 0 rgba(255, 255, 255, 0.12),
               inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.62),
               0 0.18rem 0 rgba(0, 0, 0, 0.9),
-              0 0 16px rgba(35, 255, 129, 0.18);
+              0 0 16px rgba(var(--mx-accent-rgb), 0.18);
           z-index: 10;
           animation: periodic-tile-warp 680ms steps(2, end);
 
@@ -436,9 +436,9 @@
           .title {
               animation: periodic-title-glitch 620ms steps(2, end);
               text-shadow:
-                  2px 0 rgba(35, 255, 129, 0.8),
-                  -2px 0 rgba(240, 206, 0, 0.65),
-                  0 0 14px rgba(35, 255, 129, 0.55);
+                  2px 0 rgba(var(--mx-accent-rgb), 0.8),
+                  -2px 0 rgba(var(--mx-warm-rgb), 0.65),
+                  0 0 14px rgba(var(--mx-accent-rgb), 0.55);
           }
 
           .description,

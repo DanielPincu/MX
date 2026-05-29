@@ -6,14 +6,18 @@
     <div class="video-content hero-layout relative z-10 mt-28 lg:grid grid-cols-[1fr_0.9fr] items-center justify-around w-full px-5 md:px-10 gap-10">
       <div class="hero-copy-column flex flex-col justify-center items-center">
         <div class="hero-construct" aria-hidden="true">
-          <span class="rail rail-left">010110 WAKE UP 101001 FOLLOW THE WHITE RABBIT</span>
-          <span class="rail rail-right">KNOCK KNOCK 011001 OPERATOR TRACE 110101</span>
+          <span class="rail rail-left">LOAD "PORTFOLIO",8,1 READY. RUN</span>
+          <span class="rail rail-right">38911 BASIC BYTES FREE SYS 49152</span>
         </div>
         <div class="hero-terminal">
           
           <div class="hero-lock-readout" aria-hidden="true">
-            <span>signal acquired</span>
-            <strong>operator online</strong>
+            <span>**** COMMODORE 64 BASIC V2 ****</span>
+            <strong>READY.</strong>
+          </div>
+          <div class="hero-c64-badge" aria-hidden="true">
+            <span>64</span>
+            <p>personal computer</p>
           </div>
           <!-- <p class="text-3xl pb-10">{{ greeting }}</p> -->
 
@@ -22,6 +26,10 @@
           <!-- <p class="text-xl inline-block pb-2 pr-2">{{ introText }}</p> -->
           <div class="glitch-text text-center lg:text-left text-[36px] md:text-[48px] leading-tight">
               <span>Welcome to <br class="md:hidden block"> The Matrix</span>
+          </div>
+          <div class="hero-c64-prompt" aria-hidden="true">
+            <span>READY.</span>
+            <strong>RUN</strong>
           </div>
           
           
@@ -287,7 +295,7 @@ const initCanvas = () => {
 const draw = () => {
   $.fillStyle = "rgba(0,0,0,.015)";
   $.fillRect(0, 0, W, H);
-  $.fillStyle = "#0f0";
+  $.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
   $.font = font + "px system-ui";
   for (let i = 0; i < arr.length; i++) {
     let txt = matrix[Math.floor(Math.random() * matrix.length)];
@@ -318,7 +326,7 @@ const initMatrixCanvasHobbies = () => {
 const drawMatrixHobbies = () => {
   matrixCtxHobbies.fillStyle = "rgba(0,0,0,.02)";
   matrixCtxHobbies.fillRect(0, 0, matrixWidthHobbies, matrixHeightHobbies);
-  matrixCtxHobbies.fillStyle = "#0f0";
+  matrixCtxHobbies.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
   matrixCtxHobbies.font = `${matrixFontHobbies}px system-ui`;
   for (let i = 0; i < matrixDropsHobbies.length; i++) {
     let txt = matrixCharsHobbies[Math.floor(Math.random() * matrixCharsHobbies.length)];
@@ -351,7 +359,7 @@ const initExpertiseMatrixCanvas = () => {
 const drawExpertiseMatrixFrame = () => {
   expertiseMatrixCtx.fillStyle = 'rgba(0,0,0,.02)';
   expertiseMatrixCtx.fillRect(0, 0, expertiseMatrixWidth, expertiseMatrixHeight);
-  expertiseMatrixCtx.fillStyle = '#00ff00';
+  expertiseMatrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
   expertiseMatrixCtx.font = `${expertiseMatrixFont}px system-ui`;
   for (let i = 0; i < expertiseMatrixDrops.length; i++) {
     let txt = expertiseCharsMatrixStr[Math.floor(Math.random() * expertiseCharsMatrixStr.length)];
@@ -392,16 +400,23 @@ onUnmounted(() => {
 
 .glitch-text {
   position: relative;
-  font-family: 'Courier New', monospace;
+  font-family: 'VT323', 'Courier New', monospace;
   font-weight: bold;
-  color: green;
-  animation: glitch-jerkwhole 5s infinite;
+  color: var(--mx-accent-soft);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  animation: c64-type-flicker 4.8s steps(2, end) infinite;
 }
 
 .glitch-text span {
-  color: green;
-  filter: blur(2px);
-  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
+  color: var(--mx-accent-soft);
+  filter: none;
+  text-shadow:
+    3px 0 0 rgba(0, 82, 38, 0.9),
+    -3px 0 0 rgba(255, 255, 255, 0.12),
+    0 0 18px rgba(var(--mx-accent-rgb), 0.58),
+    0 0 32px rgba(var(--mx-blue-vibe-rgb), 0.18);
+  animation: c64-character-shift 2.6s steps(2, end) infinite;
 }
 
 .glitch-scanline {
@@ -409,7 +424,7 @@ onUnmounted(() => {
   height: 4px;
   margin-bottom: 5px;
   opacity: 0.15;
-  background: rgba(0, 255, 0, 0.1);
+  background: rgba(var(--mx-accent-rgb), 0.12);
 }
 
 @keyframes glitch-blur {
@@ -422,11 +437,36 @@ onUnmounted(() => {
   51% { transform: translateX(0); }
 }
 
+@keyframes c64-character-shift {
+  0%, 89%, 100% { transform: translate(0, 0); }
+  90% { transform: translate(3px, 0); }
+  92% { transform: translate(-2px, 1px); }
+  94% { transform: translate(0, 0); }
+}
+
+@keyframes c64-type-flicker {
+  0%, 82%, 100% { opacity: 1; }
+  84% { opacity: 0.76; }
+  86% { opacity: 1; }
+}
+
+@keyframes c64-cursor-blink {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
+}
+
 
 
 .video-banner {
    position: relative;
    overflow: hidden;
+   background: var(--mx-deep);
+}
+
+.video-banner > canvas {
+  z-index: 1;
+  opacity: 0.92;
+  mix-blend-mode: screen;
 }
 .absolute {
    position: absolute;
@@ -438,10 +478,12 @@ onUnmounted(() => {
 }
 
 .hero-layout {
-  max-width: 1500px;
+  max-width: 1540px;
   margin-inline: auto;
-  min-height: calc(100vh - 7rem);
+  min-height: calc(100vh - 5rem);
   position: relative;
+  align-content: center;
+  isolation: isolate;
 }
 
 .hero-layout::before,
@@ -453,25 +495,25 @@ onUnmounted(() => {
 }
 
 .hero-layout::before {
-  inset: -7rem calc(50% - 50vw) -3rem;
+  inset: -9rem calc(50% - 50vw) -5rem;
   border: 0;
   background:
-    linear-gradient(115deg, rgba(35, 255, 129, 0.08), transparent 34% 66%, rgba(35, 255, 129, 0.055)),
-    radial-gradient(circle at 74% 48%, rgba(40, 116, 255, 0.12), transparent 28%),
-    radial-gradient(circle at 63% 54%, rgba(255, 57, 57, 0.07), transparent 34%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.78), transparent 18% 82%, rgba(0, 0, 0, 0.88)),
-    repeating-linear-gradient(90deg, transparent 0 32px, rgba(35, 255, 129, 0.035) 33px 34px);
+    radial-gradient(circle at 72% 42%, rgba(var(--mx-accent-rgb), 0.18), transparent 24rem),
+    radial-gradient(circle at 22% 60%, rgba(var(--mx-blue-vibe-rgb), 0.12), transparent 25rem),
+    linear-gradient(180deg, rgba(0, 18, 7, 0.62), rgba(var(--mx-accent-rgb), 0.12) 48%, rgba(0, 8, 3, 0.62)),
+    repeating-linear-gradient(0deg, rgba(var(--mx-accent-soft-rgb), 0.04) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(90deg, transparent 0 32px, rgba(var(--mx-accent-rgb), 0.045) 33px 34px);
   box-shadow:
     inset 0 0 130px rgba(0, 0, 0, 0.62),
-    0 0 90px rgba(35, 255, 129, 0.09),
-    0 0 60px rgba(40, 116, 255, 0.06);
+    0 0 90px rgba(var(--mx-accent-rgb), 0.1),
+    0 0 60px rgba(var(--mx-blue-vibe-rgb), 0.06);
 }
 
 .hero-layout::after {
-  inset: -7rem calc(50% - 50vw) -3rem;
+  inset: -9rem calc(50% - 50vw) -5rem;
   background:
-    linear-gradient(90deg, transparent, rgba(202, 255, 216, 0.08), transparent),
-    repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.018) 0 1px, transparent 1px 6px);
+    linear-gradient(90deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.1), transparent),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.024) 0 1px, transparent 1px 6px);
   filter: blur(1px);
   opacity: 0.76;
 }
@@ -486,10 +528,10 @@ onUnmounted(() => {
   content: "";
   position: absolute;
   inset: -1rem -0.75rem;
-  border: 1px solid rgba(35, 255, 129, 0.1);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.18);
   background:
-    linear-gradient(90deg, transparent, rgba(35, 255, 129, 0.045), transparent),
-    repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.018) 0 1px, transparent 1px 5px);
+    linear-gradient(90deg, transparent, rgba(var(--mx-accent-rgb), 0.06), transparent),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.024) 0 1px, transparent 1px 5px);
   opacity: 0.78;
   pointer-events: none;
 }
@@ -508,19 +550,19 @@ onUnmounted(() => {
   width: 2.35rem;
   overflow: hidden;
   writing-mode: vertical-rl;
-  color: rgba(143, 255, 184, 0.62);
-  font: 800 0.72rem/1 "Courier New", monospace;
+  color: rgba(var(--mx-accent-soft-rgb), 0.72);
+  font: 800 0.78rem/1 "VT323", "Courier New", monospace;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  text-shadow: 0 0 10px rgba(35, 255, 129, 0.8);
-  border: 1px solid rgba(35, 255, 129, 0.24);
+  text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.8);
+  border: 2px solid rgba(var(--mx-accent-rgb), 0.28);
   background:
-    linear-gradient(180deg, rgba(240, 206, 0, 0.1), transparent 16% 84%, rgba(40, 116, 255, 0.12)),
-    repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.12) 0 1px, transparent 1px 7px),
-    rgba(0, 8, 3, 0.38);
+    linear-gradient(180deg, rgba(var(--mx-warm-rgb), 0.08), transparent 16% 84%, rgba(var(--mx-blue-vibe-rgb), 0.1)),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.14) 0 1px, transparent 1px 7px),
+    var(--mx-panel);
   box-shadow:
-    inset 0 0 14px rgba(35, 255, 129, 0.08),
-    0 0 24px rgba(35, 255, 129, 0.08);
+    inset 0 0 14px rgba(var(--mx-accent-rgb), 0.08),
+    0 0 24px rgba(var(--mx-accent-rgb), 0.1);
 }
 
 .rail-left {
@@ -538,22 +580,21 @@ onUnmounted(() => {
 .hero-terminal {
   position: relative;
   width: min(100%, 56rem);
-  border: 1px solid rgba(35, 255, 129, 0.5);
+  border: 6px solid rgba(var(--mx-accent-rgb), 0.62);
   border-bottom: 6px solid rgba(0, 0, 0, 0.88);
-  border-radius: 2px 2px 18px 18px;
+  border-radius: 0;
   background:
-    linear-gradient(90deg, rgba(255, 57, 57, 0.12), transparent 22% 78%, rgba(40, 116, 255, 0.12)),
+    linear-gradient(90deg, rgba(var(--mx-warm-rgb), 0.08), transparent 22% 78%, rgba(var(--mx-blue-vibe-rgb), 0.1)),
     linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 22%),
-    repeating-linear-gradient(180deg, rgba(35, 255, 129, 0.018) 0 1px, transparent 1px 5px),
-    radial-gradient(circle at 50% 0%, rgba(35, 255, 129, 0.12), transparent 52%),
-    linear-gradient(180deg, rgba(0, 22, 8, 0.74), rgba(0, 0, 0, 0.58));
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.028) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 50% 0%, rgba(var(--mx-accent-rgb), 0.18), transparent 52%),
+    linear-gradient(180deg, var(--mx-panel), rgba(0, 0, 0, 0.58));
   box-shadow:
     inset 0 1rem 1.2rem rgba(0, 0, 0, 0.56),
     inset 0 -0.55rem 0.75rem rgba(0, 0, 0, 0.7),
     0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
-    0 0 34px rgba(35, 255, 129, 0.1),
-    -18px 0 42px rgba(255, 57, 57, 0.06),
-    18px 0 42px rgba(40, 116, 255, 0.08);
+    0 0 34px rgba(var(--mx-accent-rgb), 0.14),
+    18px 0 42px rgba(var(--mx-blue-vibe-rgb), 0.06);
   padding: clamp(1.25rem, 4vw, 2rem);
   text-align: center;
   isolation: isolate;
@@ -579,8 +620,8 @@ onUnmounted(() => {
   width: min(62%, 26rem);
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgba(240, 206, 0, 0.54), rgba(35, 255, 129, 0.38), transparent);
-  box-shadow: 0 0 14px rgba(240, 206, 0, 0.18);
+  background: linear-gradient(90deg, transparent, rgba(var(--mx-warm-rgb), 0.42), rgba(var(--mx-accent-rgb), 0.42), transparent);
+  box-shadow: 0 0 14px rgba(var(--mx-accent-rgb), 0.18);
 }
 
 .hero-terminal::before,
@@ -593,20 +634,20 @@ onUnmounted(() => {
 
 .hero-terminal::before {
   background:
-    linear-gradient(90deg, transparent, rgba(202, 255, 216, 0.18), transparent),
-    repeating-linear-gradient(90deg, transparent 0 44px, rgba(35, 255, 129, 0.028) 45px 46px);
+    linear-gradient(90deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.2), transparent),
+    repeating-linear-gradient(90deg, transparent 0 44px, rgba(var(--mx-accent-rgb), 0.04) 45px 46px);
   transform: translateX(-100%);
   opacity: 0;
   animation: hero-source-sweep 7s ease-in-out infinite;
 }
 
 .hero-terminal::after {
-  border: 1px solid rgba(143, 255, 184, 0.12);
+  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.16);
   inset: 0.55rem;
   border-radius: 0 0 12px 12px;
   box-shadow:
-    inset 12px 0 20px rgba(255, 57, 57, 0.07),
-    inset -12px 0 20px rgba(40, 116, 255, 0.07);
+    inset 12px 0 20px rgba(var(--mx-warm-rgb), 0.05),
+    inset -12px 0 20px rgba(var(--mx-blue-vibe-rgb), 0.07);
 }
 
 .hero-terminal > * {
@@ -661,23 +702,75 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  border-top: 1px solid rgba(35, 255, 129, 0.2);
-  border-bottom: 1px solid rgba(35, 255, 129, 0.2);
-  background: rgba(0, 8, 3, 0.54);
-  color: rgba(202, 255, 216, 0.72);
+  border-top: 2px solid rgba(var(--mx-accent-rgb), 0.28);
+  border-bottom: 2px solid rgba(var(--mx-accent-rgb), 0.28);
+  background: var(--mx-panel);
+  color: rgba(var(--mx-accent-soft-rgb), 0.78);
   padding: 0.45rem 0.6rem;
   margin-bottom: 1.35rem;
-  font-size: 0.62rem;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: clamp(0.82rem, 1.7vw, 1.12rem);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   animation: hero-decode-jitter 4.4s steps(2, end) infinite;
   box-shadow:
-    inset 5px 0 0 rgba(255, 57, 57, 0.28),
-    inset -5px 0 0 rgba(40, 116, 255, 0.3);
+    inset 5px 0 0 rgba(var(--mx-warm-rgb), 0.2),
+    inset -5px 0 0 rgba(var(--mx-blue-vibe-rgb), 0.22);
 }
 
 .hero-lock-readout strong {
-  color: #fff7aa;
+  color: var(--mx-accent-soft);
+}
+
+.hero-c64-badge {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  align-items: end;
+  gap: 0.55rem;
+  margin: 0 auto 1.15rem;
+  color: #ffffff;
+  font-family: 'VT323', 'Courier New', monospace;
+  text-transform: uppercase;
+  text-shadow: 3px 0 0 rgba(0, 50, 22, 0.9);
+}
+
+.hero-c64-badge span {
+  display: block;
+  color: var(--mx-accent-soft);
+  font-size: clamp(2.6rem, 7vw, 5.1rem);
+  line-height: 0.8;
+  letter-spacing: 0;
+}
+
+.hero-c64-badge p {
+  color: var(--mx-accent-soft);
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  line-height: 0.9;
+  letter-spacing: 0.08em;
+}
+
+.hero-c64-prompt {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+  color: var(--mx-accent-soft);
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: clamp(1.15rem, 2.5vw, 1.7rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 2px 0 0 rgba(0, 50, 22, 0.92);
+}
+
+.hero-c64-prompt strong::after {
+  content: "";
+  display: inline-block;
+  width: 0.65em;
+  height: 0.95em;
+  margin-left: 0.3em;
+  vertical-align: -0.1em;
+  background: var(--mx-accent-soft);
+  animation: c64-cursor-blink 1s steps(2, end) infinite;
 }
 
 .hero-copy {
