@@ -6,17 +6,17 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted, watch } from 'vue'
+import { ref, inject, onMounted, onUnmounted, watch } from 'vue'
 import { getAudioContext, isAudioReady } from '@/modules/audioContext.js'
 
 const bootComplete = inject('bootComplete', ref(false))
+const isVisible = ref(true)
+let observer = null
 
 const sentences = [
+  'Hello, stranger!',
   'My name is Daniel Pincu',
-  'I\'m a web developer',
-  'I build digital experiences',
-  'Code · radio · pixels',
-  'Full-stack & signal processor'
+  'Welcome to The Matrix!'
 ]
 const displayedText = ref('')
 const isTyping = ref(false)
@@ -30,6 +30,8 @@ let lastKeyclickAt = 0
 
 const playKeyclick = () => {
   try {
+    if (!isVisible.value) return
+
     const now = performance.now()
     if (now - lastKeyclickAt < 260) return
     lastKeyclickAt = now
@@ -116,7 +118,9 @@ const typeSentence = (index) => {
     } else {
       isTyping.value = false
       showCursor.value = true
-      // Pause, then erase and go to next sentence
+      // If this is the last sentence, keep it displayed forever
+      if (sentenceIndex === sentences.length - 1) return
+      // Otherwise pause, then erase and go to next
       pauseTimeout = setTimeout(() => {
         eraseSentence(sentence.length)
       }, 2200)
@@ -153,8 +157,26 @@ watch(bootComplete, (val) => {
 })
 
 onMounted(() => {
+  // Observe visibility to silence sound when scrolled away
+  const el = document.querySelector('.retro-typewriter')
+  if (el) {
+    observer = new IntersectionObserver(
+      ([entry]) => { isVisible.value = entry.isIntersecting },
+      { threshold: 0 }
+    )
+    observer.observe(el)
+  }
+
   if (bootComplete.value) {
     startTypingCycle()
+  }
+})
+
+onUnmounted(() => {
+  clearAllTimeouts()
+  if (observer) {
+    observer.disconnect()
+    observer = null
   }
 })
 </script>

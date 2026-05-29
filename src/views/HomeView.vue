@@ -1034,7 +1034,7 @@ onUnmounted(() => {
   position: relative;
   display: grid;
   place-items: center;
-  width: min(100%, 34rem);
+  width: min(100%, 72rem);
   margin: clamp(0.65rem, 1.4vh, 1rem) auto 0;
   padding: 0;
   border: 0;
@@ -1043,7 +1043,7 @@ onUnmounted(() => {
 }
 
 .hero-tv {
-  width: min(100%, 29rem);
+  width: min(100%, 66rem);
   max-width: 100%;
   padding-left: 0 !important;
 }
@@ -1436,7 +1436,7 @@ onUnmounted(() => {
   }
 
   .hero-tv {
-    width: min(100%, 26rem);
+    width: min(100%, 56rem);
   }
 
   .hero-actions {

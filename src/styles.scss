@@ -22,13 +22,13 @@
 }
 
 .matrix-keyboard-rig::before {
-  content: "The Matrix has you...";
+  content: "No way out";
   position: absolute;
   top: 7.1rem;
   right: 1.6rem;
   z-index: 4;
   color: rgba(var(--mx-accent-rgb), 0.52);
-  font-size: 0.72rem;
+  font-size: 0.5rem;
   letter-spacing: 0.22em;
   text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.75);
 }
