@@ -135,14 +135,14 @@
 
 
 
-  <section id="hobbies" class="site-section bg-gray-900 project-card relative">
+  <section id="hobbies" class="site-section bg-gray-900 project-card relative hidden md:block">
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise3"></div>
     <!-- <div class="overlay2"></div> -->
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
         <div class="glitch-text pb-10 pt-20 text-center text-[50px]">
-          <span>Hobbies and Interests</span>
+          <span>My Internet periodic table</span>
         </div>
 
       <div class="hobby-ticker overflow-hidden">
@@ -156,8 +156,7 @@
        <div class="hidden xl:block periodic-section">
 
         <div class="glitch-text periodic-title text-center text-[50px]">
-          <span>My Internet periodic table</span>
-          <p class="text-green-600 text-sm">How I spend my time online? <br> That's a 400 Bad Request question</p>
+          <p class="text-green-600 text-[24px]">How I spend my time online? <br> That's a 400 Bad Request question 😂</p>
         </div>
         <div class="periodic-wrap">
           <PeriodicView />
@@ -250,64 +249,32 @@ const expertise = ref([
     description: "With a passion for crafting seamless user experiences, I specialize in building responsive and interactive web applications. My expertise in HTML, CSS/Tailwind/Bootstrap and TypeScript allows me to bring designs to life while ensuring optimal performance across devices."
   },
   {
-    title: "VueJS",
-    description: "As a Vue.js developer, I leverage its powerful features to create dynamic single-page applications. My passion for Vue's simplicity enables me to build scalable and maintainable codebases that enhance user engagement and satisfaction."
+    title: "VueJS & React",
+    description: "I build modern interfaces with Vue and continue expanding my React skills, focusing on reusable components, state management, routing, and performance for scalable single-page applications."
   },
   {
-    title: "React",
+    title: "Backend & Databases",
     description:
-      "Alongside Vue, I am also learning React. I use it to practice building reusable components, managing state, and improving performance in front-end applications. I am also exploring React’s ecosystem, such as hooks and routing, to better understand how modern web apps are structured.",
-  },
-  {
-    title: "PHP",
-    description:
-      "As part of my studies, I am learning PHP to understand backend logic, and create dynamic web applications. I am also exploring how PHP connects with databases and can be used to build custom features for websites.",
-  },
-  {
-    title: "MySQL",
-    description:
-      "I am starting to learn MySQL to manage data, write queries, and connect databases with web applications. My focus is on understanding relational databases, how tables link together, and how to use MySQL with PHP for dynamic content.",
-  },
-  
-  
-  {
-    title: "MongoDB",
-    description:
-      "I am learning MongoDB to understand NoSQL databases and document-based data modeling. I explore how MongoDB differs from relational databases and how it can be used for flexible and scalable data storage in modern applications.",
-  },
-  {
-    title: "API Development",
-    description:
-      "I am learning how to design and build APIs to enable communication between frontend and backend systems. My focus is on understanding REST principles, handling requests and responses, and building reusable endpoints for web applications.",
+      "I work with PHP and data layers across MySQL and MongoDB, building a solid foundation in backend logic, relational and document modeling, and dynamic data-driven features.",
   },
 
   {
-    title: "GitHub",
+    title: "APIs & Integrations",
     description:
-      "I always use GitHub as part of my workflow for version control and collaboration. By practicing commits, branches, and pull requests, I am building confidence in managing code and contributing to projects in a structured way.",
+      "I design and consume REST APIs to connect frontend and backend systems, focusing on clean endpoints, reliable request handling, and reusable integration patterns.",
   },
 
   {
-    title: "DevOps",
+    title: "DevOps & GitHub Workflow",
     description:
-      "I am exploring DevOps concepts such as deployment, environment configuration, and automation. Through practice, I am learning how development and operations work together to deliver reliable and scalable applications.",
+      "I use GitHub daily with branches and pull requests, while exploring deployment, environment setup, and automation to ship reliable applications.",
   },
 
   {
-    title: "WordPress",
-    description: "With extensive experience in WordPress, I develop custom themes tailored to meet client needs. My knowledge of PHP allows me to extend functionality and optimize performance, ensuring a robust and user-friendly experience."
-  },
-
-  {
-    title: "IoT",
+    title: "WordPress & Customization",
     description:
-      "I am exploring the Internet of Things by connecting sensors and microcontrollers to the web. Through small projects, I am learning how hardware and software work together, building a foundation for creating smart and connected applications.",
-  },
-  {
-    title: "AI Enthusiast",
-    description:
-      "I am curious about artificial intelligence and how it shapes the future of web development and beyond. As an enthusiast, I enjoy experimenting with AI tools, learning about machine learning concepts, and exploring how AI can enhance digital experiences.",
-  },
+      "I build and customize WordPress themes and features, using PHP to extend functionality and optimize user experience for real-world projects.",
+  }
 
 ]);
 
