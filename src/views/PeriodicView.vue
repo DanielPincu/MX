@@ -1,4 +1,4 @@
-<template>
+  <template>
     <div class="matrix-periodic-console">
       <div class="periodic-console-header">
         <span></span>
@@ -6,17 +6,23 @@
       </div>
     
       <div class="periodic-table">
-        <div class="empty-spacer-1"></div>
+        <div class="empty-spacer-1 signal-bridge" aria-live="polite">
+          <p class="signal-bridge__label">neural relay</p>
+          <p class="signal-bridge__msg" :class="{ 'is-active': signalActive }">{{ activeSignalMessage }}</p>
+        </div>
         <div class="empty-spacer-2"></div>
-  
+
         <!-- Periodic Elements -->
         <div
           v-for="(item, index) in elements"
           :key="index"
-          :class="item.classes"
+          :class="[item.classes, { 'is-selected': activeElementIndex === index }]"
           :data-description="item.description"
           class="periodic-element"
           tabindex="0"
+          @click="emitSignal(item, index)"
+          @keydown.enter.prevent="emitSignal(item, index)"
+          @keydown.space.prevent="emitSignal(item, index)"
         >
           <div class="periodic-element-inner">
             <div class="atomic-number">{{ String(index + 1).padStart(2, '0') }}</div>
@@ -36,6 +42,146 @@
   </template>
   
   <script setup>
+  import { ref, onMounted, onUnmounted } from 'vue';
+
+  const cyberpunkSignals = [
+    "NEON SPIKE DETECTED. rerouting telemetry through black-ice tunnel.",
+    "CITY GRID PING. ghost packets are dancing on line zero.",
+    "AUGMENT ONLINE. optic feed synced with rain-slick skyline.",
+    "CORPO TRACE FLAGGED. scrubbing fingerprints from the datastream.",
+    "QUANTUM WHISPER. chrome ghosts confirmed in sector seven."
+  ];
+
+  const activeSignalMessage = ref("Click an element to intercept a signal...");
+  const signalActive = ref(false);
+  const activeElementIndex = ref(null);
+  let signalTimeoutId = null;
+  let audioContext = null;
+  let lastClickSoundAt = 0;
+  const isSoundMuted = ref(localStorage.getItem('mx-sound-muted') === 'true');
+  let removeSoundToggleListener = null;
+
+  const getAudioContext = () => {
+    if (!audioContext) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioContext = AudioContextClass ? new AudioContextClass() : null;
+    }
+    return audioContext;
+  };
+
+  const unlockAudio = () => {
+    const context = getAudioContext();
+    if (context?.state === 'suspended') {
+      context.resume();
+    }
+  };
+
+  const playPeriodicClickSound = () => {
+    if (isSoundMuted.value) return;
+
+    const now = performance.now();
+    if (now - lastClickSoundAt < 260) return;
+    lastClickSoundAt = now;
+
+    const context = getAudioContext();
+    if (!context || context.state === 'suspended') return;
+
+    const oscillator = context.createOscillator();
+    const toneGain = context.createGain();
+    const noiseGain = context.createGain();
+    const masterGain = context.createGain();
+    const toneFilter = context.createBiquadFilter();
+    const noiseFilter = context.createBiquadFilter();
+    const start = context.currentTime;
+    const duration = 0.28;
+    const baud = 45.45;
+    const bitLength = 1 / baud;
+    const mark = 2125;
+    const space = 2295;
+    const pattern = [1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1];
+    const noiseBuffer = context.createBuffer(1, context.sampleRate * duration, context.sampleRate);
+    const noiseData = noiseBuffer.getChannelData(0);
+    const noiseSource = context.createBufferSource();
+
+    for (let i = 0; i < noiseData.length; i++) {
+      noiseData[i] = (Math.random() * 2 - 1) * 0.32;
+    }
+
+    oscillator.type = 'square';
+    pattern.forEach((bit, index) => {
+      oscillator.frequency.setValueAtTime(bit ? mark : space, start + index * bitLength);
+    });
+
+    toneFilter.type = 'bandpass';
+    toneFilter.frequency.setValueAtTime(2210, start);
+    toneFilter.Q.setValueAtTime(10, start);
+
+    noiseFilter.type = 'bandpass';
+    noiseFilter.frequency.setValueAtTime(1800, start);
+    noiseFilter.Q.setValueAtTime(0.8, start);
+
+    toneGain.gain.setValueAtTime(0.0001, start);
+    toneGain.gain.exponentialRampToValueAtTime(0.035, start + 0.012);
+    toneGain.gain.setValueAtTime(0.035, start + duration - 0.045);
+    toneGain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+    noiseGain.gain.setValueAtTime(0.0001, start);
+    noiseGain.gain.exponentialRampToValueAtTime(0.014, start + 0.01);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+
+    masterGain.gain.setValueAtTime(0.85, start);
+
+    noiseSource.buffer = noiseBuffer;
+    oscillator.connect(toneFilter);
+    toneFilter.connect(toneGain);
+    toneGain.connect(masterGain);
+    noiseSource.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(masterGain);
+    masterGain.connect(context.destination);
+
+    noiseSource.start(start);
+    noiseSource.stop(start + duration);
+    oscillator.start(start);
+    oscillator.stop(start + duration);
+  };
+
+  const emitSignal = (item, index) => {
+    playPeriodicClickSound();
+    activeElementIndex.value = index;
+    const randomSignal = cyberpunkSignals[Math.floor(Math.random() * cyberpunkSignals.length)];
+    activeSignalMessage.value = `[${item.title}] ${randomSignal}`;
+    signalActive.value = false;
+    if (signalTimeoutId) clearTimeout(signalTimeoutId);
+
+    signalTimeoutId = setTimeout(() => {
+      signalActive.value = true;
+    }, 20);
+  };
+
+  onMounted(() => {
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
+
+    const onSoundToggle = (event) => {
+      isSoundMuted.value = !!event?.detail?.muted;
+    };
+    window.addEventListener('mx-sound-toggle', onSoundToggle);
+    removeSoundToggleListener = () => {
+      window.removeEventListener('mx-sound-toggle', onSoundToggle);
+    };
+  });
+
+  onUnmounted(() => {
+    if (signalTimeoutId) clearTimeout(signalTimeoutId);
+    window.removeEventListener('pointerdown', unlockAudio);
+    window.removeEventListener('keydown', unlockAudio);
+    if (removeSoundToggleListener) {
+      removeSoundToggleListener();
+      removeSoundToggleListener = null;
+    }
+  });
+
   const elements = [
     { title: 'Li', descriptionText: 'LinkedIn', classes: 'social-media', description: "I'm only on here to reject invitations 😂" },
     { title: 'Fb', descriptionText: 'Facebook', classes: 'social-media', description: "Only so I don't miss out on my friends' milestones 🤷" },
@@ -177,12 +323,12 @@
   }
 
   .matrix-periodic-console::before {
-      content: "The Matrix has you...";
+      content: "Ex Why Zed";
       position: absolute;
       top: 0.9rem;
       right: 1.25rem;
       color: rgba(var(--mx-accent-rgb), 0.52);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.55);
@@ -434,6 +580,29 @@
       }
   }
 
+  .periodic-element.is-selected {
+      transform: translateY(-4px);
+      border-color: rgba(var(--mx-warm-rgb), 0.7);
+      box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.12),
+          inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.62),
+          0 0.18rem 0 rgba(0, 0, 0, 0.9),
+          0 0 16px rgba(var(--mx-accent-rgb), 0.18);
+      z-index: 10;
+  }
+
+  .periodic-element.is-selected .element-readout {
+      opacity: 1;
+      transform: translateY(0);
+  }
+
+  .periodic-element.is-selected .title {
+      text-shadow:
+          2px 0 rgba(var(--mx-accent-rgb), 0.8),
+          -2px 0 rgba(var(--mx-warm-rgb), 0.65),
+          0 0 14px rgba(var(--mx-accent-rgb), 0.55);
+  }
+
   @keyframes periodic-tile-warp {
       0% { transform: translateY(-4px) skewX(0deg); }
       14% { transform: translateY(-6px) skewX(-2deg); }
@@ -536,6 +705,50 @@
           grid-column: 1;
           grid-row: 4;
       }
+  }
+
+  .signal-bridge {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.6rem;
+      border: 1px solid rgba(var(--mx-accent-rgb), 0.26);
+      border-radius: 8px;
+      background:
+          linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.08), rgba(var(--mx-blue-vibe-rgb), 0.1)),
+          rgba(0, 8, 3, 0.72);
+      box-shadow:
+          inset 0 0 14px rgba(var(--mx-accent-rgb), 0.1),
+          0 0 16px rgba(var(--mx-accent-rgb), 0.08);
+  }
+
+  .signal-bridge__label {
+      margin: 0;
+      font: 700 0.52rem/1 "Courier New", monospace;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(var(--mx-accent-soft-rgb), 0.68);
+  }
+
+  .signal-bridge__msg {
+      margin: 0;
+      min-height: 2.25rem;
+      font: 700 0.62rem/1.25 "Courier New", monospace;
+      letter-spacing: 0.04em;
+      color: rgba(var(--mx-accent-soft-rgb), 0.76);
+      text-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.25);
+  }
+
+  .signal-bridge__msg.is-active {
+      animation: signal-bridge-flicker 420ms steps(2, end);
+  }
+
+  @keyframes signal-bridge-flicker {
+      0% { opacity: 0.35; transform: translateX(-2px); }
+      20% { opacity: 1; transform: translateX(1px); }
+      45% { opacity: 0.6; transform: translateX(-1px); }
+      100% { opacity: 1; transform: translateX(0); }
   }
 
   @media (max-width: 1024px) {

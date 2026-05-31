@@ -27,7 +27,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const typedText = ref('The Matrix has you...');
+const typedText = ref('There is no spoon...');
 const keyboardElement = ref(null);
 let activeKeyTimeout = null;
 let activeElement = null;

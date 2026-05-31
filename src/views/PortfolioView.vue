@@ -18,22 +18,10 @@
           <p>project transmissions / deployment archive</p>
         </div>
 
-        <!-- Category Buttons -->
-        <div class="flex justify-center gap-3 mb-12 flex-wrap category-dock">
-          <button
-            v-for="category in categories"
-            :key="category.value"
-            class="category-button"
-            :class="{ active: selectedCategory === category.value }"
-            @click="selectedCategory = category.value">
-            {{ category.label }}
-          </button>
-        </div>
-
         <!-- Portfolio Items (3 per row) -->
         <div class="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 pt-4 gap-6 portfolio-grid">
           <router-link
-            v-for="portfolioItem in filteredPortfolioItems"
+            v-for="portfolioItem in portfolioItems"
             :key="portfolioItem.id"
             :to="`/detail/${portfolioItem.id}`"
             class="project opacity-95"
@@ -88,30 +76,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import getPortfolio from '@/modules/getPortfolio';
 import HeroCipher from '../views/HeroCipher.vue';
 
 const { portfolioItems } = getPortfolio();
-const selectedCategory = ref('');
 const matrixCanvas = ref(null);
 const cipherTopRef = ref(null);
 const showCipher = ref(false);
 let cipherObserver = null;
-
-const categories = computed(() => {
-  const uniqueCategories = [...new Set(portfolioItems.value.map(item => item.category))];
-  return [
-    { label: 'All transmissions', value: '' },
-    ...uniqueCategories.map(category => ({ label: category, value: category }))
-  ];
-});
-
-const filteredPortfolioItems = computed(() => {
-  return selectedCategory.value ? 
-    portfolioItems.value.filter(item => item.category === selectedCategory.value) : 
-    portfolioItems.value;
-});
 
 // Matrix animation variables
 const FONT_SIZE = 2;

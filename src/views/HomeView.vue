@@ -106,8 +106,17 @@
 
   </section>
 
+  <nav class="section-rail hidden md:flex" aria-label="Section navigation">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#expertise">Expertise</a>
+    <a href="#hobbies">Hobbies</a>
+    <a href="#projects">Projects</a>
+  </nav>
 
-  <AboutView class="project-card site-section" />
+  <section id="about">
+    <AboutView class="project-card site-section" />
+  </section>
 
 
 
@@ -124,8 +133,13 @@
         <div v-for="(skill, index) in expertise" :key="skill.title" class="expertise-card p-6 rounded-lg project-card">
           <div class="flex justify-between items-start gap-4 mb-4">
             <h3 class="text-lg font-bold">{{ skill.title }}</h3>
-            <span class="skill-index">{{ String(index + 1).padStart(2, '0') }}</span>
+            <div class="terminal-controls-card" aria-hidden="true">
+              <span class="control-btn-card control-minimize-card">-</span>
+              <span class="control-btn-card control-maximize-card">□</span>
+              <button type="button" class="control-btn-card control-close-card" @click="triggerExpertiseEgg(index)">×</button>
+            </div>
           </div>
+          <p class="expertise-easter" :class="{ 'is-visible': !!expertiseEggs[index] }">{{ expertiseEggs[index] || ' ' }}</p>
           <p class="text-md">{{ skill.description }}</p>
         </div>
       </div>
@@ -156,7 +170,7 @@
        <div class="hidden xl:block periodic-section">
 
         <div class="glitch-text periodic-title text-center text-[50px]">
-          <p class="text-green-600 text-[24px]">How I spend my time online? <br> That's a 400 Bad Request question 😂</p>
+          <p class="text-green-600 text-[24px]">How do I spend my time online? <br>That's a 400 Bad Request kind of question 😂</p>
         </div>
         <div class="periodic-wrap">
           <PeriodicView />
@@ -277,6 +291,24 @@ const expertise = ref([
   }
 
 ]);
+const expertiseEggs = ref({});
+const expertiseEggTimeouts = {};
+
+const triggerExpertiseEgg = (index) => {
+  const messages = [
+    "CTRL+ALT+WOW",
+    "Hidden node unlocked",
+    "Nice click, Operator",
+    "Matrix handshake complete"
+  ];
+  expertiseEggs.value[index] = messages[Math.floor(Math.random() * messages.length)];
+  if (expertiseEggTimeouts[index]) {
+    clearTimeout(expertiseEggTimeouts[index]);
+  }
+  expertiseEggTimeouts[index] = setTimeout(() => {
+    expertiseEggs.value[index] = "";
+  }, 2200);
+};
 
 const canvas = ref(null);
 let animationId = null;
@@ -390,6 +422,7 @@ onUnmounted(() => {
   window.removeEventListener("resize", initMatrixCanvasHobbies);
   cancelAnimationFrame(expertiseMatrixAnimationId);
   window.removeEventListener("resize", initExpertiseMatrixCanvas);
+  Object.values(expertiseEggTimeouts).forEach((timeoutId) => clearTimeout(timeoutId));
 });
 </script>
 
@@ -446,6 +479,42 @@ onUnmounted(() => {
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+.section-rail {
+  position: fixed;
+  top: 50%;
+  right: calc(env(safe-area-inset-right, 0px) + 0.6rem);
+  transform: translateY(-50%);
+  z-index: 29;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.55rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.28);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+.section-rail a {
+  color: rgba(var(--mx-accent-soft-rgb), 0.86);
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
+}
+
+.section-rail a:hover,
+.section-rail a:focus-visible {
+  color: var(--mx-accent-soft);
+  border-color: rgba(var(--mx-accent-rgb), 0.42);
+  background: rgba(var(--mx-accent-rgb), 0.12);
 }
 
 .video-banner > canvas {
@@ -1155,22 +1224,59 @@ onUnmounted(() => {
   opacity: 0.5;
 }
 
-.expertise-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(240, 206, 0, 0.7);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.34), 0 0 24px rgba(35, 255, 129, 0.12);
-}
-
 .expertise-card p {
   color: rgba(255, 255, 255, 0.74);
   line-height: 1.7;
 }
 
-.skill-index {
-  color: rgba(240, 206, 0, 0.9);
-  border: 1px solid rgba(240, 206, 0, 0.35);
-  padding: 0.25rem 0.45rem;
+.terminal-controls-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.24);
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.control-btn-card {
+  width: 1.8rem;
+  height: 1.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(var(--mx-accent-soft-rgb), 0.9);
   font-size: 0.78rem;
+  border: 0;
+  background: transparent;
+  line-height: 1;
+  padding: 0;
+}
+
+.control-minimize-card,
+.control-maximize-card {
+  pointer-events: none;
+}
+
+.control-close-card:hover {
+  cursor: pointer;
+  background: rgba(var(--mx-warm-rgb), 0.9);
+  color: #050505;
+}
+
+.expertise-easter {
+  height: 1.15rem;
+  margin: -0.2rem 0 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mx-warm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.expertise-easter.is-visible {
+  opacity: 1;
 }
 
 /* ══════════════════════════════════════════

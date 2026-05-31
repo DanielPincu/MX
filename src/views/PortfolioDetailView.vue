@@ -5,6 +5,15 @@
       No portfolio item exists
     </div>
     <div v-else class="relative z-10">
+      <nav class="detail-rail hidden md:flex" aria-label="Project actions">
+        <a target="_blank" :href="specificPortfolioItem.link" rel="noopener" class="detail-rail__link">
+          <span>Visit project</span>
+        </a>
+        <button @click="goBack" class="detail-rail__link detail-rail__link--button" type="button">
+          <span>Go back</span>
+        </button>
+      </nav>
+
       <div class="container mx-auto px-5">
         <div class="detail-hero">
           <div>
@@ -12,14 +21,12 @@
             <h1>{{ specificPortfolioItem.title }}</h1>
             <p class="detail-lead">{{ specificPortfolioItem.description }}</p>
           </div>
-
           <div class="detail-actions">
-            <a target="_blank" :href="specificPortfolioItem.link" rel="noopener">
-              <button class="primary-action">Visit Project</button>
+            <a target="_blank" :href="specificPortfolioItem.link" rel="noopener" class="detail-nav-btn detail-nav-btn--visit">
+              <span>Visit project</span>
             </a>
-
-            <button @click="goBack" class="secondary-action">
-              Go Back
+            <button @click="goBack" class="detail-nav-btn detail-nav-btn--back" type="button">
+              <span>Go back</span>
             </button>
           </div>
         </div>
@@ -212,6 +219,51 @@ button {
   line-height: 1.75;
 }
 
+.detail-rail {
+  position: fixed;
+  top: 50%;
+  right: calc(env(safe-area-inset-right, 0px) + 0.6rem);
+  transform: translateY(-50%);
+  z-index: 29;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.55rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.28);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+.detail-rail__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 0.3rem 0.45rem;
+  color: rgba(var(--mx-accent-soft-rgb), 0.86);
+  border: 1px solid transparent;
+  background: transparent;
+  text-decoration: none;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
+}
+
+.detail-rail__link--button {
+  appearance: none;
+  cursor: pointer;
+}
+
+.detail-rail__link:hover,
+.detail-rail__link:focus-visible {
+  color: var(--mx-accent-soft);
+  border-color: rgba(var(--mx-accent-rgb), 0.42);
+  background: rgba(var(--mx-accent-rgb), 0.12);
+}
+
 .detail-actions {
   display: flex;
   flex-direction: column;
@@ -219,28 +271,40 @@ button {
   min-width: 13rem;
 }
 
-.primary-action,
-.secondary-action {
+.detail-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  border-radius: 999px;
-  padding: 0.8rem 1.3rem;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 0.72rem 1rem;
+  color: rgba(var(--mx-accent-soft-rgb), 0.9);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.34);
+  background: rgba(0, 0, 0, 0.45);
+  text-decoration: none;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
 }
 
-.primary-action {
-  background: linear-gradient(135deg, #0f8f3f, var(--mx-blue-vibe));
-  box-shadow: 0 0 24px rgba(var(--mx-accent-rgb), 0.22);
+.detail-nav-btn--visit {
+  background:
+    linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.18), rgba(var(--mx-blue-vibe-rgb), 0.14)),
+    rgba(0, 0, 0, 0.46);
 }
 
-.secondary-action {
-  background: rgba(255, 255, 255, 0.06);
+.detail-nav-btn--back {
+  background: rgba(0, 0, 0, 0.4);
 }
 
-.primary-action:hover,
-.secondary-action:hover {
-  transform: translateY(-2px);
+.detail-nav-btn:hover,
+.detail-nav-btn:focus-visible {
+  transform: translateY(-1px);
   border-color: var(--mx-warm);
+  color: var(--mx-accent-soft);
+  background-color: rgba(var(--mx-accent-rgb), 0.12);
 }
 
 .detail-layout {
