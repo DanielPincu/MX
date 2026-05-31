@@ -6,15 +6,15 @@
     <div class="terminal p-5 md:pt-10 pt-8">
       <div class="md:pb-2 pb-10">
 
-        <div class="glitch-text md:hidden block text-[50px]">
+        <div class="glitch-text md:hidden block text-[50px] pb-5">
           <span>About me</span>
         </div>
         <div class="glitch-scanline">The Matrix has you!</div>
       </div>
-      <h2 class="text-4xl md:hidden block">Hey<span class="text-4xl animate-pulsing">|</span></h2>
+      
       
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-start pb-8 md:pb-4">
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-10 items-start pb-8 md:pb-4">
         <div class="mx-4 md:mx-0">
           <article class="terminal-card">
             <div class="terminal-card__head">
@@ -36,7 +36,7 @@
             </div>
           </article>
         </div>
-        <div class="hidden md:flex justify-center items-start pt-2">
+        <div class="hidden xl:flex self-stretch justify-center items-center">
           <Keyboard />
         </div>
       </div>
@@ -100,7 +100,7 @@ onUnmounted(() => {
 const triggerEasterEgg = () => {
   const messages = [
     "ACCESS GRANTED: Follow the white rabbit...",
-    "SYSTEM OVERRIDE: There is no spoon.",
+    "SYSTEM OVERRIDE: Wake-up signal confirmed.",
     "WAKE UP, NEO... The Matrix has you.",
     "HIDDEN LOG: Reality is a beautifully rendered simulation."
   ];

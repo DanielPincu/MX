@@ -15,7 +15,7 @@
           </div>
           <div class="glitch-scanline">The Matrix has you!</div>
         </div>
-        <h2 class="text-4xl md:hidden block">Hey<span class="text-4xl animate-pulsing">|</span></h2>
+
         
   
         <div class="grid grid-cols-1">

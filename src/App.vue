@@ -55,7 +55,7 @@
             <button
               type="button"
               @click="toggleSound"
-              class="sound-toggle"
+              class="sound-toggle hidden md:inline-flex"
               :class="{ 'is-muted': isSoundMuted }"
               :aria-label="isSoundMuted ? 'Enable ambient sound' : 'Disable ambient sound'"
               :aria-pressed="!isSoundMuted"
@@ -245,7 +245,7 @@ onUnmounted(resetMenuScrollLock)
 
 .sound-toggle {
   position: relative;
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 0.45rem;
   min-width: 6.9rem;
@@ -263,6 +263,24 @@ onUnmounted(resetMenuScrollLock)
   font-family: 'VT323', 'Courier New', monospace;
   color: rgba(var(--mx-accent-soft-rgb), 0.96);
   transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+@media (min-width: 768px) {
+  .sound-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sound-toggle {
+    display: none !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .sound-toggle {
+    display: none !important;
+  }
 }
 
 .sound-toggle::before {

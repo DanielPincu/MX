@@ -25,7 +25,7 @@
             <!-- ── LEFT COLUMN: Main content 60% ── -->
             <div class="hero-left">
 
-              <div class="hero-boot hero-cipher-shell " aria-hidden="true">
+              <div class="hero-boot hero-cipher-shell hidden md:block" aria-hidden="true">
                 <HeroCipher />
               </div>
 
@@ -491,30 +491,37 @@ onUnmounted(() => {
   flex-direction: column;
   gap: 0.55rem;
   padding: 0.55rem;
-  border: 1px solid rgba(var(--mx-accent-rgb), 0.28);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.34);
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3px);
+  background:
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.035) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, rgba(2, 14, 7, 0.86), rgba(1, 6, 3, 0.88));
+  box-shadow:
+    inset 0 0 14px rgba(var(--mx-accent-rgb), 0.14),
+    0 0 16px rgba(var(--mx-accent-rgb), 0.12);
+  backdrop-filter: blur(2px);
 }
 
 .section-rail a {
-  color: rgba(var(--mx-accent-soft-rgb), 0.86);
+  color: rgba(var(--mx-accent-soft-rgb), 0.84);
   font-family: 'VT323', 'Courier New', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.11em;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0.3rem 0.45rem;
-  border: 1px solid transparent;
+  padding: 0.28rem 0.45rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.08);
   border-radius: 6px;
-  transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
+  transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease, text-shadow 0.16s ease;
 }
 
 .section-rail a:hover,
 .section-rail a:focus-visible {
   color: var(--mx-accent-soft);
-  border-color: rgba(var(--mx-accent-rgb), 0.42);
-  background: rgba(var(--mx-accent-rgb), 0.12);
+  border-color: rgba(var(--mx-accent-rgb), 0.45);
+  background:
+    linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.2), rgba(var(--mx-blue-vibe-rgb), 0.14));
+  text-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.55);
 }
 
 .video-banner > canvas {
@@ -1513,6 +1520,12 @@ onUnmounted(() => {
 
   .hero-stat-card::before {
     animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .section-rail {
+    display: none !important;
   }
 }
 
