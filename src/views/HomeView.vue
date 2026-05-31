@@ -895,13 +895,16 @@ onUnmounted(() => {
 
 .hero-tv-label {
   font-family: 'VT323', 'Courier New', monospace;
-  font-size: clamp(0.48rem, 0.65vw, 0.58rem);
-  color: rgba(var(--mx-accent-soft-rgb), 0.22);
-  letter-spacing: 0.1em;
+  font-size: clamp(0.55rem, 0.75vw, 0.7rem);
+  color: rgba(var(--mx-accent-soft-rgb), 0.55);
+  text-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.4);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
   display: block;
   text-align: center;
+  border-bottom: 1px solid rgba(var(--mx-accent-rgb), 0.18);
+  padding-bottom: 0.4rem;
 }
 
 .hero-tv-dock {

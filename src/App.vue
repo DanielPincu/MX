@@ -55,10 +55,8 @@
             <button
               @click="toggleMenu"
               class="menu-button cryptic-button text-green-300 focus:outline-none md:block"
-              :class="{ 'menu-button--hidden': isMenuOpen }"
-              :disabled="isMenuOpen"
               :aria-expanded="isMenuOpen"
-              aria-label="Open hidden signal"
+              aria-label="Toggle hidden signal"
             >
               <span class="cipher-sigil" :class="{ active: isMenuOpen }" aria-hidden="true">
                 <span></span>
