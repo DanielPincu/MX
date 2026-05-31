@@ -51,7 +51,18 @@
             </div>
           </div>
 
-          <div>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              @click="toggleSound"
+              class="sound-toggle"
+              :class="{ 'is-muted': isSoundMuted }"
+              :aria-label="isSoundMuted ? 'Enable ambient sound' : 'Disable ambient sound'"
+              :aria-pressed="!isSoundMuted"
+            >
+              <span class="sound-toggle__label">{{ isSoundMuted ? 'sound off' : 'sound on' }}</span>
+              <span class="sound-toggle__state" aria-hidden="true">{{ isSoundMuted ? '◼' : '◉' }}</span>
+            </button>
             <button
               @click="toggleMenu"
               class="menu-button cryptic-button text-green-300 focus:outline-none hidden md:grid"
@@ -139,6 +150,7 @@ import BootScreen from '@/components/BootScreen.vue'
 
 const isBootComplete = ref(sessionStorage.getItem('mx-boot-complete') === 'true')
 const isMenuOpen = ref(false)
+const isSoundMuted = ref(localStorage.getItem('mx-sound-muted') === 'true')
 
 provide('bootComplete', isBootComplete)
 
@@ -176,6 +188,18 @@ const setTheme = (theme) => {
 }
 
 applyTheme(currentTheme.value)
+
+const applySoundPreference = (muted) => {
+  localStorage.setItem('mx-sound-muted', muted ? 'true' : 'false')
+  window.dispatchEvent(new CustomEvent('mx-sound-toggle', { detail: { muted } }))
+}
+
+const toggleSound = () => {
+  isSoundMuted.value = !isSoundMuted.value
+  applySoundPreference(isSoundMuted.value)
+}
+
+applySoundPreference(isSoundMuted.value)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -217,6 +241,73 @@ onUnmounted(resetMenuScrollLock)
 .slide-in-enter-to,
 .slide-in-leave-from {
   transform: translateX(0);
+}
+
+.sound-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 6.9rem;
+  height: 2.05rem;
+  padding: 0 0.7rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.46);
+  background:
+    linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.13), rgba(0, 0, 0, 0.72)),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.09) 0 1px, transparent 1px 3px);
+  box-shadow:
+    inset 0 0 14px rgba(var(--mx-accent-rgb), 0.24),
+    0 0 14px rgba(var(--mx-accent-rgb), 0.16);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: 'VT323', 'Courier New', monospace;
+  color: rgba(var(--mx-accent-soft-rgb), 0.96);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.sound-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.22);
+  pointer-events: none;
+}
+
+.sound-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(var(--mx-accent-soft-rgb), 0.8);
+  box-shadow:
+    inset 0 0 16px rgba(var(--mx-accent-rgb), 0.28),
+    0 0 18px rgba(var(--mx-accent-rgb), 0.24);
+}
+
+.sound-toggle__label {
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.sound-toggle__state {
+  margin-left: auto;
+  font-size: 0.78rem;
+  line-height: 1;
+  color: var(--mx-accent);
+  text-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.75);
+}
+
+.sound-toggle.is-muted {
+  border-color: rgba(255, 255, 255, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.72)),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 3px);
+  color: rgba(220, 230, 224, 0.72);
+  box-shadow:
+    inset 0 0 12px rgba(255, 255, 255, 0.08),
+    0 0 10px rgba(255, 255, 255, 0.08);
+}
+
+.sound-toggle.is-muted .sound-toggle__state {
+  color: rgba(220, 230, 224, 0.65);
+  text-shadow: none;
 }
 
 </style>

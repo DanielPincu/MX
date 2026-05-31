@@ -875,7 +875,7 @@ nav a.router-link-exact-active {
     display: none;
   }
 
-  .menu-button {
+  .menu-button.cryptic-button {
     display: none !important;
   }
 }

@@ -6,32 +6,32 @@
     <div class="boot-terminal">
       <!-- Fixed header -->
       <div class="boot-header">
-        <div class="boot-title">American Megatrends</div>
-        <div class="boot-subtitle">MX v1.0.0 BIOS (ASUS TUF Z490-PLUS)</div>
+        <div class="boot-title">Welcome</div>
+        <div class="boot-subtitle">Thanks for visiting</div>
       </div>
 
       <!-- BIOS POST body -->
       <div class="boot-body">
-        <div class="boot-line" :class="memClass(0)">CPU = GenuineIntel @ 4200 MHz</div>
-        <div class="boot-line" :class="memClass(1)">Memory Test: {{ memDisplay }}K OK</div>
-        <div class="boot-line" :class="drvClass(1)">Primary Master: WDC WD5400-00AS  540MB</div>
-        <div class="boot-line" :class="drvClass(2)">Primary Slave: CD-ROM 4x Mitsumi</div>
-        <div class="boot-line" :class="drvClass(3)">Secondary Master: None</div>
-        <div class="boot-line" :class="drvClass(4)">Secondary Slave: None</div>
+        <div class="boot-line" :class="memClass(0)">User Profile: Daniel Pincu</div>
+        <div class="boot-line" :class="memClass(1)">Creativity Buffer Test: {{ memDisplay }}K OK</div>
+        <div class="boot-line" :class="drvClass(1)">Role Scan: Web Developer</div>
+        <div class="boot-line" :class="drvClass(2)">Secondary Role: API Developer Salling Group Aarhus</div>
+        <div class="boot-line" :class="drvClass(3)">Current Focus: API Development</div>
+        <div class="boot-line" :class="drvClass(4)">Status: Perpetual Learner [ACTIVE]</div>
         <div class="boot-spacer" :class="drvClass(5)"></div>
-        <div class="boot-line" :class="drvClass(5)">Floppy Drive A: 1.44 MB 3.5"</div>
-        <div class="boot-line" :class="drvClass(6)">Floppy Drive B: None</div>
+        <div class="boot-line" :class="drvClass(5)">Checking Backend Modules... [OK]</div>
+        <div class="boot-line" :class="drvClass(6)">Checking Neural Patterns... [OK]</div>
         <div class="boot-spacer" :class="drvClass(7)"></div>
-        <div class="boot-line" :class="drvClass(7)">COM1: 3F8h   COM2: 2F8h   LPT1: 378h</div>
-        <div class="boot-line" :class="drvClass(8)">PS/2 Mouse: Detected</div>
+        <div class="boot-line" :class="drvClass(7)">Checking Curiosity Layer... [OK]</div>
+        <div class="boot-line" :class="drvClass(8)">Checking Collaboration Mode... [ALWAYS]</div>
         <div class="boot-spacer" :class="drvClass(9)"></div>
-        <div class="boot-line" :class="drvClass(9)">Initializing USB Controllers...</div>
-        <div class="boot-line" :class="drvClass(10)">USB Controllers: 2 EHCI, 4 OHCI</div>
-        <div class="boot-line" :class="drvClass(11)">SATA Devices: 6 Detected</div>
+        <div class="boot-line" :class="drvClass(9)">Initializing Problem-Solving Engine...</div>
+        <div class="boot-line" :class="drvClass(10)">Checking Build Quality Controls... [OK]</div>
+        <div class="boot-line" :class="drvClass(11)">Checking Human-Centered Design... [OK]</div>
         <div class="boot-spacer" :class="drvClass(12)"></div>
-        <div class="boot-line" :class="drvClass(12)">ACPI BIOS Revision 2.0</div>
-        <div class="boot-line" :class="drvClass(13)">DMI Pool Data Updated</div>
-        <div class="boot-line" :class="drvClass(14)">NVRAM Checksum: OK</div>
+        <div class="boot-line" :class="drvClass(12)">Deploying Positive Energy... [OK]</div>
+        <div class="boot-line" :class="drvClass(13)">Portfolio Transmission Link... [ONLINE]</div>
+        <div class="boot-line" :class="drvClass(14)">Final Checksum: READY</div>
       </div>
 
       <!-- Fixed footer -->
@@ -245,7 +245,7 @@ onUnmounted(() => {
   margin-bottom: 0.15rem;
 }
 .boot-subtitle {
-  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  font-size: clamp(0.8rem, 1.35vw, 1rem);
   color: rgba(180, 180, 180, 0.65);
 }
 
