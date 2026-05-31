@@ -116,6 +116,20 @@
 
 html {
   overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+html.is-booting {
+  scrollbar-color: transparent #000;
+}
+
+html.is-booting::-webkit-scrollbar-track {
+  background: #000;
+}
+
+html.is-booting::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: 0;
 }
 
 body

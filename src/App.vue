@@ -134,43 +134,23 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ref, watch, onMounted, provide } from 'vue'
+import { ref, watch, onUnmounted, provide } from 'vue'
 import BootScreen from '@/components/BootScreen.vue'
 
 const isBootComplete = ref(sessionStorage.getItem('mx-boot-complete') === 'true')
 const isMenuOpen = ref(false)
-const siteHeaderRef = ref(null)
 
 provide('bootComplete', isBootComplete)
 
-const getScrollbarWidth = () => window.innerWidth - document.documentElement.clientWidth
+if (!isBootComplete.value) {
+  document.documentElement.classList.add('is-booting')
+}
 
 const handleBootComplete = () => {
   isBootComplete.value = true
   sessionStorage.setItem('mx-boot-complete', 'true')
-  document.documentElement.style.overflow = ""
-  document.documentElement.style.paddingRight = ""
+  document.documentElement.classList.remove('is-booting')
 }
-
-// Hide viewport scrollbar during boot and compensate so no layout shift
-if (!isBootComplete.value) {
-  const sbw = getScrollbarWidth()
-  if (sbw > 0) {
-    document.documentElement.style.paddingRight = `${sbw}px`
-  }
-  document.documentElement.style.overflow = "hidden"
-}
-
-onMounted(() => {
-  if (!isBootComplete.value) {
-    // Compensate the fixed header to match body content width
-    const sbw = getScrollbarWidth()
-    const header = document.querySelector('.site-header')
-    if (header && sbw > 0) {
-      header.style.paddingRight = `${sbw}px`
-    }
-  }
-})
 
 const rgbThemes = [
   { name: 'red', label: 'Red' },
@@ -205,22 +185,16 @@ const closeMenu = () => {
   isMenuOpen.value = false
 }
 
-// Watch for menu state changes
+const resetMenuScrollLock = () => {
+  document.body.style.overflow = ""
+  document.documentElement.classList.remove('is-booting')
+}
+
 watch(isMenuOpen, (newValue) => {
-  const getScrollbarWidth = () => {
-    return window.innerWidth - document.documentElement.clientWidth;
-  };
+  document.body.style.overflow = newValue ? "hidden" : ""
+})
 
-  const scrollbarWidth = getScrollbarWidth();
-
-  if (newValue) {
-    document.body.style.overflow = "hidden"; // Disable scrolling
-    document.body.style.paddingRight = `${scrollbarWidth}px`; // Add padding to compensate for scrollbar width
-  } else {
-    document.body.style.overflow = ""; // Restore scrolling
-    document.body.style.paddingRight = ""; // Remove padding
-  }
-});
+onUnmounted(resetMenuScrollLock)
 </script>
 
 <style scoped>
