@@ -25,11 +25,8 @@
             <!-- ── LEFT COLUMN: Main content 60% ── -->
             <div class="hero-left">
 
-              <!-- Boot sequence -->
-              <div class="hero-boot" aria-hidden="true">
-                <p class="hero-boot-line" v-for="(line, i) in bootLines" :key="i" :style="{ animationDelay: (0.15 * i) + 's' }">
-                  <span class="hero-boot-prompt">></span> {{ line }}
-                </p>
+              <div class="hero-boot hero-cipher-shell" aria-hidden="true">
+                <HeroCipher />
               </div>
 
               <!-- Typing effect -->
@@ -181,6 +178,7 @@
 <script setup>
 import Glitch from './TV.vue';
 import Typing from './Typing.vue';
+import HeroCipher from './HeroCipher.vue';
 import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
@@ -202,13 +200,6 @@ const closeAbout = () => {
 const getScrollbarWidth = () => {
   return window.innerWidth - document.documentElement.clientWidth;
 };
-
-const bootLines = ref([
-  'system.init() ................................. [OK]',
-  'user.identify() .......................... [DANIEL_PINCU]',
-  'role.decode() .............................. [WEB_DEVELOPER]',
-  'matrix.connect() ................................ [READY]',
-]);
 
 const heroStats = ref([
   { value: "10", label: "featured projects" },
@@ -842,19 +833,17 @@ onUnmounted(() => {
   margin-bottom: 0.5rem;
 }
 
-.hero-boot-line {
-  font-family: 'VT323', 'Courier New', monospace;
-  font-size: clamp(0.58rem, 0.85vw, 0.7rem);
-  color: rgba(var(--mx-accent-soft-rgb), 0.45);
-  letter-spacing: 0.06em;
-  white-space: pre;
-  opacity: 0;
-  animation: hero-fade-in 0.6s ease-out forwards;
+.hero-cipher-shell {
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.34);
+  background:
+    linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.08), rgba(0, 0, 0, 0.72)),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.05) 0 1px, transparent 1px 4px);
+  padding: 0.35rem;
 }
 
-.hero-boot-prompt {
-  color: var(--mx-accent);
-  text-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.5);
+.hero-cipher-shell :deep(.matrix-container) {
+  height: clamp(4.8rem, 9vw, 6.2rem);
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.2);
 }
 
 /* Typing effect */
@@ -1332,7 +1321,7 @@ onUnmounted(() => {
   }
 
   .hero-boot {
-    align-items: center;
+    align-items: stretch;
     width: 100%;
     max-width: 28rem;
     margin-bottom: 0.35rem;
@@ -1413,9 +1402,8 @@ onUnmounted(() => {
     font-size: 0.7rem;
   }
 
-  .hero-boot-line {
-    font-size: 0.5rem;
-    letter-spacing: 0.04em;
+  .hero-cipher-shell :deep(.matrix-container) {
+    height: 4.4rem;
   }
 
   .hero-typing {
@@ -1444,11 +1432,6 @@ onUnmounted(() => {
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-indicator {
     animation: none;
-  }
-
-  .hero-boot-line {
-    animation: none;
-    opacity: 1;
   }
 
   .hero-news-track {

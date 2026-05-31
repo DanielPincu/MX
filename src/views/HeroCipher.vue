@@ -41,7 +41,13 @@
   let nColumns = 0;
   let nRows = 0;
   let COLUMNS = [];
-  let PHONE_NUMBER = [];
+let PHONE_NUMBER = [];
+let CALL_ME_CHARS = [];
+const HERO_PHONE_NUMBER = "+4591105056";
+const CALL_ME_TEXT = "CALL ME";
+const PHONE_REVEAL_INTERVAL_MS = 1300;
+const PHONE_HOLD_MS = 9000;
+const DIGIT_STAGE_START_MS = 10550;
   let DIGIT_ANIMATION_FRAME = true;
   let takenXPos = [];
   let numXPos = 0;
@@ -60,6 +66,8 @@
   // --- Animation Timers ---
   let digitAnimationTimer = null;
   let rainAnimationTimer = null;
+  let phoneRevealTimer = null;
+  let callMeTimer = null;
   
   // --- Helper Functions (Constructors) ---
   function Cursor() {
@@ -84,12 +92,12 @@
     this.isDisplayed = true;
   }
   
-  function Number(xPos) {
-    this.numberChar = Math.floor(Math.random() * 10);
-    this.numberXPos = xPos;
-    this.numberYPos = 30;
-    this.isNumberDisplayed = false;
-  }
+function Number(xPos, char = "0") {
+  this.numberChar = char;
+  this.numberXPos = xPos;
+  this.numberYPos = 30;
+  this.isNumberDisplayed = false;
+}
   
   function Char(xPosition, yPosition, index) {
     this.char = CHARACTERS.charAt(Math.floor(Math.random() * CHARACTERS.length));
@@ -236,6 +244,13 @@
         ctx.fillText(PHONE_NUMBER[p].numberChar, PHONE_NUMBER[p].numberXPos, PHONE_NUMBER[p].numberYPos);
       }
     }
+
+    for (let i = 0; i < CALL_ME_CHARS.length; i++) {
+      if (CALL_ME_CHARS[i].isNumberDisplayed) {
+        ctx.fillStyle = PHONENUM_FILL_STYLE;
+        ctx.fillText(CALL_ME_CHARS[i].numberChar, CALL_ME_CHARS[i].numberXPos, CALL_ME_CHARS[i].numberYPos);
+      }
+    }
   
     for (let c = 0; c < COLUMNS.length; c++) {
       if (!COLUMNS[c].isDisplayed) {
@@ -263,43 +278,83 @@
     }
     return count;
   }
-  
-  function digitAnim() {
-    let digitInterval;
-    let totalDisplayedColumns;
-    let numColumnsToClear;
-  
-    drawDigits();
-  
-    totalDisplayedColumns = getNumDisplayedColumns();
-    numColumnsToClear = Math.ceil(totalDisplayedColumns / 10);
-    digitInterval = setInterval(() => {
-      if (getNumDisplayedColumns() > 0) {
-        for (let c = 0; c < numColumnsToClear && getNumDisplayedColumns() > 0; c++) {
-          let columnToClear = Math.floor(Math.random() * totalDisplayedColumns);
-          while (!COLUMNS[columnToClear].isDisplayed) {
-            columnToClear = Math.floor(Math.random() * totalDisplayedColumns);
-          }
-          COLUMNS[columnToClear].isDisplayed = false;
-        }
-  
-        let phoneNumToDisplay = Math.floor(Math.random() * PHONE_NUMBER.length);
-        while (PHONE_NUMBER[phoneNumToDisplay].isNumberDisplayed) {
-          phoneNumToDisplay = Math.floor(Math.random() * PHONE_NUMBER.length);
-        }
-        PHONE_NUMBER[phoneNumToDisplay].isNumberDisplayed = true;
-      } else {
-        clearInterval(digitInterval);
+
+  function hideNearestVisibleColumn(targetX) {
+    let nearestIndex = -1;
+    let nearestDistance = Infinity;
+
+    for (let i = 0; i < COLUMNS.length; i++) {
+      if (!COLUMNS[i].isDisplayed) continue;
+      const distance = Math.abs(COLUMNS[i].initColumnXPos - targetX);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestIndex = i;
       }
-    }, 3000);
-  }
-  
-  function initPhoneNumber() {
-    PHONE_NUMBER = [];
-    for (let p = 0, xpos = INIT_XPOS; p < 10; p++, xpos += INIT_CHARSIZE) {
-      PHONE_NUMBER[p] = new Number(xpos);
+    }
+
+    if (nearestIndex >= 0) {
+      COLUMNS[nearestIndex].isDisplayed = false;
     }
   }
+  
+  function digitAnim() {
+    drawDigits();
+
+    phoneRevealTimer = setInterval(() => {
+      const hiddenPhoneDigits = PHONE_NUMBER
+        .map((digit, index) => ({ digit, index }))
+        .filter(({ digit }) => !digit.isNumberDisplayed);
+
+      if (hiddenPhoneDigits.length > 0) {
+        const picked = hiddenPhoneDigits[Math.floor(Math.random() * hiddenPhoneDigits.length)];
+        PHONE_NUMBER[picked.index].isNumberDisplayed = true;
+        hideNearestVisibleColumn(PHONE_NUMBER[picked.index].numberXPos);
+        return;
+      }
+
+      const hiddenCallMeChars = CALL_ME_CHARS
+        .map((ch, index) => ({ ch, index }))
+        .filter(({ ch }) => !ch.isNumberDisplayed);
+
+      if (hiddenCallMeChars.length > 0) {
+        const picked = hiddenCallMeChars[Math.floor(Math.random() * hiddenCallMeChars.length)];
+        CALL_ME_CHARS[picked.index].isNumberDisplayed = true;
+        hideNearestVisibleColumn(CALL_ME_CHARS[picked.index].numberXPos);
+      }
+
+      const allDigitsShown = PHONE_NUMBER.every((digit) => digit.isNumberDisplayed);
+      const callMeShown = CALL_ME_CHARS.every((ch) => ch.isNumberDisplayed);
+      if (allDigitsShown && callMeShown) {
+        clearInterval(phoneRevealTimer);
+        callMeTimer = setTimeout(() => {
+          DIGIT_ANIMATION_FRAME = false;
+          ctx.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height);
+          for (let p = 0; p < PHONE_NUMBER.length; p++) {
+            ctx.fillStyle = PHONENUM_FILL_STYLE;
+            ctx.fillText(PHONE_NUMBER[p].numberChar, PHONE_NUMBER[p].numberXPos, PHONE_NUMBER[p].numberYPos);
+          }
+          for (let i = 0; i < CALL_ME_CHARS.length; i++) {
+            ctx.fillStyle = PHONENUM_FILL_STYLE;
+            ctx.fillText(CALL_ME_CHARS[i].numberChar, CALL_ME_CHARS[i].numberXPos, CALL_ME_CHARS[i].numberYPos);
+          }
+        }, PHONE_HOLD_MS);
+      }
+    }, PHONE_REVEAL_INTERVAL_MS);
+  }
+  
+function initPhoneNumber() {
+  PHONE_NUMBER = [];
+  CALL_ME_CHARS = [];
+  const spacing = INIT_CHARSIZE;
+  for (let p = 0, xpos = INIT_XPOS; p < HERO_PHONE_NUMBER.length; p++, xpos += spacing) {
+    PHONE_NUMBER[p] = new Number(xpos, HERO_PHONE_NUMBER.charAt(p));
+  }
+
+  const callMeStartX = INIT_XPOS + ((HERO_PHONE_NUMBER.length + 2) * spacing);
+  for (let i = 0, xpos = callMeStartX; i < CALL_ME_TEXT.length; i++, xpos += spacing) {
+    CALL_ME_CHARS[i] = new Number(xpos, CALL_ME_TEXT.charAt(i));
+  }
+}
   
   function rainAnimate() {
     let drops;
@@ -397,12 +452,7 @@
       initColumns();
       initPhoneNumber();
       digitAnim();
-    }, 10550);
-  
-    setTimeout(() => {
-      DIGIT_ANIMATION_FRAME = false;
-      typewriteNoCursorAnim("Wake up, Neo...:The Matrix has you...:Follow the white rabbit.");
-    }, 41550);
+    }, DIGIT_STAGE_START_MS);
   
     setTimeout(() => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -413,6 +463,8 @@
   
   onUnmounted(() => {
     clearTimeout(digitAnimationTimer);
+    clearInterval(phoneRevealTimer);
+    clearTimeout(callMeTimer);
     cancelAnimationFrame(rainAnimationTimer);
   });
   </script>
