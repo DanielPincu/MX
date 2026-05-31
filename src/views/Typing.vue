@@ -11,7 +11,9 @@ import { getAudioContext, isAudioReady } from '@/modules/audioContext.js'
 
 const bootComplete = inject('bootComplete', ref(false))
 const isVisible = ref(true)
+const isSoundMuted = ref(localStorage.getItem('mx-sound-muted') === 'true')
 let observer = null
+let removeSoundToggleListener = null
 
 const sentences = [
   'Hello, stranger!',
@@ -31,6 +33,7 @@ let lastKeyclickAt = 0
 const playKeyclick = () => {
   try {
     if (!isVisible.value) return
+    if (isSoundMuted.value) return
 
     const now = performance.now()
     if (now - lastKeyclickAt < 260) return
@@ -157,6 +160,14 @@ watch(bootComplete, (val) => {
 })
 
 onMounted(() => {
+  const onSoundToggle = (event) => {
+    isSoundMuted.value = !!event?.detail?.muted
+  }
+  window.addEventListener('mx-sound-toggle', onSoundToggle)
+  removeSoundToggleListener = () => {
+    window.removeEventListener('mx-sound-toggle', onSoundToggle)
+  }
+
   // Observe visibility to silence sound when scrolled away
   const el = document.querySelector('.retro-typewriter')
   if (el) {
@@ -174,6 +185,10 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearAllTimeouts()
+  if (removeSoundToggleListener) {
+    removeSoundToggleListener()
+    removeSoundToggleListener = null
+  }
   if (observer) {
     observer.disconnect()
     observer = null

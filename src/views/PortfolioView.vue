@@ -125,6 +125,8 @@ let rows = [];
 let intervalId;
 let audioContext = null;
 let lastHoverSoundAt = 0;
+const isSoundMuted = ref(localStorage.getItem('mx-sound-muted') === 'true');
+let removeSoundToggleListener = null;
 
 const getRandomChar = () => CHARS[Math.floor(Math.random() * CHARS.length)];
 
@@ -201,6 +203,10 @@ const unlockAudio = () => {
 };
 
 const playHoverSound = () => {
+  if (isSoundMuted.value) {
+    return;
+  }
+
   const now = performance.now();
 
   if (now - lastHoverSoundAt < 260) {
@@ -280,6 +286,14 @@ onMounted(() => {
   window.addEventListener('pointerdown', unlockAudio, { once: true });
   window.addEventListener('keydown', unlockAudio, { once: true });
 
+  const onSoundToggle = (event) => {
+    isSoundMuted.value = !!event?.detail?.muted;
+  };
+  window.addEventListener('mx-sound-toggle', onSoundToggle);
+  removeSoundToggleListener = () => {
+    window.removeEventListener('mx-sound-toggle', onSoundToggle);
+  };
+
   if (cipherTopRef.value) {
     cipherObserver = new IntersectionObserver(
       ([entry]) => {
@@ -296,6 +310,10 @@ onUnmounted(() => {
   window.removeEventListener("resize", calculateColumns);
   window.removeEventListener('pointerdown', unlockAudio);
   window.removeEventListener('keydown', unlockAudio);
+  if (removeSoundToggleListener) {
+    removeSoundToggleListener();
+    removeSoundToggleListener = null;
+  }
   if (cipherObserver) {
     cipherObserver.disconnect();
     cipherObserver = null;
