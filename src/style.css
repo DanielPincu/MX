@@ -869,4 +869,13 @@ nav a.router-link-exact-active {
   .nav-status {
     display: none;
   }
+
+  .mixer-group--cmyk,
+  .theme-mixer .mixer-sep {
+    display: none;
+  }
+
+  .menu-button {
+    display: none !important;
+  }
 }

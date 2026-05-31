@@ -34,7 +34,7 @@
               </button>
             </div>
             <div class="mixer-sep"></div>
-            <div class="mixer-group">
+            <div class="mixer-group mixer-group--cmyk">
               <span class="mixer-label">CMYK</span>
               <button
                 v-for="theme in cmykThemes"
@@ -54,7 +54,7 @@
           <div>
             <button
               @click="toggleMenu"
-              class="menu-button cryptic-button text-green-300 focus:outline-none md:block"
+              class="menu-button cryptic-button text-green-300 focus:outline-none hidden md:grid"
               :aria-expanded="isMenuOpen"
               aria-label="Toggle hidden signal"
             >

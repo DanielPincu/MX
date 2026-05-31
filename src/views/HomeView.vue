@@ -37,7 +37,7 @@
 
               <!-- Name headline -->
               <h1 class="hero-name">
-                <span class="hero-name-text glitch-text">Daniel Pincu</span>
+                <span class="hero-name-text hero-name-glitch -mt-8">Daniel Pincu<span aria-hidden="true">Daniel Pincu</span></span>
               </h1>
 
               <!-- Tagline -->
@@ -885,9 +885,46 @@ onUnmounted(() => {
 }
 
 .hero-name-text {
-  font-size: clamp(3rem, 7vw, 5.5rem) !important;
+  font-size: clamp(2.35rem, 5.8vw, 4.4rem) !important;
   display: block;
   text-align: left;
+}
+
+.hero-name-glitch {
+  position: relative;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-weight: 700;
+  color: var(--mx-accent);
+  letter-spacing: 0.05em;
+  text-shadow:
+    0 0 1px rgba(var(--mx-accent-soft-rgb), 0.9),
+    0 0 8px rgba(var(--mx-accent-rgb), 0.8),
+    0 0 18px rgba(var(--mx-accent-rgb), 0.5);
+  animation: hero-name-jerkwhole 6s infinite;
+}
+
+.hero-name-glitch > span {
+  position: absolute;
+  inset: 0;
+  color: var(--mx-accent);
+  filter: none;
+  pointer-events: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+  animation: hero-name-jerk 80ms infinite;
+}
+
+@keyframes hero-name-jerk {
+  50% { transform: translateX(1.2px); }
+  51% { transform: translateX(0); }
+}
+
+@keyframes hero-name-jerkwhole {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(0.2px, -0.2px); }
+  40% { transform: translate(-0.2px, 0.2px); }
+  60% { transform: translate(0.2px, 0); }
+  80% { transform: translate(-0.2px, 0); }
 }
 
 /* Tagline */
@@ -1251,50 +1288,102 @@ onUnmounted(() => {
    ══════════════════════════════════════════ */
 
 @media (max-width: 820px) {
+  .hero-copy-column {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  .hero-construct {
+    left: 0;
+    right: 0;
+  }
+
+  .hero-layout {
+    min-height: auto;
+    padding-top: 0.4rem;
+    padding-bottom: 2.8rem;
+  }
+
+  .hero-terminal {
+    width: calc(100% - 1.8rem);
+    margin-inline: 0.9rem;
+    border-width: 4px;
+    padding: 0.8rem;
+  }
+
+  .hero-terminal::after {
+    inset: 0.35rem;
+  }
+
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.1rem;
   }
 
   .hero-left {
     text-align: center;
     align-items: center;
+    gap: 0.7rem;
   }
 
   .hero-name-text {
     text-align: center !important;
+    font-size: clamp(2.1rem, 11vw, 3rem) !important;
   }
 
   .hero-boot {
     align-items: center;
+    width: 100%;
+    max-width: 28rem;
+    margin-bottom: 0.35rem;
   }
 
   .hero-actions {
     justify-content: center;
+    width: 100%;
+    gap: 0.55rem;
+  }
+
+  .hero-actions .button {
+    width: min(47%, 10rem) !important;
+    padding-inline: 0.4rem;
+  }
+
+  .hero-tagline {
+    max-width: 34ch;
+    font-size: 0.82rem;
   }
 
   .hero-news-ticker {
     width: 100%;
+    margin-top: 0.65rem;
+    min-height: 2.45rem;
   }
 
   .hero-right {
     gap: 0.85rem;
+    width: 100%;
   }
 
   .hero-tv {
-    width: min(100%, 22rem);
+    width: min(100%, 20rem);
   }
 
   .hero-stats {
-    max-width: 22rem;
+    max-width: 20rem;
+    gap: 0.4rem;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
   }
 }
 
 @media (max-width: 640px) {
   .hero-layout {
     min-height: auto;
-    padding-top: 1rem;
-    padding-bottom: 3.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 2.5rem;
   }
 
   .hero-tv-dock {
@@ -1313,10 +1402,28 @@ onUnmounted(() => {
   .hero-news-label {
     min-width: 0;
     width: 100%;
+    font-size: 0.76rem;
+  }
+
+  .hero-news-track {
+    padding-inline: 0.55rem;
+  }
+
+  .hero-news-track span {
+    font-size: 0.7rem;
   }
 
   .hero-boot-line {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-typing {
+    min-height: 1.8rem;
+  }
+
+  .hero-typing :deep(.retro-text) {
+    font-size: 0.95rem;
   }
 }
 
