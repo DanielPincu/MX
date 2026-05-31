@@ -43,31 +43,20 @@
   let COLUMNS = [];
 let PHONE_NUMBER = [];
 let CALL_ME_CHARS = [];
-const HERO_PHONE_NUMBER = "+4591105056";
+const HERO_PHONE_NUMBER = "+45 911 05 05 6";
 const CALL_ME_TEXT = "CALL ME";
 const PHONE_REVEAL_INTERVAL_MS = 1300;
-const PHONE_HOLD_MS = 9000;
-const DIGIT_STAGE_START_MS = 10550;
+const DIGIT_STAGE_START_MS = 300;
   let DIGIT_ANIMATION_FRAME = true;
   let takenXPos = [];
   let numXPos = 0;
   let numYPos = 0;
   let charSize = 13;
   
-  // --- Time Variables ---
-  let dateObject;
-  let month;
-  let date;
-  let year;
-  let hour;
-  let minute;
-  let second;
-  
   // --- Animation Timers ---
   let digitAnimationTimer = null;
   let rainAnimationTimer = null;
   let phoneRevealTimer = null;
-  let callMeTimer = null;
   
   // --- Helper Functions (Constructors) ---
   function Cursor() {
@@ -92,11 +81,12 @@ const DIGIT_STAGE_START_MS = 10550;
     this.isDisplayed = true;
   }
   
-function Number(xPos, char = "0") {
+function Number(xPos, char = "0", isSpacer = false) {
   this.numberChar = char;
   this.numberXPos = xPos;
   this.numberYPos = 30;
   this.isNumberDisplayed = false;
+  this.isSpacer = isSpacer;
 }
   
   function Char(xPosition, yPosition, index) {
@@ -240,15 +230,40 @@ function Number(xPos, char = "0") {
   
     for (let p = 0; p < PHONE_NUMBER.length; p++) {
       if (PHONE_NUMBER[p].isNumberDisplayed) {
-        ctx.fillStyle = PHONENUM_FILL_STYLE;
-        ctx.fillText(PHONE_NUMBER[p].numberChar, PHONE_NUMBER[p].numberXPos, PHONE_NUMBER[p].numberYPos);
+        if (PHONE_NUMBER[p].isSpacer) {
+          for (let row = 1; row <= nRows; row++) {
+            const rollingDigit = Math.floor(Math.random() * 10).toString();
+            ctx.fillStyle = DIGIT_FILL_STYLES[Math.round(Math.random())];
+            ctx.fillText(
+              rollingDigit,
+              PHONE_NUMBER[p].numberXPos,
+              PHONE_NUMBER[p].numberYPos + (row * INIT_CHARSIZE)
+            );
+          }
+        } else {
+          ctx.fillStyle = PHONENUM_FILL_STYLE;
+          ctx.fillText(PHONE_NUMBER[p].numberChar, PHONE_NUMBER[p].numberXPos, PHONE_NUMBER[p].numberYPos);
+        }
       }
     }
 
     for (let i = 0; i < CALL_ME_CHARS.length; i++) {
       if (CALL_ME_CHARS[i].isNumberDisplayed) {
-        ctx.fillStyle = PHONENUM_FILL_STYLE;
-        ctx.fillText(CALL_ME_CHARS[i].numberChar, CALL_ME_CHARS[i].numberXPos, CALL_ME_CHARS[i].numberYPos);
+        if (CALL_ME_CHARS[i].isSpacer) {
+          // Keep the original blank space on the text row, but render a full cipher column underneath.
+          for (let row = 1; row <= nRows; row++) {
+            const rollingDigit = Math.floor(Math.random() * 10).toString();
+            ctx.fillStyle = DIGIT_FILL_STYLES[Math.round(Math.random())];
+            ctx.fillText(
+              rollingDigit,
+              CALL_ME_CHARS[i].numberXPos,
+              CALL_ME_CHARS[i].numberYPos + (row * INIT_CHARSIZE)
+            );
+          }
+        } else {
+          ctx.fillStyle = PHONENUM_FILL_STYLE;
+          ctx.fillText(CALL_ME_CHARS[i].numberChar, CALL_ME_CHARS[i].numberXPos, CALL_ME_CHARS[i].numberYPos);
+        }
       }
     }
   
@@ -326,18 +341,6 @@ function Number(xPos, char = "0") {
       const callMeShown = CALL_ME_CHARS.every((ch) => ch.isNumberDisplayed);
       if (allDigitsShown && callMeShown) {
         clearInterval(phoneRevealTimer);
-        callMeTimer = setTimeout(() => {
-          DIGIT_ANIMATION_FRAME = false;
-          ctx.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height);
-          for (let p = 0; p < PHONE_NUMBER.length; p++) {
-            ctx.fillStyle = PHONENUM_FILL_STYLE;
-            ctx.fillText(PHONE_NUMBER[p].numberChar, PHONE_NUMBER[p].numberXPos, PHONE_NUMBER[p].numberYPos);
-          }
-          for (let i = 0; i < CALL_ME_CHARS.length; i++) {
-            ctx.fillStyle = PHONENUM_FILL_STYLE;
-            ctx.fillText(CALL_ME_CHARS[i].numberChar, CALL_ME_CHARS[i].numberXPos, CALL_ME_CHARS[i].numberYPos);
-          }
-        }, PHONE_HOLD_MS);
       }
     }, PHONE_REVEAL_INTERVAL_MS);
   }
@@ -347,12 +350,14 @@ function initPhoneNumber() {
   CALL_ME_CHARS = [];
   const spacing = INIT_CHARSIZE;
   for (let p = 0, xpos = INIT_XPOS; p < HERO_PHONE_NUMBER.length; p++, xpos += spacing) {
-    PHONE_NUMBER[p] = new Number(xpos, HERO_PHONE_NUMBER.charAt(p));
+    const ch = HERO_PHONE_NUMBER.charAt(p);
+    PHONE_NUMBER[p] = new Number(xpos, ch, ch === " ");
   }
 
   const callMeStartX = INIT_XPOS + ((HERO_PHONE_NUMBER.length + 2) * spacing);
   for (let i = 0, xpos = callMeStartX; i < CALL_ME_TEXT.length; i++, xpos += spacing) {
-    CALL_ME_CHARS[i] = new Number(xpos, CALL_ME_TEXT.charAt(i));
+    const ch = CALL_ME_TEXT.charAt(i);
+    CALL_ME_CHARS[i] = new Number(xpos, ch, ch === " ");
   }
 }
   
@@ -437,16 +442,6 @@ function initPhoneNumber() {
     ctx.font = INIT_FONT;
     ctx.fillStyle = INIT_FILL_STYLE;
   
-    dateObject = new Date();
-    month = dateObject.getMonth() + 1;
-    date = dateObject.getDate();
-    year = dateObject.getFullYear() - 2000;
-    hour = dateObject.getHours();
-    minute = dateObject.getMinutes();
-    second = dateObject.getSeconds();
-  
-    typewriteAnim(`Call trans opt: received. ${month}-${date}-${year} ${hour}:${minute}:${second} REC:Log>,Trace program: running`);
-  
     setTimeout(() => {
       ctx.font = INIT_FONT2;
       initColumns();
@@ -454,17 +449,11 @@ function initPhoneNumber() {
       digitAnim();
     }, DIGIT_STAGE_START_MS);
   
-    setTimeout(() => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillText("Knock, Knock, Neo.", INIT_XPOS, INIT_YPOS);
-    }, 67000);
-  
   });
   
   onUnmounted(() => {
     clearTimeout(digitAnimationTimer);
     clearInterval(phoneRevealTimer);
-    clearTimeout(callMeTimer);
     cancelAnimationFrame(rainAnimationTimer);
   });
   </script>

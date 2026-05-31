@@ -4,7 +4,7 @@
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <!-- <div class="overlay"></div> -->
         <div class="cipher-top">
-          <Cipher />
+          <HeroCipher />
         </div>
         <div class="glitch-text text-center text-[42px] md:text-[50px] portfolio-heading">
           <span>Projects showcase</span>
@@ -90,7 +90,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import getPortfolio from '@/modules/getPortfolio';
-import Cipher from '../views/Cipher.vue';
+import HeroCipher from '../views/HeroCipher.vue';
 
 const { portfolioItems } = getPortfolio();
 const selectedCategory = ref('');

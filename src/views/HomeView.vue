@@ -25,7 +25,7 @@
             <!-- ── LEFT COLUMN: Main content 60% ── -->
             <div class="hero-left">
 
-              <div class="hero-boot hero-cipher-shell" aria-hidden="true">
+              <div class="hero-boot hero-cipher-shell " aria-hidden="true">
                 <HeroCipher />
               </div>
 
@@ -38,7 +38,7 @@
               </h1>
 
               <!-- Tagline -->
-              <p class="hero-tagline">web developer · iot tinkerer · perpetual learner</p>
+              
 
               <!-- CTAs -->
               <div class="hero-actions">
