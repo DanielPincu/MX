@@ -6,6 +6,14 @@
   
   <script setup>
   import { ref, onMounted, onUnmounted } from 'vue';
+  import { getAudioContext, isAudioReady } from '@/modules/audioContext.js';
+  
+  const props = defineProps({
+    enableSound: {
+      type: Boolean,
+      default: true
+    }
+  });
   
   const canvasRef = ref(null);
   const containerRef = ref(null);
@@ -57,6 +65,16 @@ const DIGIT_STAGE_START_MS = 300;
   let digitAnimationTimer = null;
   let rainAnimationTimer = null;
   let phoneRevealTimer = null;
+  let removeGestureListeners = null;
+
+  // --- Ambient Cipher Audio ---
+  let ambientMasterGain = null;
+  let ambientNoiseSource = null;
+  let ambientOscA = null;
+  let ambientOscB = null;
+  let ambientLfo = null;
+  let ambientLfoGain = null;
+  let ambientRetryTimer = null;
   
   // --- Helper Functions (Constructors) ---
   function Cursor() {
@@ -423,6 +441,96 @@ function initPhoneNumber() {
   
     rainAnimationTimer = requestAnimationFrame(() => drawChars(drops));
   }
+
+  function stopAmbientCipherSound() {
+    try { ambientNoiseSource?.stop(); } catch (_) {}
+    try { ambientOscA?.stop(); } catch (_) {}
+    try { ambientOscB?.stop(); } catch (_) {}
+    try { ambientLfo?.stop(); } catch (_) {}
+    ambientNoiseSource = null;
+    ambientOscA = null;
+    ambientOscB = null;
+    ambientLfo = null;
+    ambientLfoGain = null;
+    ambientMasterGain = null;
+  }
+
+  function startAmbientCipherSound() {
+    if (!props.enableSound) return;
+    if (ambientMasterGain) return;
+    const audioCtx = getAudioContext();
+    if (!audioCtx || audioCtx.state !== 'running') return;
+
+    // Master gain fades the ambience in/out softly.
+    ambientMasterGain = audioCtx.createGain();
+    ambientMasterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+    ambientMasterGain.connect(audioCtx.destination);
+
+    // Matrix-like hum: two close saw oscillators through a bandpass.
+    const humFilter = audioCtx.createBiquadFilter();
+    humFilter.type = 'bandpass';
+    humFilter.frequency.setValueAtTime(420, audioCtx.currentTime);
+    humFilter.Q.setValueAtTime(0.9, audioCtx.currentTime);
+
+    const humGain = audioCtx.createGain();
+    humGain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+
+    ambientOscA = audioCtx.createOscillator();
+    ambientOscB = audioCtx.createOscillator();
+    ambientOscA.type = 'sawtooth';
+    ambientOscB.type = 'square';
+    ambientOscA.frequency.setValueAtTime(156, audioCtx.currentTime);
+    ambientOscB.frequency.setValueAtTime(166, audioCtx.currentTime);
+
+    // Slow drift to avoid obvious repetition.
+    ambientLfo = audioCtx.createOscillator();
+    ambientLfo.type = 'sine';
+    ambientLfo.frequency.setValueAtTime(0.27, audioCtx.currentTime);
+    ambientLfoGain = audioCtx.createGain();
+    ambientLfoGain.gain.setValueAtTime(40, audioCtx.currentTime);
+    ambientLfo.connect(ambientLfoGain);
+    ambientLfoGain.connect(humFilter.frequency);
+
+    ambientOscA.connect(humFilter);
+    ambientOscB.connect(humFilter);
+    humFilter.connect(humGain);
+    humGain.connect(ambientMasterGain);
+
+    // Filtered looping noise adds digital texture.
+    const noiseBufferLength = audioCtx.sampleRate * 1.5;
+    const noiseBuffer = audioCtx.createBuffer(1, noiseBufferLength, audioCtx.sampleRate);
+    const noiseData = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < noiseData.length; i++) {
+      noiseData[i] = (Math.random() * 2 - 1) * 0.26;
+    }
+    ambientNoiseSource = audioCtx.createBufferSource();
+    ambientNoiseSource.buffer = noiseBuffer;
+    ambientNoiseSource.loop = true;
+
+    const noiseFilter = audioCtx.createBiquadFilter();
+    noiseFilter.type = 'bandpass';
+    noiseFilter.frequency.setValueAtTime(2100, audioCtx.currentTime);
+    noiseFilter.Q.setValueAtTime(1.1, audioCtx.currentTime);
+
+    const noiseGain = audioCtx.createGain();
+    noiseGain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+
+    ambientNoiseSource.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(ambientMasterGain);
+
+    ambientOscA.start();
+    ambientOscB.start();
+    ambientLfo.start();
+    ambientNoiseSource.start();
+
+    ambientMasterGain.gain.exponentialRampToValueAtTime(0.16, audioCtx.currentTime + 0.35);
+  }
+
+  function syncAmbientSoundState() {
+    if (!props.enableSound) return;
+    startAmbientCipherSound();
+  }
   
   // --- Lifecycle Hooks ---
   onMounted(() => {
@@ -448,6 +556,26 @@ function initPhoneNumber() {
       initPhoneNumber();
       digitAnim();
     }, DIGIT_STAGE_START_MS);
+
+    if (props.enableSound) {
+      const tryStartOnGesture = () => {
+        syncAmbientSoundState();
+        window.removeEventListener('pointerdown', tryStartOnGesture);
+        window.removeEventListener('keydown', tryStartOnGesture);
+      };
+      window.addEventListener('pointerdown', tryStartOnGesture);
+      window.addEventListener('keydown', tryStartOnGesture);
+      removeGestureListeners = () => {
+        window.removeEventListener('pointerdown', tryStartOnGesture);
+        window.removeEventListener('keydown', tryStartOnGesture);
+      };
+
+      ambientRetryTimer = setInterval(() => {
+        if (ambientMasterGain) return;
+        if (!isAudioReady()) return;
+        startAmbientCipherSound();
+      }, 1000);
+    }
   
   });
   
@@ -455,6 +583,17 @@ function initPhoneNumber() {
     clearTimeout(digitAnimationTimer);
     clearInterval(phoneRevealTimer);
     cancelAnimationFrame(rainAnimationTimer);
+    if (removeGestureListeners) {
+      removeGestureListeners();
+      removeGestureListeners = null;
+    }
+    if (ambientRetryTimer) {
+      clearInterval(ambientRetryTimer);
+      ambientRetryTimer = null;
+    }
+    if (props.enableSound) {
+      stopAmbientCipherSound();
+    }
   });
   </script>
   

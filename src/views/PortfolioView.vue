@@ -3,8 +3,8 @@
     <!-- Matrix Canvas -->
     <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <!-- <div class="overlay"></div> -->
-        <div class="cipher-top">
-          <HeroCipher />
+        <div ref="cipherTopRef" class="cipher-top">
+          <HeroCipher v-if="showCipher" :enable-sound="false" />
         </div>
         <div class="glitch-text text-center text-[42px] md:text-[50px] portfolio-heading">
           <span>Projects showcase</span>
@@ -95,6 +95,9 @@ import HeroCipher from '../views/HeroCipher.vue';
 const { portfolioItems } = getPortfolio();
 const selectedCategory = ref('');
 const matrixCanvas = ref(null);
+const cipherTopRef = ref(null);
+const showCipher = ref(false);
+let cipherObserver = null;
 
 const categories = computed(() => {
   const uniqueCategories = [...new Set(portfolioItems.value.map(item => item.category))];
@@ -276,6 +279,16 @@ onMounted(() => {
   // window.addEventListener("resize", calculateColumns);
   window.addEventListener('pointerdown', unlockAudio, { once: true });
   window.addEventListener('keydown', unlockAudio, { once: true });
+
+  if (cipherTopRef.value) {
+    cipherObserver = new IntersectionObserver(
+      ([entry]) => {
+        showCipher.value = !!entry?.isIntersecting;
+      },
+      { threshold: 0.15 }
+    );
+    cipherObserver.observe(cipherTopRef.value);
+  }
 });
 
 onUnmounted(() => {
@@ -283,6 +296,10 @@ onUnmounted(() => {
   window.removeEventListener("resize", calculateColumns);
   window.removeEventListener('pointerdown', unlockAudio);
   window.removeEventListener('keydown', unlockAudio);
+  if (cipherObserver) {
+    cipherObserver.disconnect();
+    cipherObserver = null;
+  }
 });
 </script>
 
