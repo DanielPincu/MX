@@ -77,6 +77,15 @@
             </div>
 
           </div>
+          <div class="hero-news-ticker" aria-label="Highlights ticker">
+            <span class="hero-news-label">MX LIVE</span>
+            <div class="hero-news-track-wrap">
+              <div class="hero-news-track">
+                <span v-for="(item, idx) in tickerItems" :key="`a-${idx}`">{{ item }}</span>
+                <span v-for="(item, idx) in tickerItems" :key="`b-${idx}`">{{ item }}</span>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -205,6 +214,13 @@ const heroStats = ref([
   { value: "10", label: "featured projects" },
   { value: "Vue", label: "current main stack" },
   { value: "SEA", label: "web dev studies" }
+]);
+
+const tickerItems = ref([
+  "Now shipping immersive front-end builds",
+  "IoT + web experiments in active development",
+  "Currently exploring React and API design",
+  "Open for collaboration and freelance projects"
 ]);
 
 const hobbiesTitle = ref("Hobbies & Interests");
@@ -606,7 +622,7 @@ onUnmounted(() => {
 .matrix-conduit-left,
 .matrix-conduit-right {
   top: 0;
-  bottom: 0;
+  bottom: 1.4rem;
   width: 2.35rem;
 }
 
@@ -647,12 +663,12 @@ onUnmounted(() => {
 }
 
 .matrix-node-bl {
-  bottom: 0.65rem;
+  bottom: 2rem;
   left: 0.65rem;
 }
 
 .matrix-node-br {
-  bottom: 0.65rem;
+  bottom: 2rem;
   right: 0.65rem;
 }
 
@@ -1018,6 +1034,65 @@ onUnmounted(() => {
   flex-wrap: wrap;
 }
 
+.hero-news-ticker {
+  margin-top: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
+  min-height: 3rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.26);
+  background: rgba(0, 0, 0, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 18px rgba(var(--mx-accent-rgb), 0.1);
+}
+
+.hero-news-label {
+  display: grid;
+  place-items: center;
+  min-width: 6rem;
+  padding: 0.7rem 0.85rem;
+  background: linear-gradient(180deg, #d20000, #7f0000);
+  color: #fff;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-news-track-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-news-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  white-space: nowrap;
+  min-width: max-content;
+  padding: 0.7rem 0.9rem;
+  animation: hero-news-crawl 24s linear infinite;
+}
+
+.hero-news-track span {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(var(--mx-accent-soft-rgb), 0.82);
+}
+
+.hero-news-track span::after {
+  content: "●";
+  margin-left: 2rem;
+  color: rgba(var(--mx-warm-rgb), 0.85);
+}
+
+@keyframes hero-news-crawl {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 /* ══════════════════════════════════════════
    SCROLL INDICATOR
    ══════════════════════════════════════════ */
@@ -1198,6 +1273,10 @@ onUnmounted(() => {
     justify-content: center;
   }
 
+  .hero-news-ticker {
+    width: 100%;
+  }
+
   .hero-right {
     gap: 0.85rem;
   }
@@ -1227,6 +1306,15 @@ onUnmounted(() => {
     max-width: 16rem;
   }
 
+  .hero-news-ticker {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-news-label {
+    min-width: 0;
+    width: 100%;
+  }
+
   .hero-boot-line {
     font-size: 0.55rem;
   }
@@ -1254,6 +1342,10 @@ onUnmounted(() => {
   .hero-boot-line {
     animation: none;
     opacity: 1;
+  }
+
+  .hero-news-track {
+    animation: none;
   }
 
   .hero-stat-card::before {
