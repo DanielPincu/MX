@@ -149,7 +149,7 @@ a {
 
 .matrix-showcase-console {
   position: relative;
-  width: min(96vw, 1720px);
+  width: calc(min(96vw, 1720px) - 2rem);
   margin: 0 auto;
   padding: 3rem 1.25rem 1.4rem;
   border: 1px solid rgba(var(--mx-accent-rgb), 0.28);

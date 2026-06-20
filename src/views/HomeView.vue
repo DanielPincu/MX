@@ -104,7 +104,7 @@
         <div class="glitch-text pb-10 text-center text-[50px]">
           <span>Expertise</span>
         </div>
-      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 fade-in container mx-auto px-5">
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 fade-in" style="max-width: min(96vw, 1720px); margin-inline: auto; padding-inline: 1rem;">
         
         <div v-for="(skill, index) in expertise" :key="skill.title" class="expertise-card p-6 rounded-lg project-card">
           <div class="flex justify-between items-start gap-4 mb-4">
@@ -712,7 +712,7 @@ onUnmounted(() => {
    ══════════════════════════════════════════ */
 
 .hero-layout {
-  max-width: min(96vw, 1440px);
+  max-width: min(96vw, 1720px);
   margin-inline: auto;
   min-height: 100dvh;
   position: relative;

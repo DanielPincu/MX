@@ -1,5 +1,5 @@
 <template>
-    <div class="error-page md:h-[1800px] xl:h-[1500px] h-[1200px] relative">
+    <div class="error-page md:h-[1800px] xl:h-[1500px] h-[1200px] relative" style="width: min(96vw, 1720px); margin-inline: auto;">
       <div class="noise"></div>
       <!-- <div class="overlay"></div> -->
       <div class="terminal p-5">

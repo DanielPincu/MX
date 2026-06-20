@@ -1,5 +1,5 @@
 <template>
-  <div class="error-page min-h-[980px] md:min-h-[860px] relative">
+  <div class="error-page min-h-[1200px] md:min-h-[1000px] relative">
     <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
     <div class="terminal p-5 md:pt-10 pt-8">
@@ -13,7 +13,7 @@
       
       
 
-      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 xl:gap-10 items-start pb-8 md:pb-4">
+      <div class="grid grid-cols-1 gap-6 items-start pb-8 md:pb-4" style="width: min(96vw, 1720px); margin-inline: auto;">
         <div class="mx-4 md:mx-0">
           <article class="terminal-card">
             <div class="terminal-card__head">
@@ -35,7 +35,7 @@
             </div>
           </article>
         </div>
-        <div class="hidden xl:flex self-stretch justify-center items-center">
+        <div class="flex self-stretch justify-center items-center">
           <Keyboard />
         </div>
       </div>
@@ -114,8 +114,7 @@ const triggerEasterEgg = () => {
 
 
 .terminal {
-  position: absolute;
-  height: 100%;
+  position: relative;
   max-width: 100%;
 }
 
