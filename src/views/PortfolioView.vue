@@ -1,8 +1,5 @@
 <template>
-  <div class="relative min-h-screen bg-gray-900 text-gray-100 mt-16 project-card portfolio-page">
-    <!-- Matrix Canvas -->
-    <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
-    <!-- <div class="overlay"></div> -->
+  <div class="relative min-h-screen text-gray-100 mt-16 project-card portfolio-page">
         <div ref="cipherTopRef" class="cipher-top">
           <HeroCipher v-if="showCipher" />
         </div>
@@ -62,83 +59,11 @@ import getPortfolio from '@/modules/getPortfolio';
 import HeroCipher from '../views/HeroCipher.vue';
 
 const { portfolioItems } = getPortfolio();
-const matrixCanvas = ref(null);
 const cipherTopRef = ref(null);
 const showCipher = ref(false);
 let cipherObserver = null;
 
-// Matrix animation variables
-const FONT_SIZE = 2;
-const FONT_FACE = "Matrix Code NFI, monospace"; 
-const SPEED = 50;
-
-const CHARS = "日ア  イウ  エオ  カキ  クケコ  サシス  セソタチツテト  ナニヌネノハヒフヘホマミム  メモヤユヨラリル  レロワヲンあいうえおかきくけこさし  すせそ  たちつてとな ".split("");
-
-let totalColumns;
-let rows = [];
-let intervalId;
-
-const getRandomChar = () => CHARS[Math.floor(Math.random() * CHARS.length)];
-
-const initColumns = () => {
-  for (let x = 0; x < totalColumns; x++) {
-    rows[x] = [Math.ceil(matrixCanvas.value.height / FONT_SIZE) + 1, ""];
-  }
-};
-
-const calculateColumns = () => {
-  const canvas = matrixCanvas.value;
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
-  totalColumns = Math.ceil(canvas.width / FONT_SIZE);
-  initColumns();
-};
-
-const renderMatrix = () => {
-  const canvas = matrixCanvas.value;
-  const matrix = canvas.getContext("2d");
-  const styles = getComputedStyle(document.documentElement);
-  const accent = styles.getPropertyValue("--mx-accent").trim() || "rgba(168, 255, 200, 1)";
-  const soft = styles.getPropertyValue("--mx-accent-soft").trim() || "rgba(168, 255, 200, 1)";
-
-  matrix.fillStyle = "rgba(2, 2, 4, 0.04)";
-  matrix.fillRect(0, 0, canvas.width, canvas.height);
-
-  matrix.font = FONT_SIZE + "px " + FONT_FACE;
-
-  for (let i = 0; i < rows.length; i++) {
-    let randChar = getRandomChar();
-
-    matrix.fillStyle = soft;
-    matrix.fillText(randChar, i * FONT_SIZE, rows[i][0] * FONT_SIZE);
-
-    if (rows[i][1] && rows[i][1] !== "") {
-      matrix.fillStyle = accent;
-      matrix.fillText(
-        rows[i][1],
-        i * FONT_SIZE,
-        (rows[i][0] - 1) * FONT_SIZE
-      );
-    }
-
-    if (rows[i][0] * FONT_SIZE > canvas.height && Math.random() > 0.999) {
-      rows[i][0] = -1;
-    }
-
-    rows[i][0]++;
-    rows[i][1] = randChar;
-  }
-};
-
-const initMatrix = () => {
-  calculateColumns();
-  intervalId = setInterval(renderMatrix, SPEED);
-};
-
-
 onMounted(() => {
-  initMatrix();
-
   if (cipherTopRef.value) {
     cipherObserver = new IntersectionObserver(
       ([entry]) => {
@@ -151,7 +76,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  clearInterval(intervalId);
   if (cipherObserver) {
     cipherObserver.disconnect();
     cipherObserver = null;
@@ -184,6 +108,7 @@ a {
 .portfolio-page {
   overflow: hidden;
   padding-top: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .cipher-top {

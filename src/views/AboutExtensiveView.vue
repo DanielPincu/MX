@@ -2,7 +2,6 @@
     <div class="error-page md:h-[1800px] xl:h-[1500px] h-[1200px] relative">
       <div class="noise"></div>
       <!-- <div class="overlay"></div> -->
-      <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
       <div class="terminal p-5">
         <div class="md:pb-0 pb-32">
   
@@ -55,48 +54,6 @@
   import Keyboard from './Keyboard.vue';
   import { ref, onMounted, onUnmounted } from 'vue';
   
-  const matrixCanvas = ref(null);
-  let matrixAnimationId = null;
-  const matrixStr = "日ア  イウ  エオ  カキ  クケコ  サシス  セソタチツテト  ナニヌネノハヒフヘホマミム  メモヤユヨラリル  レロワヲンあいうえおかきくけこさし  すせそ  たちつてとな ";
-  const matrixChars = matrixStr.split("");
-  let matrixCtx, matrixWidth, matrixHeight, matrixFont, matrixColumns, matrixDrops;
-  
-  const initMatrixCanvas = () => {
-    const canvas = matrixCanvas.value;
-    matrixCtx = canvas.getContext("2d");
-    matrixWidth = canvas.width = window.innerWidth;
-    matrixHeight = canvas.height = window.innerHeight;
-    matrixFont = 7;
-    matrixColumns = matrixWidth / matrixFont;
-    matrixDrops = new Array(Math.ceil(matrixColumns)).fill(1);
-  };
-  
-  const drawMatrix = () => {
-    matrixCtx.fillStyle = "rgba(0,0,0,.02)";
-    matrixCtx.fillRect(0, 0, matrixWidth, matrixHeight);
-    matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
-    matrixCtx.font = matrixFont + "px system-ui";
-    for (let i = 0; i < matrixDrops.length; i++) {
-      let txt = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-      matrixCtx.fillText(txt, i * matrixFont, matrixDrops[i] * matrixFont);
-      if (matrixDrops[i] * matrixFont > matrixHeight && Math.random() > 0.9999) matrixDrops[i] = 0;
-      matrixDrops[i]++;
-    }
-    matrixAnimationId = requestAnimationFrame(drawMatrix);
-  };
-  
-  onMounted(() => {
-    initMatrixCanvas();
-    drawMatrix();
-  });
-  onMounted(() => {
-  window.scrollTo(0, 0);
-});
-
-  
-  onUnmounted(() => {
-    cancelAnimationFrame(matrixAnimationId);
-  });
   
   const elements = [
     { title: 'Li', descriptionText: 'LinkedIn', classes: 'social-media', description: "I'm only on here to reject invitations 😂" },
@@ -138,6 +95,7 @@
   @import 'https://fonts.googleapis.com/css?family=Inconsolata';
   
   .error-page {
+    background: rgba(0, 0, 0, 0.55);
     background-repeat: no-repeat;
     background-size: cover;
     font-family: 'Inconsolata', Helvetica, sans-serif;

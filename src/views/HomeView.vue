@@ -1,7 +1,6 @@
 <template>
-  <section id="home" class="video-banner project-card">
+  <section id="home" class="video-banne project-card">
     <div class="noise"></div>
-    <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="video-content hero-layout relative z-10 mt-[6.35rem] flex items-center justify-center w-full px-5 md:px-10">
       
       <div class="hero-copy-column">
@@ -72,11 +71,7 @@
 
     </div>
 
-    <!-- Scroll indicator -->
-    <div class="hero-scroll-indicator" aria-hidden="true">
-      <span class="hero-scroll-arrow">▼</span>
-      <span class="hero-scroll-text">scroll</span>
-    </div>
+    
 
     <!-- Contact overlay -->
     <Transition name="slide-in">
@@ -103,7 +98,6 @@
 
 
   <section id="expertise" class="site-section section-pad relative project-card">
-    <canvas ref="matrixCanvas2" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="noise2"></div>
     <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
     <div class="relative z-20">
@@ -131,8 +125,7 @@
 
 
 
-  <section id="hobbies" class="site-section bg-gray-900 project-card relative hidden md:block">
-    <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+  <section id="hobbies" class="site-section project-card relative hidden md:block">
     <div class="noise3"></div>
     <!-- <div class="overlay2"></div> -->
     <!-- Ensure the title is above the canvas -->
@@ -280,118 +273,7 @@ const triggerExpertiseEgg = (index) => {
   }, 2200);
 };
 
-const canvas = ref(null);
-let animationId = null;
-const str = "日ア  イウ  エオ  カキ  クケコ  サシス  セソタチツテト  ナニヌネノハヒフヘホマミム  メモヤユヨラリル  レロワヲンあいうえおかきくけこさし  すせそ  たちつてとな ";
-const matrix = str.split("");
-let $, W, H, font, col, arr;
-
-const initCanvas = () => {
-  const C = canvas.value;
-  $ = C.getContext("2d");
-  W = C.width = window.innerWidth;
-  H = C.height = window.innerHeight;
-  font = 8;
-  col = W / font;
-  arr = new Array(Math.ceil(col)).fill(1);
-};
-
-const draw = () => {
-  $.fillStyle = "rgba(0,0,0,.015)";
-  $.fillRect(0, 0, W, H);
-  $.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
-  $.font = font + "px system-ui";
-  for (let i = 0; i < arr.length; i++) {
-    let txt = matrix[Math.floor(Math.random() * matrix.length)];
-    $.fillText(txt, i * font, arr[i] * font);
-    if (arr[i] * font > H && Math.random() > 0.9995) arr[i] = 0;
-    arr[i]++;
-  }
-  animationId = requestAnimationFrame(draw);
-};
-
-const matrixCanvas = ref(null);
-let matrixAnimationId = null;
-const matrixCharsHobbies = str.split("");
-let matrixCtxHobbies, matrixWidthHobbies, matrixHeightHobbies, matrixFontHobbies, matrixColumnsHobbies, matrixDropsHobbies;
-
-const initMatrixCanvasHobbies = () => {
-  const canvasElementHobbies = matrixCanvas.value;
-  if (canvasElementHobbies) {
-    matrixCtxHobbies = canvasElementHobbies.getContext("2d");
-    matrixWidthHobbies = canvasElementHobbies.width = window.innerWidth;
-    matrixHeightHobbies = canvasElementHobbies.height = window.innerHeight;
-    matrixFontHobbies = 8;
-    matrixColumnsHobbies = matrixWidthHobbies / matrixFontHobbies;
-    matrixDropsHobbies = new Array(Math.ceil(matrixColumnsHobbies)).fill(1);
-  }
-};
-
-const drawMatrixHobbies = () => {
-  matrixCtxHobbies.fillStyle = "rgba(0,0,0,.02)";
-  matrixCtxHobbies.fillRect(0, 0, matrixWidthHobbies, matrixHeightHobbies);
-  matrixCtxHobbies.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
-  matrixCtxHobbies.font = `${matrixFontHobbies}px system-ui`;
-  for (let i = 0; i < matrixDropsHobbies.length; i++) {
-    let txt = matrixCharsHobbies[Math.floor(Math.random() * matrixCharsHobbies.length)];
-    matrixCtxHobbies.fillText(txt, i * matrixFontHobbies, matrixDropsHobbies[i] * matrixFontHobbies);
-    if (matrixDropsHobbies[i] * matrixFontHobbies > matrixHeightHobbies && Math.random() > 0.9999) {
-      matrixDropsHobbies[i] = 0;
-    }
-    matrixDropsHobbies[i]++;
-  }
-  matrixAnimationId = requestAnimationFrame(drawMatrixHobbies);
-};
-
-const matrixCanvas2 = ref(null);
-let expertiseMatrixAnimationId;
-const expertiseCharsMatrixStr = str.split("");
-let expertiseMatrixCtx, expertiseMatrixWidth, expertiseMatrixHeight, expertiseMatrixFont, expertiseMatrixColumns, expertiseMatrixDrops;
-
-const initExpertiseMatrixCanvas = () => {
-  const canvasElementExpertise = matrixCanvas2.value;
-  if (canvasElementExpertise) {
-    expertiseMatrixCtx = canvasElementExpertise.getContext("2d");
-    expertiseMatrixWidth = canvasElementExpertise.width = window.innerWidth;
-    expertiseMatrixHeight = canvasElementExpertise.height = window.innerHeight;
-    expertiseMatrixFont = 7;
-    expertiseMatrixColumns = expertiseMatrixWidth / expertiseMatrixFont;
-    expertiseMatrixDrops = new Array(Math.ceil(expertiseMatrixColumns)).fill(1);
-  }
-};
-
-const drawExpertiseMatrixFrame = () => {
-  expertiseMatrixCtx.fillStyle = 'rgba(0,0,0,.02)';
-  expertiseMatrixCtx.fillRect(0, 0, expertiseMatrixWidth, expertiseMatrixHeight);
-  expertiseMatrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
-  expertiseMatrixCtx.font = `${expertiseMatrixFont}px system-ui`;
-  for (let i = 0; i < expertiseMatrixDrops.length; i++) {
-    let txt = expertiseCharsMatrixStr[Math.floor(Math.random() * expertiseCharsMatrixStr.length)];
-    expertiseMatrixCtx.fillText(txt, i * expertiseMatrixFont, expertiseMatrixDrops[i] * expertiseMatrixFont);
-    if (expertiseMatrixDrops[i] * expertiseMatrixFont > expertiseMatrixHeight && Math.random() > 0.9999) {
-      expertiseMatrixDrops[i] = 0;
-    }
-    expertiseMatrixDrops[i]++;
-  }
-  expertiseMatrixAnimationId = requestAnimationFrame(drawExpertiseMatrixFrame);
-};
-
-onMounted(() => {
-  initCanvas();
-  draw();
-  initMatrixCanvasHobbies();
-  drawMatrixHobbies();
-  initExpertiseMatrixCanvas();
-  drawExpertiseMatrixFrame();
-});
-
 onUnmounted(() => {
-  cancelAnimationFrame(animationId);
-  window.removeEventListener("resize", initCanvas);
-  cancelAnimationFrame(matrixAnimationId);
-  window.removeEventListener("resize", initMatrixCanvasHobbies);
-  cancelAnimationFrame(expertiseMatrixAnimationId);
-  window.removeEventListener("resize", initExpertiseMatrixCanvas);
   Object.values(expertiseEggTimeouts).forEach((timeoutId) => clearTimeout(timeoutId));
 });
 </script>
@@ -445,10 +327,34 @@ onUnmounted(() => {
    position: relative;
    overflow: hidden;
    background: var(--mx-deep);
-   min-height: 100vh;
+   min-height: 100dvh;
+   height: 100dvh;
    display: flex;
    align-items: center;
    justify-content: center;
+}
+
+
+/* CRT overlay */
+.video-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 4px
+    ),
+    radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
 }
 
 .section-rail {
@@ -512,10 +418,12 @@ onUnmounted(() => {
 
 .site-section {
   margin-block: clamp(4.5rem, 8vw, 7rem);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .site-section-top {
   margin-top: clamp(4.5rem, 8vw, 7rem);
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .section-pad {
@@ -546,13 +454,13 @@ onUnmounted(() => {
 
 .hero-copy-column {
   position: relative;
-  width: min(100%, 82rem);
+  width: min(100%, 72rem);
   align-self: center;
 }
 
 .hero-construct {
   position: absolute;
-  inset: -2.35rem 0 -1.5rem;
+  inset: -2.35rem -1.5rem -1.5rem -1.5rem;
   pointer-events: none;
   z-index: 0;
 }
@@ -727,8 +635,8 @@ onUnmounted(() => {
 
 .hero-terminal {
   position: relative;
-  width: calc(100% - 4.7rem);
-  margin-inline: 2.35rem;
+  width: calc(100% - 2rem);
+  margin-inline: 1rem;
   border: 6px solid rgba(var(--mx-accent-rgb), 0.62);
   border-bottom: 6px solid rgba(0, 0, 0, 0.88);
   border-radius: 0;
@@ -739,6 +647,11 @@ onUnmounted(() => {
     radial-gradient(circle at 50% 0%, rgba(var(--mx-accent-rgb), 0.18), transparent 52%),
     linear-gradient(180deg, var(--mx-panel), rgba(0, 0, 0, 0.58));
   box-shadow:
+    /* Tunnel depth — content appears far inside */
+    inset 0 0 40px rgba(0, 0, 0, 0.95),
+    inset 0 0 120px rgba(0, 0, 0, 0.85),
+    inset 0 0 250px rgba(0, 0, 0, 0.5),
+    /* Existing shadows */
     inset 0 1rem 1.2rem rgba(0, 0, 0, 0.56),
     inset 0 -0.55rem 0.75rem rgba(0, 0, 0, 0.7),
     0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
@@ -771,7 +684,7 @@ onUnmounted(() => {
 .hero-terminal::after {
   border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.16);
   inset: 0.55rem;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0;
   box-shadow:
     inset 12px 0 20px rgba(var(--mx-warm-rgb), 0.05),
     inset -12px 0 20px rgba(var(--mx-blue-vibe-rgb), 0.07);
@@ -799,13 +712,13 @@ onUnmounted(() => {
    ══════════════════════════════════════════ */
 
 .hero-layout {
-  max-width: min(96vw, 1320px);
+  max-width: min(96vw, 1440px);
   margin-inline: auto;
-  min-height: calc(100dvh - 6rem);
+  min-height: 100dvh;
   position: relative;
   align-content: center;
   isolation: isolate;
-  padding-bottom: 3rem;
+  padding-block: 0;
 }
 
 /* Atmospheric glow behind the hero */
@@ -824,7 +737,7 @@ onUnmounted(() => {
 .hero-grid {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  gap: clamp(2rem, 5vw, 4rem);
+  gap: clamp(1rem, 3vw, 2rem);
   align-items: center;
   width: 100%;
 }

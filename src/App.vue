@@ -1,6 +1,9 @@
 <template>
   <div class="min-h-screen flex flex-col app-shell">
 
+    <!-- Global digital rain background -->
+    <canvas ref="globalRain" class="fixed inset-0 w-full h-full" style="z-index: 0; pointer-events: none;"></canvas>
+
     <header class="fixed left-0 right-0 z-30 site-header">
       <nav class="container mx-auto px-4 py-3">
         <div class="flex justify-between items-center gap-4">
@@ -89,7 +92,7 @@
     <!-- Footer here -->
     
 
-    <footer class="bg-black text-center py-8 project-card mt-auto relative site-footer">
+    <footer class="text-center py-8 project-card mt-auto relative site-footer">
       <canvas ref="footerCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
       <div class="relative z-10">
         <p class="">
@@ -116,9 +119,63 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ref, watch, onUnmounted, provide } from 'vue'
+import { ref, watch, onMounted, onUnmounted, provide } from 'vue'
 
 const isMenuOpen = ref(false)
+
+// ── Global digital rain ──
+const globalRain = ref(null)
+const rainStr = "日アイウエオキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンあいうえおかきくけこさしすせそたちつてとな";
+const rainChars = rainStr.split("")
+let rainCtx, rainW, rainH, rainFont, rainArr, rainTick
+
+const initRain = () => {
+  const c = globalRain.value
+  if (!c) return
+  rainCtx = c.getContext("2d")
+  rainW = c.width = window.innerWidth
+  rainH = c.height = window.innerHeight
+  rainFont = 12
+  const col = Math.ceil(rainW / rainFont)
+  rainArr = Array.from({ length: col }, () => null)
+  rainTick = 0
+}
+
+const drawRain = () => {
+  rainTick++
+  rainCtx.fillStyle = "rgba(0,0,0,.04)"
+  rainCtx.fillRect(0, 0, rainW, rainH)
+  rainCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a"
+  rainCtx.font = rainFont + "px system-ui"
+  for (let i = 0; i < rainArr.length; i++) {
+    if (rainArr[i] === null) {
+      if (Math.random() < 0.00004) {
+        rainArr[i] = { y: 1, char: rainChars[Math.floor(Math.random() * rainChars.length)] }
+      }
+      continue
+    }
+    if (rainTick % 4 === 0) {
+      rainArr[i].char = rainChars[Math.floor(Math.random() * rainChars.length)]
+      rainArr[i].y++
+    }
+    if (rainArr[i].y * rainFont > rainH) { rainArr[i] = null; continue }
+    if (rainArr[i].y > 0) {
+      rainCtx.fillText(rainArr[i].char, i * rainFont, rainArr[i].y * rainFont)
+    }
+  }
+  requestAnimationFrame(drawRain)
+}
+
+const handleResize = () => {
+  if (globalRain.value) {
+    rainW = globalRain.value.width = window.innerWidth
+    rainH = globalRain.value.height = window.innerHeight
+    const col = Math.ceil(rainW / rainFont)
+    if (col !== rainArr.length) {
+      rainArr = Array.from({ length: col }, () => null)
+    }
+  }
+}
 
 provide('bootComplete', ref(true))
 
@@ -158,6 +215,16 @@ watch(isMenuOpen, (newValue) => {
 })
 
 onUnmounted(resetMenuScrollLock)
+
+onMounted(() => {
+  initRain()
+  drawRain()
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+})
 </script>
 
 <style scoped>
@@ -182,4 +249,17 @@ onUnmounted(resetMenuScrollLock)
   transform: translateX(0);
 }
 
+/* Quadrant graph paper background */
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    /* Grid lines — vertical */
+    repeating-linear-gradient(90deg, transparent 0 calc(5% - 0.5px), rgba(var(--mx-accent-rgb), 0.07) calc(5% - 0.5px), rgba(var(--mx-accent-rgb), 0.07) calc(5% + 0.5px), transparent calc(5% + 0.5px) 5%),
+    /* Grid lines — horizontal */
+    repeating-linear-gradient(0deg, transparent 0 calc(5% - 0.5px), rgba(var(--mx-accent-rgb), 0.07) calc(5% - 0.5px), rgba(var(--mx-accent-rgb), 0.07) calc(5% + 0.5px), transparent calc(5% + 0.5px) 5%);
+}
 </style>

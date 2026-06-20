@@ -2,7 +2,6 @@
   <div class="error-page min-h-[980px] md:min-h-[860px] relative">
     <div class="noise"></div>
     <!-- <div class="overlay"></div> -->
-    <canvas ref="matrixCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
     <div class="terminal p-5 md:pt-10 pt-8">
       <div class="md:pb-2 pb-10">
 
@@ -50,48 +49,13 @@
 
 <script setup>
 import Keyboard from './Keyboard.vue';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onUnmounted } from 'vue';
 
-const matrixCanvas = ref(null);
-let matrixAnimationId = null;
-const matrixStr = "日ア  イウ  エオ  カキ  クケコ  サシス  セソタチツテト  ナニヌネノハヒフヘホマミム  メモヤユヨラリル  レロワヲンあいうえおかきくけこさし  すせそ  たちつてとな ";
-const matrixChars = matrixStr.split("");
-let matrixCtx, matrixWidth, matrixHeight, matrixFont, matrixColumns, matrixDrops;
 const showEasterEgg = ref(false);
 const easterEggMessage = ref("");
 let easterEggTimeoutId = null;
 
-const initMatrixCanvas = () => {
-  const canvas = matrixCanvas.value;
-  matrixCtx = canvas.getContext("2d");
-  matrixWidth = canvas.width = window.innerWidth;
-  matrixHeight = canvas.height = window.innerHeight;
-  matrixFont = 7;
-  matrixColumns = matrixWidth / matrixFont;
-  matrixDrops = new Array(Math.ceil(matrixColumns)).fill(1);
-};
-
-const drawMatrix = () => {
-  matrixCtx.fillStyle = "rgba(0,0,0,.02)";
-  matrixCtx.fillRect(0, 0, matrixWidth, matrixHeight);
-  matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
-  matrixCtx.font = matrixFont + "px system-ui";
-  for (let i = 0; i < matrixDrops.length; i++) {
-    let txt = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-    matrixCtx.fillText(txt, i * matrixFont, matrixDrops[i] * matrixFont);
-    if (matrixDrops[i] * matrixFont > matrixHeight && Math.random() > 0.9999) matrixDrops[i] = 0;
-    matrixDrops[i]++;
-  }
-  matrixAnimationId = requestAnimationFrame(drawMatrix);
-};
-
-onMounted(() => {
-  initMatrixCanvas();
-  drawMatrix();
-});
-
 onUnmounted(() => {
-  cancelAnimationFrame(matrixAnimationId);
   if (easterEggTimeoutId) {
     clearTimeout(easterEggTimeoutId);
   }
@@ -122,6 +86,7 @@ const triggerEasterEgg = () => {
 @import 'https://fonts.googleapis.com/css?family=Inconsolata';
 
 .error-page {
+  background: rgba(0, 0, 0, 0.55);
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'Inconsolata', Helvetica, sans-serif;
