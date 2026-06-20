@@ -74,10 +74,11 @@
     
 
     <!-- Contact overlay -->
-    <Transition name="slide-in">
-      <div v-if="isAboutOpen" class="fixed z-40 top-20 left-0 w-[99.88%] transform transition-transform duration-300 ease-in-out">
-        <button @click="closeAbout" class="text-white mb-4"><i class="fa text-3xl fa-times" aria-hidden="true"></i></button>
-        <ContactView />
+    <Transition name="fade">
+      <div v-if="isAboutOpen" class="fixed z-40 inset-0 flex items-center justify-center" style="background: #000;">
+        <div class="relative w-full px-4" style="max-width: 1200px; height: 85vh;">
+          <ContactView @close="closeAbout" />
+        </div>
       </div>
     </Transition>
 
@@ -961,9 +962,19 @@ onUnmounted(() => {
 .expertise-card {
   position: relative;
   overflow: hidden;
+  border: 4px solid rgba(var(--mx-accent-rgb), 0.5);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.88);
   background:
-    linear-gradient(145deg, rgba(0, 20, 8, 0.9), rgba(15, 23, 42, 0.78));
-  border-color: rgba(35, 255, 129, 0.3);
+    linear-gradient(90deg, rgba(var(--mx-warm-rgb), 0.06), transparent 22% 78%, rgba(var(--mx-blue-vibe-rgb), 0.08)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 22%),
+    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.025) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 50% 0%, rgba(var(--mx-accent-rgb), 0.15), transparent 52%),
+    linear-gradient(180deg, var(--mx-panel), rgba(0, 0, 0, 0.58));
+  box-shadow:
+    inset 0 1rem 1.2rem rgba(0, 0, 0, 0.56),
+    inset 0 -0.55rem 0.75rem rgba(0, 0, 0, 0.7),
+    0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
+    0 0 34px rgba(var(--mx-accent-rgb), 0.14);
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -1062,6 +1073,17 @@ onUnmounted(() => {
 .slide-in-enter-to,
 .slide-in-leave-from {
   transform: translateX(0);
+}
+
+/* Contact modal fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .noise {
