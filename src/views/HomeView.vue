@@ -18,15 +18,16 @@
 
         <div class="hero-terminal">
 
+          <!-- Full-width cipher -->
+          <div class="hero-boot hero-cipher-shell hero-cipher-full hidden md:block" aria-hidden="true">
+            <HeroCipher />
+          </div>
+
           <!-- ── Asymmetric split grid ── -->
           <div class="hero-grid">
 
             <!-- ── LEFT COLUMN: Main content 60% ── -->
             <div class="hero-left">
-
-              <div class="hero-boot hero-cipher-shell hidden md:block" aria-hidden="true">
-                <HeroCipher />
-              </div>
 
               <!-- Typing effect -->
               <Typing class="hero-typing" />
@@ -41,11 +42,11 @@
 
               <!-- CTAs -->
               <div class="hero-actions">
-                <a href="#projects" class="blink-red button bg-red-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 rounded-full w-[140px] md:w-52">
-                  <span>See projects</span>
+                <a href="#projects" class="button button-projects">
+                  <span>Projects</span>
                   <div class="liquid"></div>
                 </a>
-                <button @click="toggleAbout" class="blink-blue block button bg-blue-500 shadow-lg border-b-2 border-slate-50 text-white font-bold text-sm md:text-xl px-5 md:py-6 rounded-full w-[140px] md:w-52">
+                <button @click="toggleAbout" class="button button-contact">
                   <span>Contact me</span>
                   <div class="liquid2"></div>
                 </button>
@@ -58,7 +59,7 @@
               
               <!-- TV monitor -->
               <div class="hero-tv-dock">
-                <span class="hero-tv-label">system monitor</span>
+                
                 <Glitch class="hero-tv" />
               </div>
 
@@ -740,6 +741,7 @@ onUnmounted(() => {
   grid-template-columns: 3fr 2fr;
   gap: clamp(1rem, 3vw, 2rem);
   align-items: center;
+  justify-items: center;
   width: 100%;
 }
 
@@ -749,7 +751,8 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  text-align: left;
+  text-align: center;
+  align-items: center;
 }
 
 /* Boot sequence */
@@ -771,6 +774,10 @@ onUnmounted(() => {
 .hero-cipher-shell :deep(.matrix-container) {
   height: clamp(4.8rem, 9vw, 6.2rem);
   border: 1px solid rgba(var(--mx-accent-rgb), 0.2);
+}
+
+.hero-cipher-full {
+  margin-bottom: 0.85rem;
 }
 
 /* Typing effect */
@@ -906,6 +913,7 @@ onUnmounted(() => {
   gap: 0.75rem;
   margin-top: 0.4rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* ══════════════════════════════════════════
@@ -1181,8 +1189,8 @@ onUnmounted(() => {
   }
 
   .hero-actions .button {
-    width: min(47%, 10rem) !important;
-    padding-inline: 0.4rem;
+    min-width: 0;
+    max-width: none;
   }
 
   .hero-tagline {
