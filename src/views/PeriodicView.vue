@@ -38,7 +38,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue';
+  import { ref, onUnmounted } from 'vue';
 
   const cyberpunkSignals = [
     "NEON SPIKE DETECTED. rerouting telemetry through black-ice tunnel.",
@@ -52,98 +52,8 @@
   const signalActive = ref(false);
   const activeElementIndex = ref(null);
   let signalTimeoutId = null;
-  let audioContext = null;
-  let lastClickSoundAt = 0;
-  const isSoundMuted = ref(localStorage.getItem('mx-sound-muted') === 'true');
-  let removeSoundToggleListener = null;
-
-  const getAudioContext = () => {
-    if (!audioContext) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      audioContext = AudioContextClass ? new AudioContextClass() : null;
-    }
-    return audioContext;
-  };
-
-  const unlockAudio = () => {
-    const context = getAudioContext();
-    if (context?.state === 'suspended') {
-      context.resume();
-    }
-  };
-
-  const playPeriodicClickSound = () => {
-    if (isSoundMuted.value) return;
-
-    const now = performance.now();
-    if (now - lastClickSoundAt < 260) return;
-    lastClickSoundAt = now;
-
-    const context = getAudioContext();
-    if (!context || context.state === 'suspended') return;
-
-    const oscillator = context.createOscillator();
-    const toneGain = context.createGain();
-    const noiseGain = context.createGain();
-    const masterGain = context.createGain();
-    const toneFilter = context.createBiquadFilter();
-    const noiseFilter = context.createBiquadFilter();
-    const start = context.currentTime;
-    const duration = 0.28;
-    const baud = 45.45;
-    const bitLength = 1 / baud;
-    const mark = 2125;
-    const space = 2295;
-    const pattern = [1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1];
-    const noiseBuffer = context.createBuffer(1, context.sampleRate * duration, context.sampleRate);
-    const noiseData = noiseBuffer.getChannelData(0);
-    const noiseSource = context.createBufferSource();
-
-    for (let i = 0; i < noiseData.length; i++) {
-      noiseData[i] = (Math.random() * 2 - 1) * 0.32;
-    }
-
-    oscillator.type = 'square';
-    pattern.forEach((bit, index) => {
-      oscillator.frequency.setValueAtTime(bit ? mark : space, start + index * bitLength);
-    });
-
-    toneFilter.type = 'bandpass';
-    toneFilter.frequency.setValueAtTime(2210, start);
-    toneFilter.Q.setValueAtTime(10, start);
-
-    noiseFilter.type = 'bandpass';
-    noiseFilter.frequency.setValueAtTime(1800, start);
-    noiseFilter.Q.setValueAtTime(0.8, start);
-
-    toneGain.gain.setValueAtTime(0.0001, start);
-    toneGain.gain.exponentialRampToValueAtTime(0.035, start + 0.012);
-    toneGain.gain.setValueAtTime(0.035, start + duration - 0.045);
-    toneGain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-
-    noiseGain.gain.setValueAtTime(0.0001, start);
-    noiseGain.gain.exponentialRampToValueAtTime(0.014, start + 0.01);
-    noiseGain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-
-    masterGain.gain.setValueAtTime(0.85, start);
-
-    noiseSource.buffer = noiseBuffer;
-    oscillator.connect(toneFilter);
-    toneFilter.connect(toneGain);
-    toneGain.connect(masterGain);
-    noiseSource.connect(noiseFilter);
-    noiseFilter.connect(noiseGain);
-    noiseGain.connect(masterGain);
-    masterGain.connect(context.destination);
-
-    noiseSource.start(start);
-    noiseSource.stop(start + duration);
-    oscillator.start(start);
-    oscillator.stop(start + duration);
-  };
 
   const emitSignal = (item, index) => {
-    playPeriodicClickSound();
     activeElementIndex.value = index;
     const randomSignal = cyberpunkSignals[Math.floor(Math.random() * cyberpunkSignals.length)];
     activeSignalMessage.value = `[${item.title}] ${randomSignal}`;
@@ -155,27 +65,8 @@
     }, 20);
   };
 
-  onMounted(() => {
-    window.addEventListener('pointerdown', unlockAudio, { once: true });
-    window.addEventListener('keydown', unlockAudio, { once: true });
-
-    const onSoundToggle = (event) => {
-      isSoundMuted.value = !!event?.detail?.muted;
-    };
-    window.addEventListener('mx-sound-toggle', onSoundToggle);
-    removeSoundToggleListener = () => {
-      window.removeEventListener('mx-sound-toggle', onSoundToggle);
-    };
-  });
-
   onUnmounted(() => {
     if (signalTimeoutId) clearTimeout(signalTimeoutId);
-    window.removeEventListener('pointerdown', unlockAudio);
-    window.removeEventListener('keydown', unlockAudio);
-    if (removeSoundToggleListener) {
-      removeSoundToggleListener();
-      removeSoundToggleListener = null;
-    }
   });
 
   const elements = [

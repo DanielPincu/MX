@@ -6,14 +6,7 @@
   
   <script setup>
   import { ref, inject, watch, onMounted, onUnmounted } from 'vue';
-  import { getAudioContext, isAudioReady } from '@/modules/audioContext.js';
   
-  const props = defineProps({
-    enableSound: {
-      type: Boolean,
-      default: true
-    }
-  });
   
   const canvasRef = ref(null);
   const containerRef = ref(null);
@@ -67,14 +60,6 @@ const DIGIT_STAGE_START_MS = 300;
   let digitAnimationTimer = null;
   let rainAnimationTimer = null;
   let phoneRevealTimer = null;
-  let removeGestureListeners = null;
-  let removeSoundToggleListener = null;
-  let isSoundMuted = localStorage.getItem('mx-sound-muted') === 'true';
-
-  // --- Ambient Cipher Audio ---
-  let ambientMasterGain = null;
-  let rainTickTimer = null;
-  let ambientRetryTimer = null;
   
   // --- Helper Functions (Constructors) ---
   function Cursor() {
@@ -442,64 +427,8 @@ function initPhoneNumber() {
     rainAnimationTimer = requestAnimationFrame(() => drawChars(drops));
   }
 
-  function stopAmbientCipherSound() {
-    if (rainTickTimer) {
-      clearInterval(rainTickTimer);
-      rainTickTimer = null;
-    }
-    ambientMasterGain = null;
-  }
-
-  function startAmbientCipherSound() {
-    if (!props.enableSound) return;
-    if (isSoundMuted) return;
-    if (ambientMasterGain) return;
-    const audioCtx = getAudioContext();
-    if (!audioCtx || audioCtx.state !== 'running') return;
-
-    // Master gain fades the ambience in/out softly.
-    ambientMasterGain = audioCtx.createGain();
-    ambientMasterGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-    ambientMasterGain.connect(audioCtx.destination);
-
-    // Random short ticks emulate falling code droplets.
-    rainTickTimer = setInterval(() => {
-      if (!ambientMasterGain) return;
-      const t = audioCtx.currentTime;
-      const tickOsc = audioCtx.createOscillator();
-      const tickGain = audioCtx.createGain();
-      const tickFilter = audioCtx.createBiquadFilter();
-
-      tickOsc.type = 'square';
-      tickOsc.frequency.setValueAtTime(1100 + Math.random() * 10000, t);
-      tickFilter.type = 'bandpass';
-      tickFilter.frequency.setValueAtTime(1800 + Math.random() * 10000, t);
-      tickFilter.Q.setValueAtTime(4 + Math.random() * 50, t);
-
-      tickGain.gain.setValueAtTime(0.0001, t);
-      tickGain.gain.exponentialRampToValueAtTime(0.085 + Math.random() * 0.095, t + 0.004);
-      tickGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.05 + Math.random() * 0.03);
-
-      tickOsc.connect(tickFilter);
-      tickFilter.connect(tickGain);
-      tickGain.connect(ambientMasterGain);
-
-      tickOsc.start(t);
-      tickOsc.stop(t + 0.08);
-    }, 55 + Math.floor(Math.random() * 75));
-
-    ambientMasterGain.gain.exponentialRampToValueAtTime(0.72, audioCtx.currentTime + 0.12);
-  }
-
-  function syncAmbientSoundState() {
-    if (!props.enableSound) return;
-    if (isSoundMuted) {
-      stopAmbientCipherSound();
-      return;
-    }
-    startAmbientCipherSound();
-  }
-
+  
+  // --- Lifecycle Hooks ---
   function startCipherSequence() {
     if (hasStartedCipher) return;
     if (!bootComplete.value) return;
@@ -512,8 +441,7 @@ function initPhoneNumber() {
       digitAnim();
     }, DIGIT_STAGE_START_MS);
   }
-  
-  // --- Lifecycle Hooks ---
+
   onMounted(() => {
     const container = containerRef.value;
     const canvas = canvasRef.value;
@@ -533,45 +461,13 @@ function initPhoneNumber() {
 
     startCipherSequence();
 
-    if (props.enableSound) {
-      const tryStartOnGesture = () => {
-        if (bootComplete.value) {
-          syncAmbientSoundState();
-        }
-        window.removeEventListener('pointerdown', tryStartOnGesture);
-        window.removeEventListener('keydown', tryStartOnGesture);
-      };
-      window.addEventListener('pointerdown', tryStartOnGesture);
-      window.addEventListener('keydown', tryStartOnGesture);
-      removeGestureListeners = () => {
-        window.removeEventListener('pointerdown', tryStartOnGesture);
-        window.removeEventListener('keydown', tryStartOnGesture);
-      };
-
-      ambientRetryTimer = setInterval(() => {
-        if (ambientMasterGain) return;
-        if (isSoundMuted) return;
-        if (!isAudioReady()) return;
-        if (!bootComplete.value) return;
-        startAmbientCipherSound();
-      }, 1000);
-
-      const onSoundToggle = (event) => {
-        isSoundMuted = !!event?.detail?.muted;
-        syncAmbientSoundState();
-      };
-      window.addEventListener('mx-sound-toggle', onSoundToggle);
-      removeSoundToggleListener = () => {
-        window.removeEventListener('mx-sound-toggle', onSoundToggle);
-      };
-    }
 
     watch(
       () => bootComplete.value,
       (ready) => {
         if (!ready) return;
         startCipherSequence();
-        syncAmbientSoundState();
+
       },
       { immediate: true }
     );
@@ -582,21 +478,6 @@ function initPhoneNumber() {
     clearTimeout(digitAnimationTimer);
     clearInterval(phoneRevealTimer);
     cancelAnimationFrame(rainAnimationTimer);
-    if (removeGestureListeners) {
-      removeGestureListeners();
-      removeGestureListeners = null;
-    }
-    if (ambientRetryTimer) {
-      clearInterval(ambientRetryTimer);
-      ambientRetryTimer = null;
-    }
-    if (removeSoundToggleListener) {
-      removeSoundToggleListener();
-      removeSoundToggleListener = null;
-    }
-    if (props.enableSound) {
-      stopAmbientCipherSound();
-    }
   });
   </script>
   

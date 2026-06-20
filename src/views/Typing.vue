@@ -7,13 +7,8 @@
 
 <script setup>
 import { ref, inject, onMounted, onUnmounted, watch } from 'vue'
-import { getAudioContext, isAudioReady } from '@/modules/audioContext.js'
 
 const bootComplete = inject('bootComplete', ref(false))
-const isVisible = ref(true)
-const isSoundMuted = ref(localStorage.getItem('mx-sound-muted') === 'true')
-let observer = null
-let removeSoundToggleListener = null
 
 const sentences = [
   'Hello, stranger!',
@@ -24,82 +19,6 @@ const displayedText = ref('')
 const isTyping = ref(false)
 const showCursor = ref(true)
 let sentenceIndex = 0
-
-// ── Hover / Teletype sound (same as portfolio card hover) ──
-// Modem-style baud sound using frequency-shift keying + noise
-
-let lastKeyclickAt = 0
-
-const playKeyclick = () => {
-  try {
-    if (!isVisible.value) return
-    if (isSoundMuted.value) return
-
-    const now = performance.now()
-    if (now - lastKeyclickAt < 260) return
-    lastKeyclickAt = now
-
-    const audioCtx = getAudioContext()
-    if (!audioCtx || !isAudioReady()) return
-    const t = audioCtx.currentTime
-    const duration = 0.28
-    const baud = 45.45
-    const bitLength = 1 / baud
-    const mark = 2125
-    const space = 2295
-    const pattern = [1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1]
-
-    // ── Noise layer ──
-    const noiseBufferSize = Math.floor(audioCtx.sampleRate * duration)
-    const noiseBuffer = audioCtx.createBuffer(1, noiseBufferSize, audioCtx.sampleRate)
-    const noiseData = noiseBuffer.getChannelData(0)
-    for (let i = 0; i < noiseBufferSize; i++) {
-      noiseData[i] = (Math.random() * 2 - 1) * 0.32
-    }
-    const noiseSource = audioCtx.createBufferSource()
-    const noiseGain = audioCtx.createGain()
-    const noiseFilter = audioCtx.createBiquadFilter()
-    noiseSource.buffer = noiseBuffer
-    noiseFilter.type = 'bandpass'
-    noiseFilter.frequency.setValueAtTime(1800, t)
-    noiseFilter.Q.setValueAtTime(0.8, t)
-    noiseGain.gain.setValueAtTime(0.0001, t)
-    noiseGain.gain.exponentialRampToValueAtTime(0.014, t + 0.01)
-    noiseGain.gain.exponentialRampToValueAtTime(0.0001, t + duration)
-    noiseSource.connect(noiseFilter)
-    noiseFilter.connect(noiseGain)
-    noiseGain.connect(audioCtx.destination)
-    noiseSource.start(t)
-    noiseSource.stop(t + duration)
-
-    // ── Square wave oscillator with frequency-shift keying ──
-    const oscillator = audioCtx.createOscillator()
-    const toneGain = audioCtx.createGain()
-    const toneFilter = audioCtx.createBiquadFilter()
-    const masterGain = audioCtx.createGain()
-    oscillator.type = 'square'
-    pattern.forEach((bit, index) => {
-      oscillator.frequency.setValueAtTime(bit ? mark : space, t + index * bitLength)
-    })
-    toneFilter.type = 'bandpass'
-    toneFilter.frequency.setValueAtTime(2210, t)
-    toneFilter.Q.setValueAtTime(10, t)
-    toneGain.gain.setValueAtTime(0.0001, t)
-    toneGain.gain.exponentialRampToValueAtTime(0.035, t + 0.012)
-    toneGain.gain.setValueAtTime(0.035, t + duration - 0.045)
-    toneGain.gain.exponentialRampToValueAtTime(0.0001, t + duration)
-    masterGain.gain.setValueAtTime(0.85, t)
-    oscillator.connect(toneFilter)
-    toneFilter.connect(toneGain)
-    toneGain.connect(masterGain)
-    masterGain.connect(audioCtx.destination)
-    oscillator.start(t)
-    oscillator.stop(t + duration)
-
-  } catch (e) {
-    // silent
-  }
-}
 
 let typeTimeout = null
 let pauseTimeout = null
@@ -115,7 +34,6 @@ const typeSentence = (index) => {
   if (index <= sentence.length) {
     displayedText.value = sentence.substring(0, index)
     if (index < sentence.length) {
-      playKeyclick()
       const delay = 30 + Math.random() * 50
       typeTimeout = setTimeout(() => typeSentence(index + 1), delay)
     } else {
@@ -160,24 +78,6 @@ watch(bootComplete, (val) => {
 })
 
 onMounted(() => {
-  const onSoundToggle = (event) => {
-    isSoundMuted.value = !!event?.detail?.muted
-  }
-  window.addEventListener('mx-sound-toggle', onSoundToggle)
-  removeSoundToggleListener = () => {
-    window.removeEventListener('mx-sound-toggle', onSoundToggle)
-  }
-
-  // Observe visibility to silence sound when scrolled away
-  const el = document.querySelector('.retro-typewriter')
-  if (el) {
-    observer = new IntersectionObserver(
-      ([entry]) => { isVisible.value = entry.isIntersecting },
-      { threshold: 0 }
-    )
-    observer.observe(el)
-  }
-
   if (bootComplete.value) {
     startTypingCycle()
   }
@@ -185,14 +85,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearAllTimeouts()
-  if (removeSoundToggleListener) {
-    removeSoundToggleListener()
-    removeSoundToggleListener = null
-  }
-  if (observer) {
-    observer.disconnect()
-    observer = null
-  }
 })
 </script>
 
