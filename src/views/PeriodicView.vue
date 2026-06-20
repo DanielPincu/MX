@@ -31,10 +31,6 @@
             <div class="element-corners" aria-hidden="true">
               <span></span><span></span><span></span><span></span>
             </div>
-            <div class="element-readout" aria-hidden="true">
-              <span>decode</span>
-              <strong>{{ item.title }}</strong>
-            </div>
           </div>
         </div>
       </div>
@@ -464,33 +460,6 @@
           border-bottom: 2px solid;
       }
 
-      .element-readout {
-          position: absolute;
-          left: 7px;
-          right: 7px;
-          bottom: 6px;
-          z-index: 3;
-          display: flex;
-          justify-content: space-between;
-          gap: 0.4rem;
-          border-top: 1px solid rgba(var(--mx-accent-rgb), 0.22);
-          border-bottom: 1px solid rgba(var(--mx-accent-rgb), 0.22);
-          background: rgba(0, 8, 3, 0.76);
-          padding: 0.25rem 0.35rem;
-          color: rgba(var(--mx-accent-soft-rgb), 0.72);
-          font-size: 0.48rem;
-          letter-spacing: 0.12em;
-          line-height: 1;
-          text-transform: uppercase;
-          opacity: 0;
-          transform: translateY(7px);
-          pointer-events: none;
-      }
-
-      .element-readout strong {
-          color: #fff7aa;
-      }
-
       .atomic-number {
           position: absolute;
           top: 7px;
@@ -556,10 +525,6 @@
               animation: periodic-lock-corners 900ms steps(2, end);
           }
 
-          .element-readout {
-              animation: periodic-readout-decode 1050ms steps(4, end);
-          }
-
           .title {
               animation: periodic-title-glitch 620ms steps(2, end);
               text-shadow:
@@ -589,11 +554,6 @@
           0 0.18rem 0 rgba(0, 0, 0, 0.9),
           0 0 16px rgba(var(--mx-accent-rgb), 0.18);
       z-index: 10;
-  }
-
-  .periodic-element.is-selected .element-readout {
-      opacity: 1;
-      transform: translateY(0);
   }
 
   .periodic-element.is-selected .title {
@@ -642,23 +602,6 @@
       38% {
           opacity: 1;
           transform: scale(1.02);
-      }
-  }
-
-  @keyframes periodic-readout-decode {
-      0%, 100% {
-          opacity: 0;
-          transform: translateY(7px);
-      }
-      12%, 76% {
-          opacity: 1;
-          transform: translateY(0);
-      }
-      24% {
-          transform: translateY(0) translateX(-4px);
-      }
-      36% {
-          transform: translateY(0) translateX(4px);
       }
   }
 

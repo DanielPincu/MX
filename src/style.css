@@ -119,18 +119,6 @@ html {
   scrollbar-gutter: stable;
 }
 
-html.is-booting {
-  scrollbar-color: transparent #000;
-}
-
-html.is-booting::-webkit-scrollbar-track {
-  background: #000;
-}
-
-html.is-booting::-webkit-scrollbar-thumb {
-  background: transparent;
-  border: 0;
-}
 
 body
 {   
@@ -292,13 +280,6 @@ nav a
   min-width: 2.2rem;
   text-align: right;
   font-weight: 700;
-}
-
-.mixer-sep {
-  width: 1px;
-  height: 1.15rem;
-  background: rgba(var(--mx-accent-rgb), 0.25);
-  margin: 0 0.15rem;
 }
 
 .theme-dot {
@@ -867,11 +848,6 @@ nav a.router-link-exact-active {
 @media (max-width: 768px) {
   .brand-role,
   .nav-status {
-    display: none;
-  }
-
-  .mixer-group--cmyk,
-  .theme-mixer .mixer-sep {
     display: none;
   }
 

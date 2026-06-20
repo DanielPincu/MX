@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen flex flex-col app-shell">
-    <BootScreen v-if="!isBootComplete" @boot-complete="handleBootComplete" />
 
     <header class="fixed left-0 right-0 z-30 site-header">
       <nav class="container mx-auto px-4 py-3">
@@ -22,22 +21,6 @@
               <span class="mixer-label">RGB</span>
               <button
                 v-for="theme in rgbThemes"
-                :key="theme.name"
-                type="button"
-                class="theme-dot"
-                :class="[`theme-dot--${theme.name}`, { active: currentTheme === theme.name }]"
-                :aria-label="`Use ${theme.label} theme`"
-                :aria-pressed="currentTheme === theme.name"
-                @click="setTheme(theme.name)"
-              >
-                <span></span>
-              </button>
-            </div>
-            <div class="mixer-sep"></div>
-            <div class="mixer-group mixer-group--cmyk">
-              <span class="mixer-label">CMYK</span>
-              <button
-                v-for="theme in cmykThemes"
                 :key="theme.name"
                 type="button"
                 class="theme-dot"
@@ -146,34 +129,16 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, watch, onUnmounted, provide } from 'vue'
-import BootScreen from '@/components/BootScreen.vue'
 
-const isBootComplete = ref(sessionStorage.getItem('mx-boot-complete') === 'true')
 const isMenuOpen = ref(false)
 const isSoundMuted = ref(localStorage.getItem('mx-sound-muted') === 'true')
 
-provide('bootComplete', isBootComplete)
-
-if (!isBootComplete.value) {
-  document.documentElement.classList.add('is-booting')
-}
-
-const handleBootComplete = () => {
-  isBootComplete.value = true
-  sessionStorage.setItem('mx-boot-complete', 'true')
-  document.documentElement.classList.remove('is-booting')
-}
+provide('bootComplete', ref(true))
 
 const rgbThemes = [
   { name: 'red', label: 'Red' },
   { name: 'green', label: 'Green' },
   { name: 'blue', label: 'Blue' }
-]
-const cmykThemes = [
-  { name: 'cyan', label: 'Cyan' },
-  { name: 'magenta', label: 'Magenta' },
-  { name: 'yellow', label: 'Yellow' },
-  { name: 'black', label: 'Black' }
 ]
 const currentTheme = ref(localStorage.getItem('mx-theme') || 'green')
 
@@ -211,7 +176,6 @@ const closeMenu = () => {
 
 const resetMenuScrollLock = () => {
   document.body.style.overflow = ""
-  document.documentElement.classList.remove('is-booting')
 }
 
 watch(isMenuOpen, (newValue) => {

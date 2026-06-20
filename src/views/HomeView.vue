@@ -63,27 +63,9 @@
                 <Glitch class="hero-tv" />
               </div>
 
-              <!-- Stats cards -->
-              <div class="hero-stats">
-                <div v-for="stat in heroStats" :key="stat.label" class="hero-stat-card">
-                  <strong>{{ stat.value }}</strong>
-                  <span>{{ stat.label }}</span>
-                </div>
-              </div>
-
             </div>
 
           </div>
-          <div class="hero-news-ticker" aria-label="Highlights ticker">
-            <span class="hero-news-label">MX LIVE</span>
-            <div class="hero-news-track-wrap">
-              <div class="hero-news-track">
-                <span v-for="(item, idx) in tickerItems" :key="`a-${idx}`">{{ item }}</span>
-                <span v-for="(item, idx) in tickerItems" :key="`b-${idx}`">{{ item }}</span>
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </div>
@@ -214,18 +196,6 @@ const getScrollbarWidth = () => {
   return window.innerWidth - document.documentElement.clientWidth;
 };
 
-const heroStats = ref([
-  { value: "10", label: "featured projects" },
-  { value: "Vue", label: "current main stack" },
-  { value: "SEA", label: "web dev studies" }
-]);
-
-const tickerItems = ref([
-  "Now shipping immersive front-end builds",
-  "IoT + web experiments in active development",
-  "Currently exploring React and API design",
-  "Open for collaboration and freelance projects"
-]);
 
 const hobbiesTitle = ref("Hobbies & Interests");
 const hobbies = ref([
@@ -1012,85 +982,6 @@ onUnmounted(() => {
   margin-right: 0;
 }
 
-/* ══════════════════════════════════════════
-   STAT CARDS
-   ══════════════════════════════════════════ */
-
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-  width: 100%;
-  max-width: 34rem;
-}
-
-.hero-stat-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(var(--mx-accent-rgb), 0.22);
-  border-bottom: 3px solid rgba(0, 0, 0, 0.7);
-  border-radius: 6px 6px 10px 10px;
-  background:
-    linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.06), transparent 34%),
-    linear-gradient(180deg, rgba(14, 20, 15, 0.78), rgba(4, 6, 4, 0.72) 72%);
-  padding: 0.55rem 0.45rem;
-  text-align: center;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -0.25rem 0.35rem rgba(0, 0, 0, 0.6),
-    0 0.12rem 0 rgba(0, 0, 0, 0.8);
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.hero-stat-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(var(--mx-accent-rgb), 0.55);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -0.25rem 0.35rem rgba(0, 0, 0, 0.5),
-    0 0.12rem 0 rgba(0, 0, 0, 0.8),
-    0 0 18px rgba(var(--mx-accent-rgb), 0.12);
-}
-
-/* Pulse sweep across stats */
-.hero-stat-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.12), transparent);
-  transform: translateX(-120%);
-  animation: hero-stat-scan 6s ease-in-out infinite;
-}
-
-.hero-stat-card:nth-child(2)::before { animation-delay: 1.4s; }
-.hero-stat-card:nth-child(3)::before { animation-delay: 2.8s; }
-
-.hero-stat-card strong {
-  position: relative;
-  display: block;
-  color: var(--mx-warm);
-  font-family: 'VT323', 'Courier New', monospace;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  line-height: 1.1;
-  text-shadow: 0 0 8px rgba(var(--mx-warm-rgb), 0.4);
-}
-
-.hero-stat-card span {
-  position: relative;
-  display: block;
-  color: rgba(255, 255, 255, 0.55);
-  font-family: 'VT323', 'Courier New', monospace;
-  font-size: clamp(0.52rem, 0.7vw, 0.62rem);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-top: 0.3rem;
-}
-
-@keyframes hero-stat-scan {
-  0%, 78%, 100% { transform: translateX(-120%); opacity: 0; }
-  86% { opacity: 0.35; }
-  96% { transform: translateX(120%); opacity: 0; }
-}
 
 /* ══════════════════════════════════════════
    CTA BUTTONS
@@ -1101,65 +992,6 @@ onUnmounted(() => {
   gap: 0.75rem;
   margin-top: 0.4rem;
   flex-wrap: wrap;
-}
-
-.hero-news-ticker {
-  margin-top: 1rem;
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: stretch;
-  min-height: 3rem;
-  border: 1px solid rgba(var(--mx-accent-rgb), 0.26);
-  background: rgba(0, 0, 0, 0.62);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 18px rgba(var(--mx-accent-rgb), 0.1);
-}
-
-.hero-news-label {
-  display: grid;
-  place-items: center;
-  min-width: 6rem;
-  padding: 0.7rem 0.85rem;
-  background: linear-gradient(180deg, #d20000, #7f0000);
-  color: #fff;
-  font-family: 'VT323', 'Courier New', monospace;
-  font-size: 0.86rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.hero-news-track-wrap {
-  overflow: hidden;
-  position: relative;
-}
-
-.hero-news-track {
-  display: inline-flex;
-  align-items: center;
-  gap: 2rem;
-  white-space: nowrap;
-  min-width: max-content;
-  padding: 0.7rem 0.9rem;
-  animation: hero-news-crawl 24s linear infinite;
-}
-
-.hero-news-track span {
-  font-family: 'VT323', 'Courier New', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: rgba(var(--mx-accent-soft-rgb), 0.82);
-}
-
-.hero-news-track span::after {
-  content: "●";
-  margin-left: 2rem;
-  color: rgba(var(--mx-warm-rgb), 0.85);
-}
-
-@keyframes hero-news-crawl {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* ══════════════════════════════════════════
@@ -1423,12 +1255,6 @@ onUnmounted(() => {
     font-size: 0.82rem;
   }
 
-  .hero-news-ticker {
-    width: 100%;
-    margin-top: 0.65rem;
-    min-height: 2.45rem;
-  }
-
   .hero-right {
     gap: 0.85rem;
     width: 100%;
@@ -1436,11 +1262,6 @@ onUnmounted(() => {
 
   .hero-tv {
     width: min(100%, 20rem);
-  }
-
-  .hero-stats {
-    max-width: 20rem;
-    gap: 0.4rem;
   }
 
   .hero-scroll-indicator {
@@ -1457,29 +1278,6 @@ onUnmounted(() => {
 
   .hero-tv-dock {
     margin-top: 0;
-  }
-
-  .hero-stats {
-    grid-template-columns: 1fr;
-    max-width: 16rem;
-  }
-
-  .hero-news-ticker {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-news-label {
-    min-width: 0;
-    width: 100%;
-    font-size: 0.76rem;
-  }
-
-  .hero-news-track {
-    padding-inline: 0.55rem;
-  }
-
-  .hero-news-track span {
-    font-size: 0.7rem;
   }
 
   .hero-cipher-shell :deep(.matrix-container) {
@@ -1503,22 +1301,10 @@ onUnmounted(() => {
   .hero-tv {
     width: min(100%, 28rem);
   }
-
-  .hero-stats {
-    max-width: 28rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-indicator {
-    animation: none;
-  }
-
-  .hero-news-track {
-    animation: none;
-  }
-
-  .hero-stat-card::before {
     animation: none;
   }
 }
