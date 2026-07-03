@@ -795,7 +795,7 @@ onUnmounted(() => {
 .hero-left {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 1.4rem;
   text-align: center;
   align-items: center;
 }
@@ -853,7 +853,7 @@ onUnmounted(() => {
 }
 
 .hero-name-text {
-  font-size: clamp(2.35rem, 5.8vw, 4.4rem) !important;
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem) !important;
   display: block;
   text-align: left;
 }
@@ -1150,7 +1150,7 @@ onUnmounted(() => {
 .hero-actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 0.4rem;
+  margin-top: 0.8rem;
   flex-wrap: wrap;
   justify-content: center;
 }

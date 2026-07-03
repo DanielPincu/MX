@@ -126,39 +126,45 @@ import { ref, watch, onMounted, onUnmounted, provide } from 'vue'
 
 const isMenuOpen = ref(false)
 
-// ── Global digital rain ──
+// ── Global digital rain (throttled to ~30 fps, larger font) ──
 const globalRain = ref(null)
 const rainStr = "日アイウエオキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンあいうえおかきくけこさしすせそたちつてとな";
 const rainChars = rainStr.split("")
-let rainCtx, rainW, rainH, rainFont, rainArr, rainTick
+let rainCtx, rainW, rainH, rainFont, rainArr, rainTick, rainAccent
 
 const initRain = () => {
   const c = globalRain.value
   if (!c) return
-  rainCtx = c.getContext("2d")
+  rainCtx = c.getContext("2d", { alpha: true })
   rainW = c.width = window.innerWidth
   rainH = c.height = window.innerHeight
-  rainFont = 12
+  rainFont = 16  // larger font = fewer columns (~120 vs ~160 at 1920px)
   const col = Math.ceil(rainW / rainFont)
   rainArr = Array.from({ length: col }, () => null)
   rainTick = 0
+  rainAccent = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a"
 }
 
 const drawRain = () => {
   rainTick++
-  rainCtx.fillStyle = "rgba(0,0,0,.04)"
+  // skip every other frame → ~30 fps instead of 60
+  if (rainTick & 1) { requestAnimationFrame(drawRain); return }
+
+  rainCtx.fillStyle = "rgba(0,0,0,.05)"
   rainCtx.fillRect(0, 0, rainW, rainH)
-  rainCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a"
+  rainCtx.fillStyle = rainAccent
   rainCtx.font = rainFont + "px system-ui"
-  for (let i = 0; i < rainArr.length; i++) {
+
+  const len = rainArr.length
+  for (let i = 0; i < len; i++) {
     if (rainArr[i] === null) {
-      if (Math.random() < 0.00004) {
-        rainArr[i] = { y: 1, char: rainChars[Math.floor(Math.random() * rainChars.length)] }
+      if (Math.random() < 0.00006) {
+        rainArr[i] = { y: 1, char: rainChars[(Math.random() * rainChars.length) | 0] }
       }
       continue
     }
-    if (rainTick % 4 === 0) {
-      rainArr[i].char = rainChars[Math.floor(Math.random() * rainChars.length)]
+    if (rainTick % 8 === 0) {
+      rainArr[i].char = rainChars[(Math.random() * rainChars.length) | 0]
       rainArr[i].y++
     }
     if (rainArr[i].y * rainFont > rainH) { rainArr[i] = null; continue }

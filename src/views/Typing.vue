@@ -1,7 +1,7 @@
 <template>
   <div class="retro-typewriter">
     <span class="retro-text">{{ displayedText }}</span>
-    <span v-if="isTyping || showCursor" class="retro-cursor mb-2" :class="{ 'retro-cursor--blink': !isTyping }">▌</span>
+    <span v-if="isTyping || showCursor" class="retro-cursor mb-4" :class="{ 'retro-cursor--blink': !isTyping }">▌</span>
   </div>
 </template>
 

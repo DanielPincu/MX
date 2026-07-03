@@ -208,25 +208,31 @@ const portfolioCanvas = ref(null);
 let portfolioAnimationId = null;
 const portfolioStr = "日ア  イウ  エオ  カキ  クケコ  サシス  セソタチツテト  ナニヌネノハヒフヘホマミム  メモヤユヨラリル  レロワヲンあいうえおかきくけこさし  すせそ  たちつてとな ";
 const portfolioChars = portfolioStr.split("");
-let portfolioCtx, portfolioWidth, portfolioHeight, portfolioFont, portfolioColumns, portfolioDrops;
+let portfolioCtx, portfolioWidth, portfolioHeight, portfolioFont, portfolioColumns, portfolioDrops, portfolioTick, portfolioAccent;
 
 const initPortfolioCanvas = () => {
   const canvas = portfolioCanvas.value;
-  portfolioCtx = canvas.getContext("2d");
+  portfolioCtx = canvas.getContext("2d", { alpha: true });
   portfolioWidth = canvas.width = window.innerWidth;
   portfolioHeight = canvas.height = window.innerHeight;
-  portfolioFont = 5;
+  portfolioFont = 10;
   portfolioColumns = portfolioWidth / portfolioFont;
   portfolioDrops = new Array(Math.ceil(portfolioColumns)).fill(1);
+  portfolioTick = 0;
+  portfolioAccent = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
 };
 
 const drawPortfolio = () => {
+  portfolioTick++;
+  if (portfolioTick & 1) { portfolioAnimationId = requestAnimationFrame(drawPortfolio); return; }
+
   portfolioCtx.fillStyle = "rgba(0,0,0,.05)";
   portfolioCtx.fillRect(0, 0, portfolioWidth, portfolioHeight);
-  portfolioCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--mx-accent").trim() || "#45ff8a";
+  portfolioCtx.fillStyle = portfolioAccent;
   portfolioCtx.font = portfolioFont + "px system-ui";
-  for (let i = 0; i < portfolioDrops.length; i++) {
-    let txt = portfolioChars[Math.floor(Math.random() * portfolioChars.length)];
+  const len = portfolioDrops.length;
+  for (let i = 0; i < len; i++) {
+    let txt = portfolioChars[(Math.random() * portfolioChars.length) | 0];
     portfolioCtx.fillText(txt, i * portfolioFont, portfolioDrops[i] * portfolioFont);
     if (portfolioDrops[i] * portfolioFont > portfolioHeight && Math.random() > 0.99999) portfolioDrops[i] = 0;
     portfolioDrops[i]++;
