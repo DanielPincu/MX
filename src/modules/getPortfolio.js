@@ -83,7 +83,7 @@ const getPortfolio = () => {
       image2: glitch2,
       image3: glitch3,
       liveLink: 'https://danielpincu.dev/',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/glitch-social',
     },
 
     {
@@ -98,7 +98,7 @@ const getPortfolio = () => {
       image2: fan2,
       image3: fan3,
       liveLink: 'https://exam-6d170.web.app/',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/FantasyQuestEsbjerg',
     },
 
     {
@@ -113,7 +113,7 @@ const getPortfolio = () => {
       image2: board2,
       image3: board3,
       liveLink: 'https://esbjergboardgames.dk',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/Esbjerg-Board-Games',
     },
 
 
@@ -130,7 +130,7 @@ const getPortfolio = () => {
   image2: ck2,
   image3: ck3,
   liveLink: 'https://ckcookies.dk',
-  sourceCode: '',
+  sourceCode: 'https://github.com/DanielPincu/ckcookies',
 },
 
 
@@ -147,7 +147,7 @@ const getPortfolio = () => {
       image2: trap2,
       image3: trap3,
       liveLink: 'https://semester-project-kappa.vercel.app/',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/Trapholt-Museum',
     },
     
 
@@ -163,7 +163,7 @@ const getPortfolio = () => {
       image2: port3,
       image3: port1,
       liveLink: 'https://portfolio-firebase-mu.vercel.app/',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/Portfolio-Firebase',
     },
 
     {
@@ -178,7 +178,7 @@ const getPortfolio = () => {
       image2: task2,
       image3: task3,
       liveLink: 'https://www.youtube.com/watch?v=dIwXC3LD0uE&ab_channel=DanielPincu',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/TypeScript-Exam-App',
     },
 
     {
@@ -194,7 +194,7 @@ const getPortfolio = () => {
       image2: kate2,
       image3: kate3,
       liveLink: 'https://kates-corner.danielpincu.dev/',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/Kate-s-Corner-Theme',
     },
     
     
@@ -211,7 +211,7 @@ const getPortfolio = () => {
       image3: un3,
       image4: un4,
       liveLink: 'https://united-nations.danielpincu.dev',
-      sourceCode: '',
+      sourceCode: 'https://github.com/DanielPincu/Laravel-Product-Management',
     },
     
      
