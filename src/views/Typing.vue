@@ -1,31 +1,63 @@
 <template>
   <div class="retro-typewriter">
-    <span class="retro-text">{{ displayedText }}</span>
+    <span class="retro-text">
+      <template v-for="(part, i) in textParts" :key="i">
+        <span v-if="part.mirror" class="retro-text--mirror" :style="{ transitionDelay: part.charIndex * 30 + 'ms' }">{{ part.text }}</span>
+        <span v-else>{{ part.text }}</span>
+      </template>
+    </span>
     <span v-if="isTyping || showCursor" class="retro-cursor mb-4" :class="{ 'retro-cursor--blink': !isTyping }">▌</span>
   </div>
 </template>
 
 <script setup>
-import { ref, inject, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, inject, onMounted, onUnmounted, watch } from 'vue'
 
 const bootComplete = inject('bootComplete', ref(false))
 
 const sentences = [
   'Hello, stranger!',
-  'My name is Daniel Pincu',
-  'Welcome to The Matrix!'
+  'Welcome to The Matrix'
 ]
 const displayedText = ref('')
 const isTyping = ref(false)
 const showCursor = ref(true)
+const mirrorMatrix = ref(false)
 let sentenceIndex = 0
 
 let typeTimeout = null
 let pauseTimeout = null
+let mirrorTimer = null
+
+const textParts = computed(() => {
+  const parts = []
+  const idx = displayedText.value.indexOf('Matrix')
+  if (idx === -1) {
+    parts.push({ text: displayedText.value, mirror: false })
+  } else {
+    if (idx > 0) parts.push({ text: displayedText.value.substring(0, idx), mirror: false })
+    for (let i = 0; i < 6; i++) {
+      parts.push({ text: 'Matrix'[i], mirror: mirrorMatrix.value, charIndex: i })
+    }
+    const after = displayedText.value.substring(idx + 6)
+    if (after) parts.push({ text: after, mirror: false })
+  }
+  return parts
+})
 
 const clearAllTimeouts = () => {
   if (typeTimeout) { clearTimeout(typeTimeout); typeTimeout = null }
   if (pauseTimeout) { clearTimeout(pauseTimeout); pauseTimeout = null }
+  if (mirrorTimer) { clearTimeout(mirrorTimer); mirrorTimer = null }
+}
+
+const scheduleMirror = () => {
+  if (sentenceIndex !== sentences.length - 1) return
+  const delay = 400 + Math.random() * 1200
+  mirrorTimer = setTimeout(() => {
+    mirrorMatrix.value = !mirrorMatrix.value
+    scheduleMirror()
+  }, delay)
 }
 
 const typeSentence = (index) => {
@@ -40,7 +72,7 @@ const typeSentence = (index) => {
       isTyping.value = false
       showCursor.value = true
       // If this is the last sentence, keep it displayed forever
-      if (sentenceIndex === sentences.length - 1) return
+      if (sentenceIndex === sentences.length - 1) { scheduleMirror(); return }
       // Otherwise pause, then erase and go to next
       pauseTimeout = setTimeout(() => {
         eraseSentence(sentence.length)
@@ -85,6 +117,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   clearAllTimeouts()
+  mirrorMatrix.value = false
 })
 </script>
 
@@ -111,6 +144,12 @@ onUnmounted(() => {
     0 0 4px rgba(var(--mx-accent-rgb), 0.4),
     0 0 12px rgba(var(--mx-accent-rgb), 0.15);
   white-space: pre;
+}
+
+.retro-text--mirror {
+  display: inline-block;
+  transform: scaleX(-1);
+  transition: transform 50ms ease;
 }
 
 .retro-cursor {

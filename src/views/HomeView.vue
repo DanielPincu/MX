@@ -34,7 +34,12 @@
 
               <!-- Name headline -->
               <h1 class="hero-name">
-                <span class="hero-name-text hero-name-glitch -mt-8">Daniel Pincu<span aria-hidden="true">Daniel Pincu</span></span>
+                <span class="hero-name-text typed-text glitch-text -mt-8">
+                  <span class="glitch-wrapper">
+                    <span class="glitch-base">Daniel Pincu<span class="cursor-pulse"></span></span>
+                    <span aria-hidden="true" class="glitch-overlay">Daniel Pincu<span class="cursor-glitch"></span></span>
+                  </span>
+                </span>
               </h1>
 
               <!-- Tagline -->
@@ -856,6 +861,8 @@ onUnmounted(() => {
   font-size: clamp(1.8rem, 4.5vw, 3.2rem) !important;
   display: block;
   text-align: left;
+  min-width: unset;
+  min-height: unset;
 }
 
 .hero-name-glitch {
@@ -864,30 +871,37 @@ onUnmounted(() => {
   font-weight: 700;
   color: var(--mx-accent);
   letter-spacing: 0.05em;
-  text-shadow:
-    0 0 1px rgba(var(--mx-accent-soft-rgb), 0.9),
-    0 0 8px rgba(var(--mx-accent-rgb), 0.8),
-    0 0 18px rgba(var(--mx-accent-rgb), 0.5);
-  animation: hero-name-jerkwhole 6s infinite;
 }
 
-.hero-name-glitch > span {
+/* Shared glitch effect */
+.glitch-text {
+  position: relative;
+  animation: glitch-jerkwhole 5s infinite;
+}
+.glitch-wrapper { position: relative; }
+.glitch-base { color: inherit; white-space: nowrap; }
+.glitch-overlay {
   position: absolute;
   inset: 0;
-  color: var(--mx-accent);
-  filter: none;
+  filter: blur(2px);
+  color: var(--mx-accent, #45ff8a);
+  opacity: 0.8;
+  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
   pointer-events: none;
-  mix-blend-mode: normal;
-  opacity: 1;
-  animation: hero-name-jerk 80ms infinite;
 }
+.cursor-pulse { animation: pulsing 0.3s infinite; }
+.cursor-glitch { animation: pulsing 0.3s infinite, glitch-jerk 50ms infinite; }
 
-@keyframes hero-name-jerk {
-  50% { transform: translateX(1.2px); }
+@keyframes pulsing { 50% { opacity: 0; } }
+@keyframes glitch-blur {
+  0%, 100% { opacity: 0.6; filter: blur(1px); }
+  50% { opacity: 1; filter: blur(2px); }
+}
+@keyframes glitch-jerk {
+  50% { transform: translateX(3px); }
   51% { transform: translateX(0); }
 }
-
-@keyframes hero-name-jerkwhole {
+@keyframes glitch-jerkwhole {
   0%, 100% { transform: translate(0, 0); }
   20% { transform: translate(0.2px, -0.2px); }
   40% { transform: translate(-0.2px, 0.2px); }
