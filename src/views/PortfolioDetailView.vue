@@ -20,7 +20,6 @@
       <div class="container mx-auto px-5">
         <div class="detail-hero">
           <div>
-            <p class="detail-kicker">{{ specificPortfolioItem.category }} / {{ specificPortfolioItem.year }}</p>
             <h1>{{ specificPortfolioItem.title }}</h1>
             <p class="detail-lead">{{ specificPortfolioItem.description }}</p>
           </div>
@@ -47,10 +46,6 @@
             <div>
               <span>Role</span>
               <strong>{{ specificPortfolioItem.role }}</strong>
-            </div>
-            <div>
-              <span>Year</span>
-              <strong>{{ specificPortfolioItem.year }}</strong>
             </div>
             <div>
               <span>Technologies</span>
