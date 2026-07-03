@@ -33,13 +33,23 @@ import { useScrollType } from '@/composables/useScrollType';
 
 const { displayedText: typedText, setRef } = useScrollType('There is no spoon...');
 const keyboardElement = ref(null);
+
+// ── Mutable state ──
 let activeKeyTimeout = null;
 let activeElement = null;
 let previousPhysicalKey = null;
-const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-const digits = '0123456789'.split('');
 const settledKeys = new Set();
-let alphabetCycleTimer = null;
+
+// ── Character pools ──
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const DIGITS = '0123456789'.split('');
+
+// ── Cached cycling elements (built once at mount) ──
+// Each entry: { el: DOMElement, charset: string[] }
+let cyclingEntries = [];
+
+// ── Key→Element map for O(1) flashKey lookups ──
+let keyElementMap = new Map();
 
 const keys = ref([
   [
@@ -72,30 +82,39 @@ const keys = ref([
 ]);
 
 const ignoredKeys = new Set([
-  'caps',
-  'tab',
-  'lshift',
-  'rshift',
-  'lctrl',
-  'rctrl',
-  'lalt',
-  'ralt',
-  'lwin',
-  'rwin',
-  'rctx',
+  'caps', 'tab', 'lshift', 'rshift', 'lctrl', 'rctrl',
+  'lalt', 'ralt', 'lwin', 'rwin', 'rctx',
 ]);
 
+// ── Helpers ──
 const getKeyDisplay = (key) => key;
-
 const isLetterKey = (key) => /^[a-z]$/.test(key);
 const isDigitKey = (key) => /^[0-9]$/.test(key);
 const isCyclingKey = (key) => isLetterKey(key) || isDigitKey(key);
 
-const settleKeyLabel = (event, key) => {
-  if (!isCyclingKey(key)) {
-    return;
-  }
+// ── Build element caches (called once on mount) ──
+const buildCaches = () => {
+  const allKeys = keyboardElement.value?.querySelectorAll('kbd[data-key]');
+  if (!allKeys) return;
 
+  cyclingEntries = [];
+  keyElementMap = new Map();
+
+  allKeys.forEach((el) => {
+    const code = el.dataset.key;
+    keyElementMap.set(code, el);
+
+    if (isLetterKey(code)) {
+      cyclingEntries.push({ el, charset: ALPHABET });
+    } else if (isDigitKey(code)) {
+      cyclingEntries.push({ el, charset: DIGITS });
+    }
+  });
+};
+
+// ── Hover settle / release ──
+const settleKeyLabel = (event, key) => {
+  if (!isCyclingKey(key)) return;
   const element = event.currentTarget;
   settledKeys.add(element);
   element.classList.add('decoding');
@@ -103,41 +122,46 @@ const settleKeyLabel = (event, key) => {
 };
 
 const releaseKeyLabel = (event, key) => {
-  if (!isCyclingKey(key)) {
-    return;
-  }
-
+  if (!isCyclingKey(key)) return;
   const element = event.currentTarget;
   settledKeys.delete(element);
   element.classList.remove('decoding');
 };
 
+// ── Alphabet cycling (rAF-driven, cached elements) ──
+let rafId = null;
+let lastCycleTime = 0;
+const CYCLE_INTERVAL_MS = 80;
+
 const cycleKeyboardLetters = () => {
-  const letterKeys = keyboardElement.value?.querySelectorAll('kbd[data-key]');
+  for (let i = 0; i < cyclingEntries.length; i++) {
+    const { el, charset } = cyclingEntries[i];
+    if (settledKeys.has(el)) continue;
+    el.dataset.display = charset[(Math.random() * charset.length) | 0];
+  }
+};
 
-  letterKeys?.forEach((element) => {
-    if (!isCyclingKey(element.dataset.key) || settledKeys.has(element)) {
-      return;
-    }
-
-    const characterSet = isDigitKey(element.dataset.key) ? digits : alphabet;
-    const randomIndex = Math.floor(Math.random() * characterSet.length);
-    element.dataset.display = characterSet[randomIndex];
-  });
+const cycleLoop = (timestamp) => {
+  if (timestamp - lastCycleTime >= CYCLE_INTERVAL_MS) {
+    cycleKeyboardLetters();
+    lastCycleTime = timestamp;
+  }
+  rafId = requestAnimationFrame(cycleLoop);
 };
 
 const startAlphabetCycle = () => {
   cycleKeyboardLetters();
-  alphabetCycleTimer = setInterval(cycleKeyboardLetters, 70);
+  lastCycleTime = performance.now();
+  rafId = requestAnimationFrame(cycleLoop);
 };
 
+// ── Key flash (O(1) lookup via Map) ──
 const flashKey = (key) => {
   if (activeElement) {
     activeElement.classList.remove('pressed');
   }
 
-  activeElement = [...(keyboardElement.value?.querySelectorAll('kbd') ?? [])]
-    .find(element => element.dataset.key === key);
+  activeElement = keyElementMap.get(key) ?? null;
 
   if (activeElement) {
     activeElement.classList.add('pressed');
@@ -152,6 +176,7 @@ const flashKey = (key) => {
   }, 160);
 };
 
+// ── Click handler ──
 const handleKeyClick = (key) => {
   flashKey(key);
 
@@ -164,38 +189,19 @@ const handleKeyClick = (key) => {
   }
 };
 
+// ── Physical keyboard mapping ──
 const physicalKeyMap = {
-  Backspace: 'backspace',
-  Tab: 'tab',
-  CapsLock: 'caps',
-  Enter: 'enter',
-  ShiftLeft: 'lshift',
-  ShiftRight: 'rshift',
-  ControlLeft: 'lctrl',
-  ControlRight: 'rctrl',
-  AltLeft: 'lalt',
-  AltRight: 'ralt',
-  MetaLeft: 'lwin',
-  MetaRight: 'rwin',
-  ContextMenu: 'rctx',
-  Space: 'space',
-  Backquote: '`',
-  Minus: '-',
-  Equal: '=',
-  BracketLeft: '[',
-  BracketRight: ']',
-  Backslash: '\\',
-  Semicolon: ';',
-  Quote: "'",
-  Comma: ',',
-  Period: '.',
-  Slash: '/',
+  Backspace: 'backspace', Tab: 'tab', CapsLock: 'caps', Enter: 'enter',
+  ShiftLeft: 'lshift', ShiftRight: 'rshift', ControlLeft: 'lctrl',
+  ControlRight: 'rctrl', AltLeft: 'lalt', AltRight: 'ralt',
+  MetaLeft: 'lwin', MetaRight: 'rwin', ContextMenu: 'rctx',
+  Space: 'space', Backquote: '`', Minus: '-', Equal: '=',
+  BracketLeft: '[', BracketRight: ']', Backslash: '\\',
+  Semicolon: ';', Quote: "'", Comma: ',', Period: '.', Slash: '/',
 };
 
 const handlePhysicalKey = (event) => {
-  if (event.repeat) {
-    return;
-  }
+  if (event.repeat) return;
 
   const mappedKey = physicalKeyMap[event.code] || event.key.toLowerCase();
   previousPhysicalKey = mappedKey;
@@ -216,7 +222,9 @@ const clearPhysicalKey = (event) => {
   }
 };
 
+// ── Lifecycle ──
 onMounted(() => {
+  buildCaches();
   startAlphabetCycle();
   window.addEventListener('keydown', handlePhysicalKey);
   window.addEventListener('keyup', clearPhysicalKey);
@@ -226,8 +234,10 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handlePhysicalKey);
   window.removeEventListener('keyup', clearPhysicalKey);
   clearTimeout(activeKeyTimeout);
-  clearInterval(alphabetCycleTimer);
+  if (rafId) cancelAnimationFrame(rafId);
   settledKeys.clear();
+  cyclingEntries = [];
+  keyElementMap.clear();
 });
 </script>
 
