@@ -847,7 +847,7 @@ nav a.router-link-exact-active {
   color: var(--mx-accent-soft);
   margin-bottom: 0px;
   min-width: 500px;
-  min-height: 120px;
+  min-height: 0px;
   text-align: center;
   text-shadow:
     0 0 4px rgba(var(--mx-accent-rgb), 0.95),
@@ -875,6 +875,7 @@ nav a.router-link-exact-active {
 
 .glitch-base {
   color: inherit;
+  white-space: nowrap;
 }
 
 .glitch-overlay {

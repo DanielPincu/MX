@@ -1,9 +1,9 @@
 <template>
   <div class="relative min-h-screen text-gray-100 mt-16 project-card portfolio-page">
         <h1 class="typed-text py-12 glitch-text portfolio-heading">
-          <span class="glitch-wrapper text-6xl">
-            <span class="glitch-base">Projects showcase<span class="cursor-pulse">|</span></span>
-            <span aria-hidden="true" class="glitch-overlay">Projects showcase<span class="cursor-glitch">|</span></span>
+          <span :ref="headingRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
+            <span class="glitch-base">{{ headingText }}<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">{{ headingText }}<span class="cursor-glitch">|</span></span>
           </span>
         </h1>
     <div class="relative px-6 portfolio-content">
@@ -55,8 +55,10 @@
 
 <script setup>
 import getPortfolio from '@/modules/getPortfolio';
+import { useScrollType } from '@/composables/useScrollType';
 
 const { portfolioItems } = getPortfolio();
+const { displayedText: headingText, setRef: headingRef } = useScrollType('Projects showcase');
 </script>
 
 <style scoped>

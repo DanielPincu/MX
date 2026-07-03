@@ -6,9 +6,9 @@
       <div class="md:pb-2 pb-10">
 
         <div class="typed-text glitch-text">
-          <span class="glitch-wrapper text-6xl">
-            <span class="glitch-base">About me<span class="cursor-pulse">|</span></span>
-            <span aria-hidden="true" class="glitch-overlay">About me<span class="cursor-glitch">|</span></span>
+          <span :ref="aboutRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl pb-5">
+            <span class="glitch-base">{{ aboutHeading }}<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">{{ aboutHeading }}<span class="cursor-glitch">|</span></span>
           </span>
         </div>
       </div>
@@ -51,6 +51,9 @@
 <script setup>
 import Keyboard from './Keyboard.vue';
 import { ref, onUnmounted } from 'vue';
+import { useScrollType } from '@/composables/useScrollType';
+
+const { displayedText: aboutHeading, setRef: aboutRef } = useScrollType('About me');
 
 const showEasterEgg = ref(false);
 const easterEggMessage = ref("");

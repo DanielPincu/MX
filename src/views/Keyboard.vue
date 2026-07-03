@@ -1,7 +1,7 @@
 <template>
   <div class="matrix-keyboard-rig">
-    <h1 class="typed-text py-12 glitch-text">
-      <span class="glitch-wrapper text-6xl">
+    <h1 class="typed-text pt-32 pb-2 glitch-text">
+      <span :ref="setRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
         <span class="glitch-base">{{ typedText }}<span class="cursor-pulse">|</span></span>
         <span aria-hidden="true" class="glitch-overlay">{{ typedText }}<span class="cursor-glitch">|</span></span>
       </span>
@@ -29,8 +29,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useScrollType } from '@/composables/useScrollType';
 
-const typedText = ref('There is no spoon...');
+const { displayedText: typedText, setRef } = useScrollType('There is no spoon...');
 const keyboardElement = ref(null);
 let activeKeyTimeout = null;
 let activeElement = null;

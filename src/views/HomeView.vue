@@ -104,9 +104,9 @@
     <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
     <div class="relative z-20">
         <div class="typed-text glitch-text pb-10 text-center">
-          <span class="glitch-wrapper text-6xl">
-            <span class="glitch-base">Expertise<span class="cursor-pulse">|</span></span>
-            <span aria-hidden="true" class="glitch-overlay">Expertise<span class="cursor-glitch">|</span></span>
+          <span :ref="expertiseRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
+            <span class="glitch-base">{{ expertiseHeading }}<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">{{ expertiseHeading }}<span class="cursor-glitch">|</span></span>
           </span>
         </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 fade-in" style="max-width: min(96vw, 1720px); margin-inline: auto; padding-inline: 1rem;">
@@ -136,9 +136,9 @@
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
         <div class="typed-text glitch-text pb-10 pt-20 text-center">
-          <span class="glitch-wrapper text-6xl">
-            <span class="glitch-base">My Internet periodic table<span class="cursor-pulse">|</span></span>
-            <span aria-hidden="true" class="glitch-overlay">My Internet periodic table<span class="cursor-glitch">|</span></span>
+          <span :ref="hobbiesRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
+            <span class="glitch-base">{{ hobbiesHeading }}<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">{{ hobbiesHeading }}<span class="cursor-glitch">|</span></span>
           </span>
         </div>
 
@@ -152,8 +152,8 @@
       </div>
        <div class="hidden xl:block periodic-section">
 
-        <div class="glitch-text periodic-title text-center text-[50px]">
-          <p class="text-green-600 text-[24px]">How do I spend my time online? <br>That's a 400 Bad Request kind of question 😂</p>
+        <div class="glitch-text periodic-title text-center text-3xl md:text-5xl">
+          <p class="text-green-600 text-lg md:text-2xl">How do I spend my time online? <br>That's a 400 Bad Request kind of question 😂</p>
         </div>
         <div class="periodic-wrap">
           <PeriodicView />
@@ -179,6 +179,10 @@ import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
 import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { useScrollType } from '@/composables/useScrollType';
+
+const { displayedText: expertiseHeading, setRef: expertiseRef } = useScrollType('Expertise');
+const { displayedText: hobbiesHeading, setRef: hobbiesRef } = useScrollType('My Internet periodic table');
 import PeriodicView from './PeriodicView.vue';
 
 onMounted(() => {
