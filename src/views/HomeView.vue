@@ -54,13 +54,40 @@
 
             </div>
 
-            <!-- ── RIGHT COLUMN: TV + Stats 40% ── -->
+            <!-- ── RIGHT COLUMN: CRT Carousel 40% ── -->
             <div class="hero-right">
-              
-              <!-- TV monitor -->
-              <div class="hero-tv-dock">
-                
-                <Glitch class="hero-tv" />
+
+              <div
+                class="hero-crt"
+                @mouseenter="stopHeroCarousel"
+                @mouseleave="startHeroCarousel"
+                @touchstart="onHeroTouchStart"
+                @touchend="onHeroTouchEnd"
+              >
+                <div class="crt-bezel">
+                  <span class="crt-corner crt-corner--tl"></span>
+                  <span class="crt-corner crt-corner--tr"></span>
+                  <span class="crt-corner crt-corner--bl"></span>
+                  <span class="crt-corner crt-corner--br"></span>
+
+                  <div class="crt-screen">
+                    <div class="carousel-track" :style="{ transform: `translateX(-${heroCarouselIndex * 100}%)` }">
+                      <div
+                        v-for="(item, idx) in heroCarouselItems"
+                        :key="idx"
+                        class="carousel-slide"
+                      >
+                        <video v-if="item.type === 'video'" :src="item.src" autoplay loop muted playsinline class="carousel-slide-media"></video>
+                        <img v-else :src="item.src" class="carousel-slide-media" />
+                      </div>
+                    </div>
+
+                    <div class="crt-scanlines" aria-hidden="true"></div>
+                    <div class="crt-phosphor" aria-hidden="true"></div>
+                    <div class="crt-vignette" aria-hidden="true"></div>
+                  </div>
+                </div>
+
               </div>
 
             </div>
@@ -172,21 +199,63 @@
 
 </template>
 <script setup>
-import Glitch from './TV.vue';
 import Typing from './Typing.vue';
 import HeroCipher from './HeroCipher.vue';
 import ContactView from './ContactView.vue';
 import AboutView from './AboutView.vue';
 import PortfolioView from './PortfolioView.vue';
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useScrollType } from '@/composables/useScrollType';
 
 const { displayedText: expertiseHeading, setRef: expertiseRef } = useScrollType('Expertise');
 const { displayedText: hobbiesHeading, setRef: hobbiesRef } = useScrollType('My Internet periodic table');
 import PeriodicView from './PeriodicView.vue';
 
+// ── Hero CRT carousel (TV channels) ──
+import ddd from '@/assets/ddd.jpeg';
+import gif1 from '@/assets/gif1.mp4';
+import gif2 from '@/assets/gif2.mp4';
+import xploading from '@/assets/xploading.gif';
+import code from '@/assets/code.gif';
+import error from '@/assets/error.gif';
+
+const heroCarouselItems = [
+  { src: xploading, type: 'image' },
+  { src: ddd, type: 'image' },
+  { src: code, type: 'image' },
+  { src: error, type: 'image' },
+];
+
+const heroCarouselIndex = ref(0);
+let heroCarouselTimer = null;
+let heroTouchStartX = 0;
+
+const startHeroCarousel = () => {
+  stopHeroCarousel();
+  if (heroCarouselItems.length <= 1) return;
+  heroCarouselTimer = setInterval(() => {
+    heroCarouselIndex.value = (heroCarouselIndex.value + 1) % heroCarouselItems.length;
+  }, 5000);
+};
+const stopHeroCarousel = () => {
+  if (heroCarouselTimer) { clearInterval(heroCarouselTimer); heroCarouselTimer = null; }
+};
+const onHeroTouchStart = (e) => { heroTouchStartX = e.touches[0].clientX; };
+const onHeroTouchEnd = (e) => {
+  const diff = heroTouchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) heroCarouselIndex.value = (heroCarouselIndex.value + 1) % heroCarouselItems.length;
+    else heroCarouselIndex.value = (heroCarouselIndex.value - 1 + heroCarouselItems.length) % heroCarouselItems.length;
+  }
+};
+
 onMounted(() => {
   window.scrollTo(0, 0);
+  startHeroCarousel();
+});
+
+onUnmounted(() => {
+  stopHeroCarousel();
 });
 
 const isAboutOpen = ref(false)
@@ -714,7 +783,7 @@ onUnmounted(() => {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 1fr 1fr;
   gap: clamp(1rem, 3vw, 2rem);
   align-items: center;
   justify-items: center;
@@ -877,6 +946,200 @@ onUnmounted(() => {
 
 .hero-tv :deep(.gif-tv) {
   margin-right: 0;
+}
+
+/* ═══════════════════════════════════════════
+   Hero CRT Carousel
+   ═══════════════════════════════════════════ */
+
+.hero-crt {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+.hero-crt .crt-bezel {
+  position: relative;
+  overflow: hidden;
+  padding: 1.4rem 1.2rem 1.8rem;
+  background:
+    linear-gradient(180deg, #151715 0%, #0a0d0a 30%, #050705 70%, #0a0d0a 100%);
+  border: 3px solid #1a1f1a;
+  border-top-color: #252a25;
+  border-left-color: #1c211c;
+  border-right-color: #0e120e;
+  border-bottom-color: #080a08;
+  outline: 2px solid #000;
+  outline-offset: -5px;
+  box-shadow:
+    inset 0 0.6rem 1.2rem rgba(0,0,0,0.7),
+    0 0 0 4px #0a0d0a,
+    0 0.8rem 2rem rgba(0,0,0,0.8),
+    0 0 40px rgba(var(--mx-accent-rgb), 0.08);
+  border-radius: 18px 18px 22px 22px;
+}
+
+.hero-crt .crt-screen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 2px solid #000;
+  background: #000;
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.9),
+    0 0 2px rgba(var(--mx-accent-rgb), 0.15);
+}
+
+.hero-crt .carousel-track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+
+.hero-crt .carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.hero-crt .carousel-slide-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-crt .crt-scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.12) 2px,
+    rgba(0,0,0,0.12) 4px
+  );
+  opacity: 0.55;
+}
+
+.hero-crt .crt-phosphor {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(0, 10, 1, 0.45) 100%);
+  mix-blend-mode: screen;
+}
+
+.hero-crt .crt-vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  box-shadow: inset 0 0 80px 20px rgba(0,0,0,0.7);
+}
+
+/* CRT corners */
+.hero-crt .crt-corner {
+  position: absolute;
+  z-index: 8;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.hero-crt .crt-corner::before,
+.hero-crt .crt-corner::after {
+  content: '';
+  position: absolute;
+  background: rgba(var(--mx-accent-rgb), 0.35);
+  box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.2);
+}
+
+.hero-crt .crt-corner::before { width: 100%; height: 2px; }
+.hero-crt .crt-corner::after  { width: 2px; height: 100%; }
+
+.hero-crt .crt-corner--tl { top: 10px; left: 10px; }
+.hero-crt .crt-corner--tl::before { top: 0; left: 0; }
+.hero-crt .crt-corner--tl::after  { top: 0; left: 0; }
+
+.hero-crt .crt-corner--tr { top: 10px; right: 10px; }
+.hero-crt .crt-corner--tr::before { top: 0; right: 0; }
+.hero-crt .crt-corner--tr::after  { top: 0; right: 0; }
+
+.hero-crt .crt-corner--bl { bottom: 14px; left: 10px; }
+.hero-crt .crt-corner--bl::before { bottom: 0; left: 0; }
+.hero-crt .crt-corner--bl::after  { bottom: 0; left: 0; }
+
+.hero-crt .crt-corner--br { bottom: 14px; right: 10px; }
+.hero-crt .crt-corner--br::before { bottom: 0; right: 0; }
+.hero-crt .crt-corner--br::after  { bottom: 0; right: 0; }
+
+/* Dots */
+.hero-crt .carousel-dots {
+  position: absolute;
+  bottom: -1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.45rem;
+  z-index: 6;
+}
+
+.hero-crt .carousel-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.45);
+  background: rgba(0,0,0,0.6);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.hero-crt .carousel-dot--active {
+  background: var(--mx-accent);
+  border-color: var(--mx-accent);
+  box-shadow:
+    0 0 8px rgba(var(--mx-accent-rgb), 0.8),
+    0 0 2px rgba(var(--mx-accent-rgb), 0.5);
+}
+
+/* Readout */
+.hero-crt .crt-readout {
+  position: absolute;
+  bottom: -2.4rem;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: var(--mx-accent);
+  text-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.7);
+  letter-spacing: 0.08em;
+  background: rgba(0,0,0,0.6);
+  padding: 0.15rem 0.5rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.25);
+}
+
+.hero-crt .crt-led {
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--mx-accent);
+  box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.8);
+  animation: crt-led-blink 2s step-end infinite;
+}
+
+@keyframes crt-led-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 
