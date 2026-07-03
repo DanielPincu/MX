@@ -103,7 +103,7 @@ npm run build
 
 ## deploy
 
-The construct auto-deploys to **Vercel** on every push to `experiment`.
+The construct auto-deploys on every push.
 
 Live uplink: **[danielpincu.com](https://danielpincu.com)**
 
