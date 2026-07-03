@@ -233,9 +233,10 @@ a {
     0 0.22rem 0 rgba(0,0,0,0.9),
     0 0.4rem 1rem rgba(0,0,0,0.6),
     0 0 16px rgba(var(--mx-accent-rgb), 0.06);
-  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+  transition: transform 120ms ease;
   isolation: isolate;
   contain: paint;
+  will-change: transform;
 }
 
 .project::before {
@@ -303,10 +304,11 @@ a {
   position: relative;
   z-index: 0;
   filter: saturate(0.65) contrast(1.2) brightness(0.65);
-  transition: filter 200ms ease, transform 200ms ease;
+  transition: transform 200ms ease;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  will-change: transform;
 }
 
 /* ── Content strip — terminal readout ── */
@@ -334,7 +336,6 @@ a {
 .project__content h2 {
   color: #fff;
   text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.25);
-  transition: text-shadow 0.2s;
 }
 
 .project__content p {
@@ -382,39 +383,22 @@ a {
   box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.7);
 }
 
-/* ── Hover — phosphor brightening ── */
+/* ── Hover — GPU-only: transform + opacity (no paints) ── */
 
 .project:hover {
   transform: translateY(-3px);
-  border-color: rgba(var(--mx-accent-rgb), 0.45);
-  box-shadow:
-    inset 0 0.5rem 1rem rgba(0,0,0,0.65),
-    0 0.22rem 0 rgba(0,0,0,0.9),
-    0 0.4rem 1rem rgba(0,0,0,0.6),
-    0 0 28px rgba(var(--mx-accent-rgb), 0.14);
 }
 
 .project:hover .project-corner {
   opacity: 0.85;
 }
 
-.project:hover .project-corner::before,
-.project:hover .project-corner::after {
-  background: rgba(var(--mx-accent-rgb), 0.55);
-  box-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.3);
-}
-
 .project:hover .project-frame img {
-  filter: saturate(0.85) contrast(1.15) brightness(0.78);
   transform: scale(1.03);
 }
 
-.project:hover h2 {
-  text-shadow: 0 0 14px rgba(var(--mx-accent-rgb), 0.5);
-}
-
 .project:hover .project-led {
-  box-shadow: 0 0 12px rgba(var(--mx-accent-rgb), 0.9);
+  opacity: 0.8;
 }
 
 

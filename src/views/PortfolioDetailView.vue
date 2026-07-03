@@ -36,90 +36,90 @@
           </div>
         </div>
 
-        <div class="detail-layout">
-          <article class="detail-copy">
-            <p>{{ specificPortfolioItem.extra_description }}</p>
-            <p v-if="specificPortfolioItem.more">{{ specificPortfolioItem.more }}</p>
-          </article>
+        <!-- 2-col: Gallery + Info -->
+        <div class="detail-gallery-layout">
+          <!-- Carousel — CRT Monitor -->
+          <div
+            class="crt-monitor"
+            @mouseenter="stopAutoAdvance"
+            @mouseleave="startAutoAdvance"
+            @touchstart="onTouchStart"
+            @touchend="onTouchEnd"
+          >
+  
+            <!-- CRT bezel frame -->
+            <div class="crt-bezel">
+              <span class="crt-corner crt-corner--tl"></span>
+              <span class="crt-corner crt-corner--tr"></span>
+              <span class="crt-corner crt-corner--bl"></span>
+              <span class="crt-corner crt-corner--br"></span>
 
-          <aside class="project-dossier">
-            <div>
-              <span>Role</span>
-              <strong>{{ specificPortfolioItem.role }}</strong>
-            </div>
-            <div>
-              <span>Technologies</span>
-              <div class="detail-tech">
-                <em v-for="tech in specificPortfolioItem.technologies" :key="tech">{{ tech }}</em>
+              <div class="crt-screen">
+                <div class="carousel-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+                  <div
+                    v-for="(item, index) in carouselItems"
+                    :key="index"
+                    class="carousel-slide"
+                    :style="{ backgroundImage: `url('${item.image}')` }"
+                  ></div>
+                </div>
+
+                <!-- CRT overlays -->
+                <div class="crt-scanlines" aria-hidden="true"></div>
+                <div class="crt-phosphor" aria-hidden="true"></div>
+                <div class="crt-vignette" aria-hidden="true"></div>
               </div>
             </div>
-          </aside>
+
+            <!-- Nav arrows -->
+            <button class="carousel-arrow carousel-arrow--prev" @click="prev" aria-label="Previous image">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="carousel-arrow carousel-arrow--next" @click="next" aria-label="Next image">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Dot indicators -->
+            <div class="carousel-dots" v-if="carouselItems.length > 1">
+              <button
+                v-for="(item, index) in carouselItems"
+                :key="`dot-${index}`"
+                class="carousel-dot"
+                :class="{ 'carousel-dot--active': index === currentIndex }"
+                @click="goTo(index)"
+                :aria-label="`Go to image ${index + 1}`"
+              ></button>
+            </div>
+
+            <!-- CRT readout -->
+            <div class="crt-readout">
+              <span class="crt-led"></span>
+              <span>{{ String(currentIndex + 1).padStart(2, '0') }} / {{ String(carouselItems.length).padStart(2, '0') }}</span>
+            </div>
+          </div>
+
+          <!-- Info column -->
+          <div class="detail-info-col">
+            <article class="detail-copy">
+              <p>{{ specificPortfolioItem.extra_description }}</p>
+              <p v-if="specificPortfolioItem.more">{{ specificPortfolioItem.more }}</p>
+            </article>
+
+            <aside class="project-dossier">
+              <div>
+                <span>Role</span>
+                <strong>{{ specificPortfolioItem.role }}</strong>
+              </div>
+              <div>
+                <span>Technologies</span>
+                <div class="detail-tech">
+                  <em v-for="tech in specificPortfolioItem.technologies" :key="tech">{{ tech }}</em>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
       </div>
-
-      <!-- Gallery Section -->
-      <section class="container mx-auto px-5 mb-12">
-        <h2 class="gallery-title text-center mb-6">Project Gallery</h2>
-
-        <!-- Carousel — CRT Monitor -->
-        <div
-          class="crt-monitor mx-auto mb-20"
-          @mouseenter="stopAutoAdvance"
-          @mouseleave="startAutoAdvance"
-          @touchstart="onTouchStart"
-          @touchend="onTouchEnd"
-        >
-          <!-- CRT bezel frame -->
-          <div class="crt-bezel">
-            <span class="crt-corner crt-corner--tl"></span>
-            <span class="crt-corner crt-corner--tr"></span>
-            <span class="crt-corner crt-corner--bl"></span>
-            <span class="crt-corner crt-corner--br"></span>
-
-            <div class="crt-screen">
-              <div class="carousel-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-                <div
-                  v-for="(item, index) in carouselItems"
-                  :key="index"
-                  class="carousel-slide"
-                  :style="{ backgroundImage: `url('${item.image}')` }"
-                ></div>
-              </div>
-
-              <!-- CRT overlays -->
-              <div class="crt-scanlines" aria-hidden="true"></div>
-              <div class="crt-phosphor" aria-hidden="true"></div>
-              <div class="crt-vignette" aria-hidden="true"></div>
-            </div>
-          </div>
-
-          <!-- Nav arrows -->
-          <button class="carousel-arrow carousel-arrow--prev" @click="prev" aria-label="Previous image">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <button class="carousel-arrow carousel-arrow--next" @click="next" aria-label="Next image">
-            <i class="fa-solid fa-chevron-right"></i>
-          </button>
-
-          <!-- Dot indicators -->
-          <div class="carousel-dots" v-if="carouselItems.length > 1">
-            <button
-              v-for="(item, index) in carouselItems"
-              :key="`dot-${index}`"
-              class="carousel-dot"
-              :class="{ 'carousel-dot--active': index === currentIndex }"
-              @click="goTo(index)"
-              :aria-label="`Go to image ${index + 1}`"
-            ></button>
-          </div>
-
-          <!-- CRT readout -->
-          <div class="crt-readout">
-            <span class="crt-led"></span>
-            <span>{{ String(currentIndex + 1).padStart(2, '0') }} / {{ String(carouselItems.length).padStart(2, '0') }}</span>
-          </div>
-        </div>
-      </section>
     </div>
   </div>
 </template>
@@ -652,6 +652,21 @@ button {
   padding: 2rem 0 4rem;
 }
 
+/* ── 2-col: carousel + info ── */
+
+.detail-gallery-layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.5rem;
+  align-items: start;
+  padding: 2rem 0 4rem;
+}
+
+.detail-info-col {
+  display: grid;
+  gap: 1.5rem;
+}
+
 .detail-copy {
   display: grid;
   gap: 1.25rem;
@@ -707,7 +722,8 @@ button {
 
 @media (max-width: 768px) {
   .detail-hero,
-  .detail-layout {
+  .detail-layout,
+  .detail-gallery-layout {
     grid-template-columns: 1fr;
   }
 
