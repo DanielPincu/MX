@@ -5,8 +5,11 @@
     <div class="terminal p-5 md:pt-10 pt-8">
       <div class="md:pb-2 pb-10">
 
-        <div class="glitch-text text-[50px] md:pb-20 pb-8 md:pl-24">
-          <span>About me</span>
+        <div class="typed-text glitch-text">
+          <span class="glitch-wrapper text-6xl">
+            <span class="glitch-base">About me<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">About me<span class="cursor-glitch">|</span></span>
+          </span>
         </div>
       </div>
       
@@ -123,14 +126,6 @@ const triggerEasterEgg = () => {
       0 0 2px rgba(255, 255, 255, 0.8);
 }
 
-.glitch-text {
-  position: relative;
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  color: green;
-  animation: glitch-jerkwhole 5s infinite;
-}
-
 .terminal-card {
   border: 1px solid rgba(var(--mx-accent-rgb), 0.35);
   background:
@@ -235,32 +230,5 @@ const triggerEasterEgg = () => {
   text-shadow: none;
 }
 
-.glitch-text span {
-  position: absolute;
-  color: green;
-  filter: blur(2px);
-  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
-}
+</style>
 
-
-.glitch-scanline {
-  width: 100%;
-  height: 4px;
-  margin-bottom: 5px;
-  opacity: 0.15;
-  background: rgba(0, 255, 0, 0.1);
-}
-
-
-@keyframes glitch-blur {
-  0%, 100% { filter: blur(1px); opacity: 0.8; }
-  50% { filter: blur(1px); opacity: 1; }
-}
-
-@keyframes glitch-jerk {
-  50% { transform: translateX(3px); }
-  51% { transform: translateX(0); }
-}
-
-  </style>
-  

@@ -15,8 +15,11 @@
             </span>
           </RouterLink>
 
-          <div class="hidden md:flex nav-status" aria-hidden="true">
-            The reality is just another terminal...
+          <div class="hidden md:flex nav-status glitch-text" aria-hidden="true">
+            <span class="glitch-wrapper">
+              <span class="glitch-base">The reality is just another terminal...</span>
+              <span aria-hidden="true" class="glitch-overlay">The reality is just another terminal...</span>
+            </span>
           </div>
 
           <div class="flex items-center gap-2">

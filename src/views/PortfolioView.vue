@@ -1,8 +1,11 @@
 <template>
   <div class="relative min-h-screen text-gray-100 mt-16 project-card portfolio-page">
-        <div class="glitch-text text-center text-[42px] md:text-[50px] portfolio-heading">
-          <span>Projects showcase</span>
-        </div>
+        <h1 class="typed-text py-12 glitch-text portfolio-heading">
+          <span class="glitch-wrapper text-6xl">
+            <span class="glitch-base">Projects showcase<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">Projects showcase<span class="cursor-glitch">|</span></span>
+          </span>
+        </h1>
     <div class="relative px-6 portfolio-content">
       <!-- Heading -->
       
@@ -408,40 +411,6 @@ a {
   0%        { background-position: 0 -200vh; }
   30%, 100% { background-position: 0 100vh; }
 } */
-
-
-
-.glitch-text {
-  position: relative;
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  color: green;
-  animation: glitch-jerkwhole 5s infinite;
-}
-
-.glitch-text span {
-  color: green;
-  filter: blur(2px);
-  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
-}
-
-.glitch-scanline {
-  width: 100%;
-  height: 4px;
-  margin-bottom: 5px;
-  opacity: 0.15;
-  background: rgba(0, 255, 0, 0.1);
-}
-
-@keyframes glitch-blur {
-  0%, 100% { filter: blur(0px); opacity: 0.8; }
-  50% { filter: blur(2px); opacity: 1; }
-}
-
-@keyframes glitch-jerk {
-  50% { transform: translateX(3px); }
-  51% { transform: translateX(0); }
-}
 
 
 </style>

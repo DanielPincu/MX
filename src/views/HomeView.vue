@@ -103,8 +103,11 @@
     <div class="noise2"></div>
     <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
     <div class="relative z-20">
-        <div class="glitch-text pb-10 text-center text-[50px]">
-          <span>Expertise</span>
+        <div class="typed-text glitch-text pb-10 text-center">
+          <span class="glitch-wrapper text-6xl">
+            <span class="glitch-base">Expertise<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">Expertise<span class="cursor-glitch">|</span></span>
+          </span>
         </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 fade-in" style="max-width: min(96vw, 1720px); margin-inline: auto; padding-inline: 1rem;">
         
@@ -132,8 +135,11 @@
     <!-- <div class="overlay2"></div> -->
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
-        <div class="glitch-text pb-10 pt-20 text-center text-[50px]">
-          <span>My Internet periodic table</span>
+        <div class="typed-text glitch-text pb-10 pt-20 text-center">
+          <span class="glitch-wrapper text-6xl">
+            <span class="glitch-base">My Internet periodic table<span class="cursor-pulse">|</span></span>
+            <span aria-hidden="true" class="glitch-overlay">My Internet periodic table<span class="cursor-glitch">|</span></span>
+          </span>
         </div>
 
       <div class="hobby-ticker overflow-hidden">
@@ -284,42 +290,8 @@ onUnmounted(() => {
 <style scoped>
 
 /* ══════════════════════════════════════════
-   SHARED UTILITY ANIMATIONS
+   HERO-NAME GLITCH
    ══════════════════════════════════════════ */
-
-.glitch-text {
-  position: relative;
-  font-family: 'VT323', 'Courier New', monospace;
-  font-weight: bold;
-  color: var(--mx-accent-soft);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  animation: c64-type-flicker 4.8s steps(2, end) infinite;
-}
-
-.glitch-text span {
-  color: var(--mx-accent-soft);
-  filter: none;
-  text-shadow:
-    3px 0 0 rgba(0, 82, 38, 0.9),
-    -3px 0 0 rgba(255, 255, 255, 0.12),
-    0 0 18px rgba(var(--mx-accent-rgb), 0.58),
-    0 0 32px rgba(var(--mx-blue-vibe-rgb), 0.18);
-  animation: c64-character-shift 2.6s steps(2, end) infinite;
-}
-
-@keyframes c64-character-shift {
-  0%, 89%, 100% { transform: translate(0, 0); }
-  90% { transform: translate(3px, 0); }
-  92% { transform: translate(-2px, 1px); }
-  94% { transform: translate(0, 0); }
-}
-
-@keyframes c64-type-flicker {
-  0%, 82%, 100% { opacity: 1; }
-  84% { opacity: 0.76; }
-  86% { opacity: 1; }
-}
 
 /* ══════════════════════════════════════════
    BANNER & CANVAS

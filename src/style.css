@@ -836,3 +836,84 @@ nav a.router-link-exact-active {
     display: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Shared glitch text effect — single source for all headings
+   Used by: Keyboard, Portfolio, Home, About, AboutExtensive, App nav
+   ═══════════════════════════════════════════════════════════════════ */
+
+.typed-text {
+  font-weight: bold;
+  color: var(--mx-accent-soft);
+  margin-bottom: 0px;
+  min-width: 500px;
+  min-height: 120px;
+  text-align: center;
+  text-shadow:
+    0 0 4px rgba(var(--mx-accent-rgb), 0.95),
+    0 0 18px rgba(var(--mx-accent-rgb), 0.5),
+    0 0 34px rgba(var(--mx-accent-rgb), 0.26);
+}
+
+@media (max-width: 767px) {
+  .typed-text {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.glitch-text {
+  position: relative;
+  animation: glitch-jerkwhole 5s infinite;
+}
+
+.glitch-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-base {
+  color: inherit;
+}
+
+.glitch-overlay {
+  position: absolute;
+  inset: 0;
+  filter: blur(2px);
+  color: var(--mx-accent, #45ff8a);
+  opacity: 0.8;
+  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.cursor-pulse {
+  animation: pulsing 0.3s infinite;
+}
+
+.cursor-glitch {
+  animation: pulsing 0.3s infinite, glitch-jerk 50ms infinite;
+}
+
+@keyframes pulsing {
+  50% { opacity: 0; }
+}
+
+@keyframes glitch-blur {
+  0%, 100% { opacity: 0.6; filter: blur(1px); }
+  50% { opacity: 1; filter: blur(2px); }
+}
+
+@keyframes glitch-jerk {
+  50% { transform: translateX(3px); }
+  51% { transform: translateX(0); }
+}
+
+@keyframes glitch-jerkwhole {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(0.2px, -0.2px); }
+  40% { transform: translate(-0.2px, 0.2px); }
+  60% { transform: translate(0.2px, 0); }
+  80% { transform: translate(-0.2px, 0); }
+}
