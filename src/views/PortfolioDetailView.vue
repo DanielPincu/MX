@@ -56,25 +56,69 @@
         </div>
       </div>
 
-      <section class="container mx-auto px-5 mb-12 mobile-gallery">
-        <h2>Project Gallery</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <img v-for="(item, index) in carouselItems" :key="`mobile-${index}`" :src="item.image" :alt="`${specificPortfolioItem.title} screenshot ${index + 1}`">
+      <!-- Gallery Section -->
+      <section class="container mx-auto px-5 mb-12">
+        <h2 class="gallery-title text-center mb-6">Project Gallery</h2>
+
+        <!-- Carousel — CRT Monitor -->
+        <div
+          class="crt-monitor mx-auto mb-20"
+          @mouseenter="stopAutoAdvance"
+          @mouseleave="startAutoAdvance"
+          @touchstart="onTouchStart"
+          @touchend="onTouchEnd"
+        >
+          <!-- CRT bezel frame -->
+          <div class="crt-bezel">
+            <span class="crt-corner crt-corner--tl"></span>
+            <span class="crt-corner crt-corner--tr"></span>
+            <span class="crt-corner crt-corner--bl"></span>
+            <span class="crt-corner crt-corner--br"></span>
+
+            <div class="crt-screen">
+              <div class="carousel-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+                <div
+                  v-for="(item, index) in carouselItems"
+                  :key="index"
+                  class="carousel-slide"
+                  :style="{ backgroundImage: `url('${item.image}')` }"
+                ></div>
+              </div>
+
+              <!-- CRT overlays -->
+              <div class="crt-scanlines" aria-hidden="true"></div>
+              <div class="crt-phosphor" aria-hidden="true"></div>
+              <div class="crt-vignette" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <!-- Nav arrows -->
+          <button class="carousel-arrow carousel-arrow--prev" @click="prev" aria-label="Previous image">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="carousel-arrow carousel-arrow--next" @click="next" aria-label="Next image">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <!-- Dot indicators -->
+          <div class="carousel-dots" v-if="carouselItems.length > 1">
+            <button
+              v-for="(item, index) in carouselItems"
+              :key="`dot-${index}`"
+              class="carousel-dot"
+              :class="{ 'carousel-dot--active': index === currentIndex }"
+              @click="goTo(index)"
+              :aria-label="`Go to image ${index + 1}`"
+            ></button>
+          </div>
+
+          <!-- CRT readout -->
+          <div class="crt-readout">
+            <span class="crt-led"></span>
+            <span>{{ String(currentIndex + 1).padStart(2, '0') }} / {{ String(carouselItems.length).padStart(2, '0') }}</span>
+          </div>
         </div>
       </section>
-
-      <!-- Image Slider -->
-      <h2 class="z-40 text-3xl relative text-center mb-10 hidden md:block gallery-title">Project Gallery</h2>
-      <div class="slider-container w-3/4 h-[82vh] hidden md:block mx-auto mb-20">
-        <ul class='slider' ref="slider">
-          <li v-for="(item, index) in carouselItems" :key="index" class='item border-2 border-black' :style="{ backgroundImage: `url('${item.image}')` }">
-          </li>
-        </ul>
-        <span class='nav top-20 h-3/4 w-full flex justify-between items-center py-2'>
-          <button class='btn prev' name="arrow-back-outline" @click="activate('prev')" aria-label="Previous image"><i class="fa-solid fa-arrow-left"></i></button>
-          <button class='btn next' name="arrow-forward-outline" @click="activate('next')" aria-label="Next image"><i class="fa-solid fa-arrow-right"></i></button>
-        </span>
-      </div>
     </div>
   </div>
 </template>
@@ -97,7 +141,10 @@ const route = useRoute()
 const id = ref(route.params.id)
 const specificPortfolioItem = portfolioItems.value.find(item => item.id == id.value)
 
+const currentIndex = ref(0);
 const slider = ref(null);
+let autoTimer = null;
+let touchStartX = 0;
 
 // Updated carouselItems computed property
 const carouselItems = computed(() => {
@@ -108,18 +155,52 @@ const carouselItems = computed(() => {
     { image: specificPortfolioItem.image },
     { image: specificPortfolioItem.image1 },
     { image: specificPortfolioItem.image2 },
-    { image: specificPortfolioItem.image3 }  // Repeating the first image to maintain 4 items
-  ].filter(item => item.image)  // This removes any items with undefined images
+    { image: specificPortfolioItem.image3 }
+  ].filter(item => item.image)
 })
 
-const activate = (direction) => {
-  const sliderElement = slider.value;
-  const sliderItems = sliderElement.querySelectorAll('.item');
-  if (direction === 'next') {
-    sliderElement.append(sliderItems[0]);
-  } else if (direction === 'prev') {
-    sliderElement.prepend(sliderItems[sliderItems.length - 1]);
+const next = () => {
+  currentIndex.value = (currentIndex.value + 1) % carouselItems.value.length;
+};
+
+const prev = () => {
+  currentIndex.value = (currentIndex.value - 1 + carouselItems.value.length) % carouselItems.value.length;
+};
+
+const goTo = (index) => {
+  currentIndex.value = index;
+};
+
+const startAutoAdvance = () => {
+  stopAutoAdvance();
+  if (carouselItems.value.length <= 1) return;
+  autoTimer = setInterval(() => {
+    next();
+  }, 5000);
+};
+
+const stopAutoAdvance = () => {
+  if (autoTimer) {
+    clearInterval(autoTimer);
+    autoTimer = null;
   }
+};
+
+const onTouchStart = (e) => {
+  touchStartX = e.touches[0].clientX;
+};
+
+const onTouchEnd = (e) => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) next();
+    else prev();
+  }
+};
+
+const onKeydown = (e) => {
+  if (e.key === 'ArrowLeft') prev();
+  else if (e.key === 'ArrowRight') next();
 };
 
 const portfolioCanvas = ref(null);
@@ -157,11 +238,15 @@ onMounted(() => {
   initPortfolioCanvas();
   drawPortfolio();
   window.addEventListener("resize", initPortfolioCanvas);
+  window.addEventListener("keydown", onKeydown);
+  startAutoAdvance();
 });
 
 onUnmounted(() => {
   cancelAnimationFrame(portfolioAnimationId);
   window.removeEventListener("resize", initPortfolioCanvas);
+  window.removeEventListener("keydown", onKeydown);
+  stopAutoAdvance();
 });
 </script>
 
@@ -175,12 +260,251 @@ button {
   background-color: red;
 } */
 
-.slider-container {
+/* ═══════════════════════════════════════════
+   CRT Monitor Carousel — Matrix 1999 / Y2K
+   ═══════════════════════════════════════════ */
+
+.crt-monitor {
+  position: relative;
+  width: min(92vw, 1100px);
+  user-select: none;
+}
+
+/* ── Bezel: the physical monitor housing ── */
+
+.crt-bezel {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-  border: 1px solid rgba(var(--mx-accent-rgb), 0.42);
-  background: rgba(0, 0, 0, 0.55);
+  padding: 2.2rem 2rem 2.5rem;
+  background:
+    linear-gradient(180deg, #151715 0%, #0a0d0a 30%, #050705 70%, #0a0d0a 100%);
+  border: 3px solid #1a1f1a;
+  border-top-color: #252a25;
+  border-left-color: #1c211c;
+  border-right-color: #0e120e;
+  border-bottom-color: #080a08;
+  outline: 2px solid #000;
+  outline-offset: -5px;
+  box-shadow:
+    inset 0 0.6rem 1.2rem rgba(0,0,0,0.7),
+    inset 0 -0.4rem 0.8rem rgba(0,0,0,0.5),
+    0 0 0 4px #0a0d0a,
+    0 0.8rem 2rem rgba(0,0,0,0.8),
+    0 0 40px rgba(var(--mx-accent-rgb), 0.08);
+  border-radius: 18px 18px 22px 22px;
+}
+
+/* ── Corner L-brackets — industrial monitor accents ── */
+
+.crt-corner {
+  position: absolute;
+  z-index: 8;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.crt-corner::before,
+.crt-corner::after {
+  content: '';
+  position: absolute;
+  background: rgba(var(--mx-accent-rgb), 0.35);
+  box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.2);
+}
+
+.crt-corner::before { width: 100%; height: 2px; }
+.crt-corner::after  { width: 2px; height: 100%; }
+
+.crt-corner--tl { top: 12px; left: 12px; }
+.crt-corner--tl::before { top: 0; left: 0; }
+.crt-corner--tl::after  { top: 0; left: 0; }
+
+.crt-corner--tr { top: 12px; right: 12px; }
+.crt-corner--tr::before { top: 0; right: 0; }
+.crt-corner--tr::after  { top: 0; right: 0; }
+
+.crt-corner--bl { bottom: 16px; left: 12px; }
+.crt-corner--bl::before { bottom: 0; left: 0; }
+.crt-corner--bl::after  { bottom: 0; left: 0; }
+
+.crt-corner--br { bottom: 16px; right: 12px; }
+.crt-corner--br::before { bottom: 0; right: 0; }
+.crt-corner--br::after  { bottom: 0; right: 0; }
+
+/* ── Screen area ── */
+
+.crt-screen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 2px solid #000;
+  background: #000;
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.9),
+    0 0 2px rgba(var(--mx-accent-rgb), 0.15);
+}
+
+/* ── Track & slides ── */
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: saturate(0.7) contrast(1.15) brightness(0.7);
+}
+
+/* ── CRT overlays ── */
+
+.crt-scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.12) 2px,
+    rgba(0,0,0,0.12) 4px
+  );
+  opacity: 0.55;
+}
+
+.crt-phosphor {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(0, 10, 1, 0.45) 100%);
+  mix-blend-mode: screen;
+}
+
+.crt-vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  box-shadow: inset 0 0 80px 20px rgba(0,0,0,0.7);
+}
+
+/* ── Arrows — chunky Y2K blocks ── */
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 3.6rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.35);
+  border-bottom: 4px solid rgba(0,0,0,0.8);
+  background:
+    linear-gradient(180deg, rgba(20,28,21,0.92), rgba(5,8,5,0.94));
+  color: rgba(var(--mx-accent-soft-rgb), 0.8);
+  font-size: 0.95rem;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.15s;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 0.15rem 0 rgba(0,0,0,0.8);
+}
+
+.carousel-arrow:hover {
+  color: #fff;
+  border-color: rgba(var(--mx-accent-rgb), 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 0.15rem 0 rgba(0,0,0,0.8),
+    0 0 18px rgba(var(--mx-accent-rgb), 0.35);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) translateY(2px);
+  border-bottom-width: 2px;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+}
+
+.carousel-arrow--prev { left: 0; border-radius: 0 6px 6px 0; }
+.carousel-arrow--next { right: 0; border-radius: 6px 0 0 6px; }
+
+/* ── Dots — LED indicators ── */
+
+.carousel-dots {
+  position: absolute;
+  bottom: -1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.45rem;
+  z-index: 6;
+}
+
+.carousel-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.45);
+  background: rgba(0,0,0,0.6);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.carousel-dot--active {
+  background: var(--mx-accent);
+  border-color: var(--mx-accent);
+  box-shadow:
+    0 0 8px rgba(var(--mx-accent-rgb), 0.8),
+    0 0 2px rgba(var(--mx-accent-rgb), 0.5);
+}
+
+.carousel-dot:hover {
+  border-color: rgba(var(--mx-accent-rgb), 0.8);
+}
+
+/* ── CRT readout — LED dot-matrix style ── */
+
+.crt-readout {
+  position: absolute;
+  bottom: -2.4rem;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: var(--mx-accent);
+  text-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.7);
+  letter-spacing: 0.08em;
+  background: rgba(0,0,0,0.6);
+  padding: 0.15rem 0.5rem;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.25);
+}
+
+.crt-led {
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--mx-accent);
+  box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.8);
+  animation: crt-led-blink 2s step-end infinite;
+}
+
+@keyframes crt-led-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 .detail-page {
@@ -368,140 +692,10 @@ button {
   background: rgba(var(--mx-warm-rgb), 0.08);
 }
 
-.gallery-title,
-.mobile-gallery h2 {
+.gallery-title {
   color: #fff;
   text-shadow: 0 0 18px rgba(var(--mx-accent-rgb), 0.5);
-}
-
-.mobile-gallery {
-  display: none;
-}
-
-.mobile-gallery img {
-  width: 100%;
-  border: 1px solid rgba(var(--mx-accent-rgb), 0.38);
-  object-fit: cover;
-  aspect-ratio: 16 / 10;
-}
-
-.item {
-  width: 300px;
-  height: 200px;
-  list-style-type: none;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  background-position: center;
-  background-size: cover;
-  border-radius: 20px;
-  box-shadow: 0 20px 30px rgba(255,255,255,0.3) inset;
-  transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s;
-}
-
-.item:nth-child(1), .item:nth-child(2) {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  transform: none;
-  border-radius: 0;
-  box-shadow: none;
-  opacity: 1;
-}
-
-.item:nth-child(3) { left: 50%; }
-.item:nth-child(4) { left: calc(50% + 220px); }
-.item:nth-child(5) { left: calc(50% + 440px); }
-.item:nth-child(6) { left: calc(50% + 660px); opacity: 0; }
-
-.content {
-  width: min(30vw, 400px);
-  position: absolute;
-  top: 50%;
-  left: 3rem;
-  transform: translateY(-50%);
-  font: 400 0.85rem helvetica, sans-serif;
-  color: white;
-  text-shadow: 0 3px 8px rgba(0,0,0,0.5);
-  opacity: 0;
-  display: none;
-}
-
-.content .title {
-  font-family: 'arial-black';
-  text-transform: uppercase;
-}
-
-.content .description {
-  line-height: 1.7;
-  margin: 1rem 0 1.5rem;
-  font-size: 0.8rem;
-}
-
-.item:nth-of-type(2) .content {
-  display: block;
-  animation: show 0.75s ease-in-out 0.3s forwards;
-}
-
-@keyframes show {
-  0% {
-    filter: blur(5px);
-    transform: translateY(calc(-50% + 75px));
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-.nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  user-select: none;
-}
-
-.nav .btn {
-  background-color: rgba(255,255,255,0.5);
-  color: rgba(0,0,0,0.7);
-  border: 2px solid rgba(0,0,0,0.6);
-  margin: 0 0.25rem;
-  padding: 0.75rem;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.nav .btn:hover {
-  background-color: rgba(255,255,255,0.3);
-}
-
-@media (max-width: 900px) and (min-width: 650px) {
-  .content .title { font-size: 1rem; }
-  .content .description { font-size: 0.7rem; }
-  .item {
-    width: 270px;
-    height: 160px;
-  }
-  .item:nth-child(3) { left: 50%; }
-  .item:nth-child(4) { left: calc(50% + 190px); }
-  .item:nth-child(5) { left: calc(50% + 380px); }
-  .item:nth-child(6) { left: calc(50% + 570px); opacity: 0; }
-}
-
-@media (max-width: 650px) {
-  .content .title { font-size: 0.9rem; }
-  .content .description { font-size: 0.65rem; }
-  .item {
-    width: 220px;
-    height: 130px;
-  }
-  .item:nth-child(3) { left: 50%; }
-  .item:nth-child(4) { left: calc(50% + 160px); }
-  .item:nth-child(5) { left: calc(50% + 320px); }
-  .item:nth-child(6) { left: calc(50% + 480px); opacity: 0; }
+  font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
 @media (max-width: 768px) {
@@ -514,8 +708,38 @@ button {
     min-width: 0;
   }
 
-  .mobile-gallery {
-    display: block;
+  .crt-bezel {
+    padding: 1.4rem 1.2rem 1.8rem;
+    border-radius: 12px 12px 16px 16px;
+  }
+
+  .crt-screen {
+    aspect-ratio: 4 / 3;
+  }
+
+  .crt-corner {
+    width: 12px;
+    height: 12px;
+  }
+
+  .crt-corner--tl { top: 8px; left: 8px; }
+  .crt-corner--tr { top: 8px; right: 8px; }
+  .crt-corner--bl { bottom: 12px; left: 8px; }
+  .crt-corner--br { bottom: 12px; right: 8px; }
+
+  .carousel-arrow {
+    width: 2rem;
+    height: 2.8rem;
+    font-size: 0.8rem;
+  }
+
+  .crt-readout {
+    bottom: -2.2rem;
+    font-size: 0.8rem;
+  }
+
+  .carousel-dots {
+    bottom: -1.6rem;
   }
 }
 
