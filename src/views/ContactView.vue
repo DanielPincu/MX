@@ -259,6 +259,33 @@
   box-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.1);
 }
 
+.ie-field input::selection,
+.ie-field textarea::selection {
+  background: rgba(var(--mx-accent-rgb), 0.3);
+  color: #fff;
+}
+
+.ie-field input:-webkit-autofill,
+.ie-field input:-webkit-autofill:hover,
+.ie-field input:-webkit-autofill:focus,
+.ie-field textarea:-webkit-autofill,
+.ie-field textarea:-webkit-autofill:hover,
+.ie-field textarea:-webkit-autofill:focus {
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.25);
+  color: rgba(var(--mx-accent-soft-rgb), 0.9) !important;
+  -webkit-text-fill-color: rgba(var(--mx-accent-soft-rgb), 0.9) !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.85) inset !important;
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.85) inset !important;
+  text-decoration: none !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.ie-field input:-webkit-autofill::first-line,
+.ie-field textarea:-webkit-autofill::first-line {
+  color: rgba(var(--mx-accent-soft-rgb), 0.9);
+  text-decoration: none;
+}
+
 .ie-field input::placeholder,
 .ie-field textarea::placeholder {
   color: rgba(var(--mx-accent-soft-rgb), 0.3);
