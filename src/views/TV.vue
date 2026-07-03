@@ -53,9 +53,7 @@ const isVideo = computed(() => currentChannelURL.value.endsWith('.mp4'));
 let channelChangeInterval;
 
 onMounted(() => {
-  preloadImages(); // Preload images
-
-  // Start changing channels automatically every 5 seconds
+  // Start changing channels automatically every 5.5 seconds
   channelChangeInterval = setInterval(() => {
     changeChannel();
   }, 5500);
@@ -66,6 +64,10 @@ function changeChannel() {
   currentChannelURL.value = gifTVURLs[nextIndex];
   channelMessage.value = `Reality Channel ${nextIndex - 1}`;
 }
+
+onBeforeUnmount(() => {
+  clearInterval(channelChangeInterval);
+});
 </script>
 
 
