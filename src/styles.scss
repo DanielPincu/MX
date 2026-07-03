@@ -29,18 +29,6 @@
   contain: layout paint;
 }
 
-.matrix-keyboard-rig::before {
-  content: "Don't look here";
-  position: absolute;
-  top: 7.1rem;
-  right: 1.6rem;
-  z-index: 4;
-  color: rgba(var(--mx-accent-rgb), 0.52);
-  font-size: 0.4rem;
-  letter-spacing: 0.22em;
-  text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.75);
-}
-
 .keyboard {
   --matrix-green: var(--mx-accent);
   --matrix-dim: #0b2c18;

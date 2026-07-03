@@ -1,8 +1,5 @@
 <template>
   <div class="relative min-h-screen text-gray-100 mt-16 project-card portfolio-page">
-        <div ref="cipherTopRef" class="cipher-top">
-          <HeroCipher v-if="showCipher" />
-        </div>
         <div class="glitch-text text-center text-[42px] md:text-[50px] portfolio-heading">
           <span>Projects showcase</span>
         </div>
@@ -54,33 +51,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
 import getPortfolio from '@/modules/getPortfolio';
-import HeroCipher from '../views/HeroCipher.vue';
 
 const { portfolioItems } = getPortfolio();
-const cipherTopRef = ref(null);
-const showCipher = ref(false);
-let cipherObserver = null;
-
-onMounted(() => {
-  if (cipherTopRef.value) {
-    cipherObserver = new IntersectionObserver(
-      ([entry]) => {
-        showCipher.value = !!entry?.isIntersecting;
-      },
-      { threshold: 0.15 }
-    );
-    cipherObserver.observe(cipherTopRef.value);
-  }
-});
-
-onUnmounted(() => {
-  if (cipherObserver) {
-    cipherObserver.disconnect();
-    cipherObserver = null;
-  }
-});
 </script>
 
 <style scoped>
@@ -109,16 +82,6 @@ a {
   overflow: hidden;
   padding-top: 0;
   background: rgba(0, 0, 0, 0.5);
-}
-
-.cipher-top {
-  position: relative;
-  z-index: 2;
-  min-height: clamp(4.5rem, 10vw, 7.5rem);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 0;
 }
 
 .portfolio-heading {

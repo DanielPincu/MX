@@ -1,11 +1,14 @@
 <template>
   <div class="matrix-keyboard-rig">
-    <h1 class="typed-text py-12">
-      <span class="text-6xl">{{ typedText }}</span><span class="animate-pulsing text-6xl">|</span>
+    <h1 class="typed-text py-12 glitch-text">
+      <span class="glitch-wrapper text-6xl">
+        <span class="glitch-base">{{ typedText }}<span class="cursor-pulse">|</span></span>
+        <span aria-hidden="true" class="glitch-overlay">{{ typedText }}<span class="cursor-glitch">|</span></span>
+      </span>
     </h1>
     <div ref="keyboardElement" class="keyboard" role="application" aria-label="Interactive Matrix keyboard">
       <div class="keyboard__bezel">
-        <p>nebuchadnezzar</p>
+        <p>Schrödinger's Keyboard</p>
       </div>
       <div v-for="(row, rowIndex) in keys" :key="rowIndex" class="row">
         <kbd
@@ -230,11 +233,56 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 @use '../styles.scss' as *;
 
+.glitch-text {
+  position: relative;
+  animation: glitch-jerkwhole 5s infinite;
+}
+
+.glitch-wrapper {
+  position: relative;
+}
+
+.glitch-base {
+  color: inherit;
+}
+
+.glitch-overlay {
+  position: absolute;
+  inset: 0;
+  filter: blur(2px);
+  color: var(--mx-accent, #45ff8a);
+  opacity: 0.8;
+  animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
+  pointer-events: none;
+}
+
+.cursor-pulse {
+  animation: pulsing 0.3s infinite;
+}
+
+.cursor-glitch {
+  animation: pulsing 0.3s infinite, glitch-jerk 50ms infinite;
+}
+
 @keyframes pulsing {
   50% { opacity: 0; }
 }
 
-.animate-pulsing {
-  animation: pulsing 0.3s infinite;
+@keyframes glitch-blur {
+  0%, 100% { opacity: 0.6; filter: blur(1px); }
+  50% { opacity: 1; filter: blur(2px); }
+}
+
+@keyframes glitch-jerk {
+  50% { transform: translateX(3px); }
+  51% { transform: translateX(0); }
+}
+
+@keyframes glitch-jerkwhole {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(0.2px, -0.2px); }
+  40% { transform: translate(-0.2px, 0.2px); }
+  60% { transform: translate(0.2px, 0); }
+  80% { transform: translate(-0.2px, 0); }
 }
 </style>

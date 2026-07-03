@@ -5,16 +5,15 @@
     <div class="terminal p-5 md:pt-10 pt-8">
       <div class="md:pb-2 pb-10">
 
-        <div class="glitch-text md:hidden block text-[50px] pb-5">
+        <div class="glitch-text text-[50px] md:pb-20 pb-8 md:pl-24">
           <span>About me</span>
         </div>
-        <div class="glitch-scanline">The Matrix has you!</div>
       </div>
       
       
 
-      <div class="grid grid-cols-1 gap-6 items-start pb-8 md:pb-4" style="width: min(96vw, 1720px); margin-inline: auto;">
-        <div class="mx-4 md:mx-0">
+      <div class="grid grid-cols-1 gap-6 pb-8 md:pb-4" style="width: calc(min(96vw, 1720px) - 2rem); margin-inline: auto;">
+        <div>
           <article class="terminal-card">
             <div class="terminal-card__head">
               <p class="terminal-title">Windows Terminal - about.exe</p>
@@ -25,7 +24,6 @@
               </div>
             </div>
             <div class="terminal-card__body">
-              <p class="terminal-line"><span class="terminal-prompt">PS C:\Users\Daniel&gt;</span> type .\profile.txt</p>
               <p class="terminal-easter" :class="{ 'is-visible': showEasterEgg }">{{ easterEggMessage || ' ' }}</p>
               <p class="output terminal-copy md:text-xl text-lg">
                 I’m Daniel Pincu, an aspiring web developer stepping into the code that shapes our reality. Like in <em>The Matrix</em>, every line I write is a choice: remain in the safety of the familiar, or break free into the unknown. My mission is to craft digital experiences where design and logic converge, pulling users into spaces that blur the line between illusion and function. The red pill calls toward transformation, each click and interaction a doorway to something new, while the blue pill offers the comfort of patterns, grounding users in worlds they already know.<br><br>
@@ -35,7 +33,7 @@
             </div>
           </article>
         </div>
-        <div class="flex self-stretch justify-center items-center">
+        <div class="hidden md:flex self-stretch justify-center items-center">
           <Keyboard />
         </div>
       </div>
@@ -244,6 +242,7 @@ const triggerEasterEgg = () => {
   animation: glitch-blur 30ms infinite, glitch-jerk 50ms infinite;
 }
 
+
 .glitch-scanline {
   width: 100%;
   height: 4px;
@@ -251,6 +250,7 @@ const triggerEasterEgg = () => {
   opacity: 0.15;
   background: rgba(0, 255, 0, 0.1);
 }
+
 
 @keyframes glitch-blur {
   0%, 100% { filter: blur(1px); opacity: 0.8; }

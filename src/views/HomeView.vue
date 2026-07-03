@@ -47,7 +47,7 @@
                   <div class="liquid"></div>
                 </a>
                 <button @click="toggleAbout" class="button button-contact">
-                  <span>Contact me</span>
+                  <span>Contact</span>
                   <div class="liquid2"></div>
                 </button>
               </div>
