@@ -10,11 +10,6 @@
       <!-- Heading -->
       
       <section class="matrix-showcase-console">
-        <div class="showcase-console-header">
-          <span></span>
-          <p>project transmissions / deployment archive</p>
-        </div>
-
         <!-- Portfolio Items (3 per row) -->
         <div class="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 pt-4 gap-6 portfolio-grid">
           <router-link
@@ -34,6 +29,9 @@
                 :src="portfolioItem.image"
                 :alt="`${portfolioItem.title} project preview`"
               />
+              <div class="frame-scanlines" aria-hidden="true"></div>
+              <div class="frame-phosphor" aria-hidden="true"></div>
+              <div class="frame-vignette" aria-hidden="true"></div>
             </div>
             <div class="project__content">
               <div>
@@ -44,8 +42,6 @@
                 </div>
               </div>
             </div>
-            <!-- LED status dot -->
-            <span class="project-led" aria-hidden="true"></span>
           </router-link>
         </div>
       </section>
@@ -218,21 +214,23 @@ a {
   min-width: 225px;
   min-height: 430px;
   overflow: hidden;
+  padding: 1.4rem 1.2rem 1.8rem;
+  background:
+    linear-gradient(180deg, #151715 0%, #0a0d0a 30%, #050705 70%, #0a0d0a 100%);
   border: 3px solid #1a1f1a;
   border-top-color: #252a25;
   border-left-color: #1c211c;
   border-right-color: #0e120e;
-  border-bottom: 5px solid #080a08;
-  border-radius: 12px 12px 18px 18px;
+  border-bottom-color: #080a08;
   outline: 2px solid #000;
-  outline-offset: -4px;
-  background:
-    linear-gradient(180deg, #151715 0%, #0a0d0a 30%, #050705 70%, #0a0d0a 100%);
+  outline-offset: -5px;
   box-shadow:
-    inset 0 0.5rem 1rem rgba(0,0,0,0.65),
-    0 0.22rem 0 rgba(0,0,0,0.9),
-    0 0.4rem 1rem rgba(0,0,0,0.6),
-    0 0 16px rgba(var(--mx-accent-rgb), 0.06);
+    inset 0 0.6rem 1.2rem rgba(0,0,0,0.7),
+    inset 0 -0.4rem 0.8rem rgba(0,0,0,0.5),
+    0 0 0 4px #0a0d0a,
+    0 0.8rem 2rem rgba(0,0,0,0.8),
+    0 0 40px rgba(var(--mx-accent-rgb), 0.08);
+  border-radius: 18px 18px 22px 22px;
   transition: transform 120ms ease;
   isolation: isolate;
   contain: paint;
@@ -240,24 +238,18 @@ a {
 }
 
 .project::before {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(var(--mx-accent-rgb), 0.12);
-  border-radius: 7px 7px 11px 11px;
-  z-index: 1;
-  pointer-events: none;
+  display: none;
 }
 
 /* ── CRT Corner L-brackets ── */
 
 .project-corner {
   position: absolute;
-  z-index: 3;
-  width: 14px;
-  height: 14px;
+  z-index: 8;
+  width: 18px;
+  height: 18px;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.6;
   transition: opacity 0.2s;
 }
 
@@ -265,39 +257,41 @@ a {
 .project-corner::after {
   content: '';
   position: absolute;
-  background: rgba(var(--mx-accent-rgb), 0.3);
-  box-shadow: 0 0 5px rgba(var(--mx-accent-rgb), 0.15);
+  background: rgba(var(--mx-accent-rgb), 0.35);
+  box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.2);
 }
 
 .project-corner::before { width: 100%; height: 2px; }
 .project-corner::after  { width: 2px; height: 100%; }
 
-.project-corner--tl { top: 10px; left: 10px; }
+.project-corner--tl { top: 12px; left: 12px; }
 .project-corner--tl::before { top: 0; left: 0; }
 .project-corner--tl::after  { top: 0; left: 0; }
 
-.project-corner--tr { top: 10px; right: 10px; }
+.project-corner--tr { top: 12px; right: 12px; }
 .project-corner--tr::before { top: 0; right: 0; }
 .project-corner--tr::after  { top: 0; right: 0; }
 
-.project-corner--bl { bottom: 14px; left: 10px; }
+.project-corner--bl { bottom: 16px; left: 12px; }
 .project-corner--bl::before { bottom: 0; left: 0; }
 .project-corner--bl::after  { bottom: 0; left: 0; }
 
-.project-corner--br { bottom: 14px; right: 10px; }
+.project-corner--br { bottom: 16px; right: 12px; }
 .project-corner--br::before { bottom: 0; right: 0; }
 .project-corner--br::after  { bottom: 0; right: 0; }
 
 /* ── Image frame — CRT screen ── */
 
 .project-frame {
-  position: absolute;
-  inset: 1rem;
-  bottom: 8rem;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   border: 2px solid #000;
   overflow: hidden;
   background: #000;
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.9),
+    0 0 2px rgba(var(--mx-accent-rgb), 0.15);
 }
 
 .project-frame img {
@@ -311,15 +305,47 @@ a {
   will-change: transform;
 }
 
+/* CRT screen overlays */
+.frame-scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.12) 2px,
+    rgba(0,0,0,0.12) 4px
+  );
+  opacity: 0.55;
+}
+
+.frame-phosphor {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(0, 10, 1, 0.45) 100%);
+  mix-blend-mode: screen;
+}
+
+.frame-vignette {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  box-shadow: inset 0 0 80px 20px rgba(0,0,0,0.7);
+}
+
 /* ── Content strip — terminal readout ── */
 
 .project__content {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
+  position: relative;
   z-index: 2;
-  padding: 0.9rem 1rem;
+  margin-top: 0.5rem;
+  padding: 0.7rem 0.8rem;
   background:
     linear-gradient(180deg, rgba(5,8,5,0.9), rgba(2,4,2,0.95));
   border: 1px solid rgba(var(--mx-accent-rgb), 0.18);
@@ -373,9 +399,9 @@ a {
 
 .project-led {
   position: absolute;
-  bottom: 1.15rem;
-  right: 1.35rem;
-  z-index: 4;
+  bottom: 0.8rem;
+  right: 0.9rem;
+  z-index: 9;
   width: 0.35rem;
   height: 0.35rem;
   background: var(--mx-accent);
@@ -383,10 +409,15 @@ a {
   box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.7);
 }
 
-/* ── Hover — GPU-only: transform + opacity (no paints) ── */
+/* ── Hover — subtle lift ── */
 
 .project:hover {
   transform: translateY(-3px);
+  box-shadow:
+    inset 0 0.6rem 1.2rem rgba(0,0,0,0.7),
+    0 0 0 4px #0a0d0a,
+    0 1rem 2.4rem rgba(0,0,0,0.85),
+    0 0 48px rgba(var(--mx-accent-rgb), 0.14);
 }
 
 .project:hover .project-corner {
@@ -423,18 +454,17 @@ a {
   .project {
     transform: none;
     min-height: 320px;
-  }
-  .project-frame {
-    bottom: 7rem;
+    padding: 1rem 0.9rem 1.3rem;
+    border-radius: 12px 12px 16px 16px;
   }
   .project-corner {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
   }
-  .project-corner--tl { top: 7px; left: 7px; }
-  .project-corner--tr { top: 7px; right: 7px; }
-  .project-corner--bl { bottom: 10px; left: 7px; }
-  .project-corner--br { bottom: 10px; right: 7px; }
+  .project-corner--tl { top: 8px; left: 8px; }
+  .project-corner--tr { top: 8px; right: 8px; }
+  .project-corner--bl { bottom: 12px; left: 8px; }
+  .project-corner--br { bottom: 12px; right: 8px; }
   .matrix-showcase-console::before,
   .showcase-console-header p {
     display: none;
