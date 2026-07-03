@@ -1,10 +1,5 @@
   <template>
     <div class="matrix-periodic-console">
-      <div class="periodic-console-header">
-        <span></span>
-        <p>internet compounds / operator log</p>
-      </div>
-    
       <div class="periodic-table">
         <div class="empty-spacer-1 signal-bridge" aria-live="polite">
           <p class="signal-bridge__label">neural relay</p>
@@ -170,18 +165,14 @@
   }
   
   @mixin matrix-category($accent, $accent-soft) {
-      border-color: rgba($accent, 0.35);
+      border-color: rgba($accent, 0.3);
       background:
-          linear-gradient(180deg, rgba($accent, 0.12), transparent 42%),
-          linear-gradient(180deg, #141b15, #050705 72%);
-
-      .periodic-element-inner {
-          border-color: rgba($accent, 0.2);
-      }
+          linear-gradient(180deg, rgba($accent, 0.06), transparent 42%),
+          #0a0d0a;
 
       .title {
           color: rgba($accent-soft, 0.95);
-          text-shadow: 0 0 8px rgba($accent, 0.45);
+          text-shadow: 0 0 10px rgba($accent, 0.5);
       }
 
       .description,
@@ -195,17 +186,22 @@
       width: min(100%, 1120px);
       margin: 0 auto;
       padding: clamp(3.25rem, 5vw, 4rem) clamp(1rem, 3vw, 1.75rem) clamp(2rem, 4vw, 2.75rem);
-      border: 1px solid rgba(var(--mx-accent-rgb), 0.28);
-      border-radius: 14px 14px 22px 22px;
+      border: 3px solid #1a1f1a;
+      border-top-color: #252a25;
+      border-left-color: #1c211c;
+      border-right-color: #0e120e;
+      border-bottom-color: #080a08;
+      outline: 2px solid #000;
+      outline-offset: -5px;
+      border-radius: 18px 18px 22px 22px;
       background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 22%),
-          repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.02) 0 1px, transparent 1px 5px),
-          radial-gradient(circle at 50% 0%, rgba(var(--mx-accent-rgb), 0.12), transparent 44%),
-          linear-gradient(180deg, #101510, #020402 74%);
+          linear-gradient(180deg, #151715 0%, #0a0d0a 30%, #050705 70%, #0a0d0a 100%);
       box-shadow:
-          inset 0 1rem 1.2rem rgba(0, 0, 0, 0.78),
-          0 1.4rem 2.2rem -0.8rem rgba(0, 0, 0, 0.84),
-          0 0 34px rgba(var(--mx-accent-rgb), 0.1);
+          inset 0 0.6rem 1.2rem rgba(0,0,0,0.7),
+          inset 0 -0.4rem 0.8rem rgba(0,0,0,0.5),
+          0 0 0 4px #0a0d0a,
+          0 0.8rem 2rem rgba(0,0,0,0.8),
+          0 0 40px rgba(var(--mx-accent-rgb), 0.08);
       contain: layout paint;
   }
 
@@ -262,99 +258,90 @@
       position: relative;
       z-index: 1;
       cursor: default;
-      border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.18);
-      border-bottom: 5px solid rgba(0, 0, 0, 0.9);
-      border-radius: 7px 7px 12px 12px;
-      background: linear-gradient(180deg, #172219, #071009 55%, #030603);
+      border: 2px solid #000;
+      border-radius: 6px 6px 10px 10px;
+      background: #000;
       box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.08),
-          inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.7),
-          0 0.18rem 0 rgba(0, 0, 0, 0.9),
-          0 0 8px rgba(var(--mx-accent-rgb), 0.06);
+          inset 0 0 30px rgba(0,0,0,0.8),
+          0 0 2px rgba(var(--mx-accent-rgb), 0.1);
       transition: transform 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
       contain: paint;
+      overflow: hidden;
 
       .periodic-element-inner {
           position: relative;
+          z-index: 1;
           background: transparent;
-          border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.08);
-          border-radius: 5px 5px 9px 9px;
           padding: 8px 10px;
           width: 100%;
           height: 100%;
-          overflow: hidden;
       }
 
-      .periodic-element-inner::before,
+      /* CRT screen overlays */
+      .periodic-element-inner::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          background: repeating-linear-gradient(
+              180deg,
+              transparent,
+              transparent 2px,
+              rgba(0,0,0,0.1) 2px,
+              rgba(0,0,0,0.1) 4px
+          );
+      }
+
       .periodic-element-inner::after {
           content: "";
           position: absolute;
           inset: 0;
-          z-index: 1;
+          z-index: 2;
           pointer-events: none;
-          opacity: 0;
-      }
-
-      .periodic-element-inner::before {
           background:
-              linear-gradient(90deg, transparent, rgba(var(--mx-accent-soft-rgb), 0.34), transparent),
-              repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.12) 0 1px, transparent 1px 5px);
-          transform: translateX(-120%);
-      }
-
-      .periodic-element-inner::after {
-          background:
-              linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.16), transparent 14% 86%, rgba(var(--mx-warm-rgb), 0.16)),
-              repeating-linear-gradient(90deg, transparent 0 12px, rgba(var(--mx-accent-rgb), 0.16) 13px 14px);
+              radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(0, 8, 1, 0.35) 100%);
+          mix-blend-mode: screen;
       }
 
       .element-corners {
           position: absolute;
-          inset: 4px;
+          inset: 3px;
           z-index: 3;
           pointer-events: none;
           opacity: 0;
+          transition: opacity 0.2s;
       }
 
       .element-corners span {
           position: absolute;
-          width: 16px;
-          height: 16px;
-          border-color: rgba(var(--mx-warm-rgb), 0.9);
+          width: 10px;
+          height: 10px;
+          border-color: rgba(var(--mx-accent-rgb), 0.4);
       }
 
       .element-corners span:nth-child(1) {
-          top: 0;
-          left: 0;
-          border-top: 2px solid;
-          border-left: 2px solid;
+          top: 0; left: 0;
+          border-top: 2px solid; border-left: 2px solid;
       }
-
       .element-corners span:nth-child(2) {
-          top: 0;
-          right: 0;
-          border-top: 2px solid;
-          border-right: 2px solid;
+          top: 0; right: 0;
+          border-top: 2px solid; border-right: 2px solid;
       }
-
       .element-corners span:nth-child(3) {
-          bottom: 0;
-          left: 0;
-          border-bottom: 2px solid;
-          border-left: 2px solid;
+          bottom: 0; left: 0;
+          border-bottom: 2px solid; border-left: 2px solid;
       }
-
       .element-corners span:nth-child(4) {
-          right: 0;
-          bottom: 0;
-          border-right: 2px solid;
-          border-bottom: 2px solid;
+          right: 0; bottom: 0;
+          border-right: 2px solid; border-bottom: 2px solid;
       }
 
       .atomic-number {
           position: absolute;
           top: 7px;
           left: 8px;
+          z-index: 1;
           font: 700 10px/1 "Courier New", monospace;
           letter-spacing: 0.08em;
       }
@@ -363,12 +350,16 @@
           font: 800 32px/1 "Courier New", monospace;
           margin: 0.55em 0 0;
           letter-spacing: 0;
+          position: relative;
+          z-index: 1;
       }
       .description {
           font: 700 10px/1.15 "Courier New", monospace;
           margin-top: 0.45em;
           text-transform: uppercase;
           letter-spacing: 0.04em;
+          position: relative;
+          z-index: 1;
       }
       &:after {
           z-index: 10;
@@ -377,10 +368,9 @@
           color: rgba(221, 255, 230, 0.92);
           width: 210px;
           position: absolute;
-          top: 80%;
+          top: 105%;
           opacity: 0;
-          transition: opacity 0.3s ease 0.3s,
-              top 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
+          pointer-events: none;
           height: auto;
           font-size: 12px;
           line-height: 1.4;
@@ -395,38 +385,18 @@
       &:hover,
       &:focus-visible {
           transform: translateY(-4px);
-          border-color: rgba(var(--mx-warm-rgb), 0.7);
+          border-color: rgba(var(--mx-accent-rgb), 0.5);
           box-shadow:
-              inset 0 1px 0 rgba(255, 255, 255, 0.12),
-              inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.62),
-              0 0.18rem 0 rgba(0, 0, 0, 0.9),
-              0 0 16px rgba(var(--mx-accent-rgb), 0.18);
+              inset 0 0 30px rgba(0,0,0,0.8),
+              0 0 16px rgba(var(--mx-accent-rgb), 0.22);
           z-index: 10;
-          animation: periodic-tile-warp 680ms steps(2, end);
-
-          .periodic-element-inner::before {
-              animation: periodic-source-sweep 760ms cubic-bezier(0.2, 0.8, 0.2, 1);
-          }
-
-          .periodic-element-inner::after {
-              animation: periodic-interference 760ms steps(4, end);
-          }
 
           .element-corners {
-              animation: periodic-lock-corners 900ms steps(2, end);
+              opacity: 0.85;
           }
 
-          .title {
-              animation: periodic-title-glitch 620ms steps(2, end);
-              text-shadow:
-                  2px 0 rgba(var(--mx-accent-rgb), 0.8),
-                  -2px 0 rgba(var(--mx-warm-rgb), 0.65),
-                  0 0 14px rgba(var(--mx-accent-rgb), 0.55);
-          }
-
-          .description,
-          .atomic-number {
-              animation: periodic-micro-jitter 580ms steps(2, end);
+          .periodic-element-inner::before {
+              opacity: 0.7;
           }
 
           &:after {
@@ -438,20 +408,25 @@
 
   .periodic-element.is-selected {
       transform: translateY(-4px);
-      border-color: rgba(var(--mx-warm-rgb), 0.7);
+      border-color: rgba(var(--mx-accent-rgb), 0.55);
       box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.12),
-          inset 0 -0.38rem 0.48rem rgba(0, 0, 0, 0.62),
-          0 0.18rem 0 rgba(0, 0, 0, 0.9),
-          0 0 16px rgba(var(--mx-accent-rgb), 0.18);
+          inset 0 0 30px rgba(0,0,0,0.8),
+          0 0 20px rgba(var(--mx-accent-rgb), 0.25);
       z-index: 10;
   }
 
   .periodic-element.is-selected .title {
       text-shadow:
-          2px 0 rgba(var(--mx-accent-rgb), 0.8),
-          -2px 0 rgba(var(--mx-warm-rgb), 0.65),
-          0 0 14px rgba(var(--mx-accent-rgb), 0.55);
+          0 0 12px rgba(var(--mx-accent-rgb), 0.7),
+          0 0 4px rgba(var(--mx-accent-rgb), 0.5);
+  }
+
+  .periodic-element.is-selected .element-corners {
+      opacity: 1;
+  }
+  .periodic-element.is-selected .element-corners span {
+      border-color: rgba(var(--mx-accent-rgb), 0.9);
+      box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.5);
   }
 
   @keyframes periodic-tile-warp {
@@ -546,15 +521,13 @@
       flex-direction: column;
       justify-content: center;
       gap: 0.45rem;
-      padding: 0.4rem 0.6rem;
-      border: 1px solid rgba(var(--mx-accent-rgb), 0.26);
-      border-radius: 8px;
-      background:
-          linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.08), rgba(var(--mx-blue-vibe-rgb), 0.1)),
-          rgba(0, 8, 3, 0.72);
+      padding: 0.5rem 0.7rem;
+      border: 1px solid rgba(var(--mx-accent-rgb), 0.25);
+      background: rgba(0,0,0,0.6);
+      font-family: 'VT323', 'Courier New', monospace;
       box-shadow:
-          inset 0 0 14px rgba(var(--mx-accent-rgb), 0.1),
-          0 0 16px rgba(var(--mx-accent-rgb), 0.08);
+          inset 0 1px 0 rgba(255,255,255,0.03),
+          0 0 8px rgba(0,0,0,0.5);
   }
 
   .signal-bridge__label {
