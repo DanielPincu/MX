@@ -1,3 +1,5 @@
+<div align="center">
+
 ```
    ███▄ ▄███▓ ▒██   ██▒
   ▓██▒▀█▀ ██▒ ▒▒ █ █ ▒░
@@ -9,6 +11,8 @@
   ░      ░     ░    ░  
          ░     ░    ░  
 ```
+
+</div>
 
 # The Matrix has you...
 
@@ -103,7 +107,7 @@ npm run build
 
 ## deploy
 
-The construct auto-deploys on every push.
+The construct auto-deploys to **Vercel** on every push to `experiment`.
 
 Live uplink: **[danielpincu.com](https://danielpincu.com)**
 
