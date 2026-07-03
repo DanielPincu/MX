@@ -30,7 +30,7 @@
               <p class="terminal-easter" :class="{ 'is-visible': showEasterEgg }">{{ easterEggMessage || ' ' }}</p>
               <p class="output terminal-copy md:text-xl text-lg">
                 Hello, Stranger! My name is Daniel Pincu, and you are stepping into the code that shapes our very reality. Like in <em>The Matrix</em>, every line I write is a choice: remain in the safety of the familiar, or break free into the unknown. My mission is to craft digital experiences where design and logic converge, pulling users into spaces that blur the line between illusion and function. The red pill calls toward transformation, each click and interaction a doorway to something new, while the blue pill offers the comfort of patterns, grounding users in worlds they already know.<br><br>
-                Right now, I am enrolled in the Web Development Professional Bachelor program at <strong>Syddansk Erhvervsakademi: SEA</strong>, strengthening my skills.<br><br>
+                Right now, I am enrolled in the Web Development Professional Bachelor program at <strong>Syddansk Erhvervsakademi:SEA</strong><br><br>
                 This is more than code. This is awakening, the moment when the software stops being static and becomes alive.
               </p>
             </div>

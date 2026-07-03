@@ -163,7 +163,7 @@ const drawRain = () => {
       }
       continue
     }
-    if (rainTick % 4 === 0) {
+    if (rainTick % 2 === 0) {
       rainArr[i].char = rainChars[(Math.random() * rainChars.length) | 0]
       rainArr[i].y++
     }
