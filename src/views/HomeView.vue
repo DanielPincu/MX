@@ -104,7 +104,7 @@
     <!-- <div class="overlay3 md:h-[84%] h-[93%]"></div> -->
     <div class="relative z-20">
         <div class="typed-text glitch-text pb-10 text-center">
-          <span :ref="expertiseRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
+          <span :ref="expertiseRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl pr-1 pt-1">
             <span class="glitch-base">{{ expertiseHeading }}<span class="cursor-pulse">|</span></span>
             <span aria-hidden="true" class="glitch-overlay">{{ expertiseHeading }}<span class="cursor-glitch">|</span></span>
           </span>
@@ -136,7 +136,7 @@
     <!-- Ensure the title is above the canvas -->
     <div class="relative z-10">
         <div class="typed-text glitch-text pb-10 pt-20 text-center">
-          <span :ref="hobbiesRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
+          <span :ref="hobbiesRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl pr-3 pt-1">
             <span class="glitch-base">{{ hobbiesHeading }}<span class="cursor-pulse">|</span></span>
             <span aria-hidden="true" class="glitch-overlay">{{ hobbiesHeading }}<span class="cursor-glitch">|</span></span>
           </span>

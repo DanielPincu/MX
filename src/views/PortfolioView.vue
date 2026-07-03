@@ -1,7 +1,7 @@
 <template>
   <div class="relative min-h-screen text-gray-100 mt-16 project-card portfolio-page">
         <h1 class="typed-text py-12 glitch-text portfolio-heading">
-          <span :ref="headingRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
+          <span :ref="headingRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl pr-3 pt-1">
             <span class="glitch-base">{{ headingText }}<span class="cursor-pulse">|</span></span>
             <span aria-hidden="true" class="glitch-overlay">{{ headingText }}<span class="cursor-glitch">|</span></span>
           </span>

@@ -6,9 +6,9 @@
       <div class="md:pb-2 pb-10">
 
         <div class="typed-text glitch-text">
-          <span :ref="aboutRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl pb-5">
-            <span class="glitch-base">{{ aboutHeading }}<span class="cursor-pulse">|</span></span>
-            <span aria-hidden="true" class="glitch-overlay">{{ aboutHeading }}<span class="cursor-glitch">|</span></span>
+          <span :ref="aboutRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl h-32 pr-5 pt-1">
+            <span class="glitch-base">{{ aboutHeading }}<span class="cursor-pulse"></span></span>
+            <span aria-hidden="true" class="glitch-overlay">{{ aboutHeading }}<span class="cursor-glitch"></span></span>
           </span>
         </div>
       </div>
@@ -29,9 +29,9 @@
             <div class="terminal-card__body">
               <p class="terminal-easter" :class="{ 'is-visible': showEasterEgg }">{{ easterEggMessage || ' ' }}</p>
               <p class="output terminal-copy md:text-xl text-lg">
-                I’m Daniel Pincu, an aspiring web developer stepping into the code that shapes our reality. Like in <em>The Matrix</em>, every line I write is a choice: remain in the safety of the familiar, or break free into the unknown. My mission is to craft digital experiences where design and logic converge, pulling users into spaces that blur the line between illusion and function. The red pill calls toward transformation, each click and interaction a doorway to something new, while the blue pill offers the comfort of patterns, grounding users in worlds they already know.<br><br>
-                Right now, I am enrolled in the Web Development Professional Bachelor top-up program at <strong>Syddansk Erhvervsakademi: SEA</strong>, decoding the systems of the web and strengthening my skills. At the same time, I am seeking opportunities to plug into real-world projects, places where I can refine my craft, challenge limits, and push digital boundaries further than ever before.<br><br>
-                This is more than code. This is awakening, the moment when the web stops being static and becomes alive.
+                Hello, Stranger! My name is Daniel Pincu, and you are stepping into the code that shapes our very reality. Like in <em>The Matrix</em>, every line I write is a choice: remain in the safety of the familiar, or break free into the unknown. My mission is to craft digital experiences where design and logic converge, pulling users into spaces that blur the line between illusion and function. The red pill calls toward transformation, each click and interaction a doorway to something new, while the blue pill offers the comfort of patterns, grounding users in worlds they already know.<br><br>
+                Right now, I am enrolled in the Web Development Professional Bachelor program at <strong>Syddansk Erhvervsakademi: SEA</strong>, strengthening my skills.<br><br>
+                This is more than code. This is awakening, the moment when the software stops being static and becomes alive.
               </p>
             </div>
           </article>

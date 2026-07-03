@@ -1,15 +1,15 @@
 <template>
   <div class="matrix-keyboard-rig">
-    <h1 class="typed-text pt-32 pb-2 glitch-text">
-      <span :ref="setRef" class="glitch-wrapper text-3xl md:text-5xl lg:text-6xl">
-        <span class="glitch-base">{{ typedText }}<span class="cursor-pulse">|</span></span>
-        <span aria-hidden="true" class="glitch-overlay">{{ typedText }}<span class="cursor-glitch">|</span></span>
-      </span>
-    </h1>
     <div ref="keyboardElement" class="keyboard" role="application" aria-label="Interactive Matrix keyboard">
       <div class="keyboard__bezel">
         <p>Schrödinger's Keyboard</p>
       </div>
+      <h1 class="typed-text glitch-text keyboard__heading">
+        <span :ref="setRef" class="glitch-wrapper text-xl md:text-3xl lg:text-4xl pr-3">
+          <span class="glitch-base">{{ typedText }}<span class="cursor-pulse">|</span></span>
+          <span aria-hidden="true" class="glitch-overlay">{{ typedText }}<span class="cursor-glitch">|</span></span>
+        </span>
+      </h1>
       <div class="keyboard__deck">
         <div class="keyboard__main">
           <div class="keyboard__frow">
