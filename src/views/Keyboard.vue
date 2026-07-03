@@ -10,18 +10,48 @@
       <div class="keyboard__bezel">
         <p>Schrödinger's Keyboard</p>
       </div>
-      <div v-for="(row, rowIndex) in keys" :key="rowIndex" class="row">
-        <kbd
-          v-for="(key, keyIndex) in row"
-          :key="keyIndex"
-          :data-key="key.code"
-          :data-display="getKeyDisplay(key.code)"
-          :data-alt="key.alt || null"
-          @pointerenter="settleKeyLabel($event, key.code)"
-          @pointerleave="releaseKeyLabel($event, key.code)"
-          @click="handleKeyClick(key.code)"
-        >
-        </kbd>
+      <div class="keyboard__deck">
+        <div class="keyboard__main">
+          <div class="keyboard__frow">
+            <kbd
+              v-for="fk in fKeys" :key="fk.code"
+              :data-key="fk.code"
+              :data-display="getKeyDisplay(fk.code)"
+              @click="handleKeyClick(fk.code)"
+            ></kbd>
+          </div>
+          <div v-for="(row, rowIndex) in keys" :key="rowIndex" class="row">
+            <kbd
+              v-for="(key, keyIndex) in row"
+              :key="keyIndex"
+              :data-key="key.code"
+              :data-display="getKeyDisplay(key.code)"
+              :data-alt="key.alt || null"
+              @pointerenter="settleKeyLabel($event, key.code)"
+              @pointerleave="releaseKeyLabel($event, key.code)"
+              @click="handleKeyClick(key.code)"
+            >
+            </kbd>
+          </div>
+        </div>
+        <div class="keyboard__nav">
+          <div v-for="(row, ri) in navKeys" :key="'nr-'+ri" class="nav-row">
+            <kbd
+              v-for="(key, ki) in row"
+              :key="ki"
+              :data-key="key.code"
+              :data-display="getKeyDisplay(key.code)"
+              @click="handleKeyClick(key.code)"
+            >
+            </kbd>
+          </div>
+          <div class="nav-arrows">
+            <kbd data-key="up" data-display="↑" @click="handleKeyClick('up')"></kbd>
+            <kbd data-key="left" data-display="←" @click="handleKeyClick('left')"></kbd>
+            <kbd data-key="down" data-display="↓" @click="handleKeyClick('down')"></kbd>
+            <kbd data-key="right" data-display="→" @click="handleKeyClick('right')"></kbd>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -81,13 +111,41 @@ const keys = ref([
   ]
 ]);
 
+// ── Navigation cluster (right side) ──
+const navKeys = [
+  [{ code: 'prtsc' }, { code: 'scrlk' }, { code: 'pause' }],
+  [{ code: 'ins' }, { code: 'home' }, { code: 'pgup' }],
+  [{ code: 'del' }, { code: 'end' }, { code: 'pgdn' }],
+  [], // spacer row
+];
+
+// ── Function key row ──
+const fKeys = [
+  { code: 'esc' },
+  { code: 'f1' }, { code: 'f2' }, { code: 'f3' }, { code: 'f4' },
+  { code: 'f5' }, { code: 'f6' }, { code: 'f7' }, { code: 'f8' },
+  { code: 'f9' }, { code: 'f10' }, { code: 'f11' }, { code: 'f12' },
+];
+
 const ignoredKeys = new Set([
   'caps', 'tab', 'lshift', 'rshift', 'lctrl', 'rctrl',
   'lalt', 'ralt', 'lwin', 'rwin', 'rctx',
+  'prtsc', 'scrlk', 'pause', 'ins', 'home', 'pgup',
+  'del', 'end', 'pgdn', 'up', 'down', 'left', 'right',
+  'esc', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6',
+  'f7', 'f8', 'f9', 'f10', 'f11', 'f12',
 ]);
 
+// ── Display name overrides ──
+const KEY_DISPLAY = {
+  prtsc: 'PrtSc', scrlk: 'ScrLk', pause: 'Pause',
+  ins: 'Ins', home: 'Home', pgup: 'PgUp',
+  del: 'Del', end: 'End', pgdn: 'PgDn',
+  esc: 'Esc',
+};
+
 // ── Helpers ──
-const getKeyDisplay = (key) => key;
+const getKeyDisplay = (key) => KEY_DISPLAY[key] || key;
 const isLetterKey = (key) => /^[a-z]$/.test(key);
 const isDigitKey = (key) => /^[0-9]$/.test(key);
 const isCyclingKey = (key) => isLetterKey(key) || isDigitKey(key);
@@ -198,18 +256,31 @@ const physicalKeyMap = {
   Space: 'space', Backquote: '`', Minus: '-', Equal: '=',
   BracketLeft: '[', BracketRight: ']', Backslash: '\\',
   Semicolon: ';', Quote: "'", Comma: ',', Period: '.', Slash: '/',
+  PrintScreen: 'prtsc', ScrollLock: 'scrlk', Pause: 'pause',
+  Insert: 'ins', Home: 'home', PageUp: 'pgup',
+  Delete: 'del', End: 'end', PageDown: 'pgdn',
+  ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
+  Escape: 'esc',
+  F1: 'f1', F2: 'f2', F3: 'f3', F4: 'f4',
+  F5: 'f5', F6: 'f6', F7: 'f7', F8: 'f8',
+  F9: 'f9', F10: 'f10', F11: 'f11', F12: 'f12',
 };
+
+const allKeyCodes = new Set([
+  ...keys.value.flat().map(k => k.code),
+  ...navKeys.flat().map(k => k.code),
+  'up', 'down', 'left', 'right',
+  ...fKeys.map(k => k.code),
+]);
 
 const handlePhysicalKey = (event) => {
   if (event.repeat) return;
 
   const mappedKey = physicalKeyMap[event.code] || event.key.toLowerCase();
-  previousPhysicalKey = mappedKey;
-  const hasKey = keys.value.some(row => row.some(key => key.code === mappedKey));
+  if (!allKeyCodes.has(mappedKey)) return;
 
-  if (hasKey) {
-    flashKey(mappedKey);
-  }
+  previousPhysicalKey = mappedKey;
+  flashKey(mappedKey);
 };
 
 const clearPhysicalKey = (event) => {

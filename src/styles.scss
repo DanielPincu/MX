@@ -123,7 +123,6 @@
   text-transform: uppercase;
   text-shadow: 0 0 9px rgba(var(--mx-accent-rgb), 0.45);
 }
-
 $u1: 45px;
 
 .row {
@@ -425,4 +424,103 @@ kbd {
   20% { transform: translateX(-2px); }
   42% { transform: translateX(2px); }
   62% { transform: translateX(-1px); }
+}
+
+/* ═══════════════════════════════════════════
+   Function key row (Esc + F1–F12)
+   ═══════════════════════════════════════════ */
+
+.keyboard__frow {
+  display: flex;
+  justify-content: flex-start;
+  gap: 4px;
+  width: $u1 * 15.43;            /* match number-row width so ESC↔F12 align with `↔Backspace */
+  margin-bottom: 0.6rem;
+
+  kbd {
+    background: linear-gradient(180deg, #1a1e18, #0c100b 55%, #040504);
+    border-color: rgba(var(--mx-warm-rgb), 0.18);
+    color: rgba(195, 238, 210, 0.74);
+
+    &::after {
+      font-size: 0.7rem;
+    }
+  }
+
+  /* group separators — sized so F1 sits above 2, F5 above 6, etc. */
+  kbd[data-key=esc] { margin-right: 22px; }
+  kbd[data-key=f4]  { margin-right: 22px; }
+  kbd[data-key=f8]  { margin-right: 22px; }
+}
+
+/* ═══════════════════════════════════════════
+   Navigation cluster (right-side keys)
+   ═══════════════════════════════════════════ */
+
+.keyboard__deck {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.keyboard__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboard__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  height: $u1;
+
+  &:nth-child(1) { margin-bottom: 0.5rem; }
+}
+
+/* Arrow keys — inverted-T grid */
+
+.nav-arrows {
+  display: grid;
+  grid-template-columns: repeat(3, $u1);
+  grid-template-rows: repeat(2, $u1);
+  margin-top: 2px;
+}
+
+.nav-arrows kbd[data-key=up]    { grid-column: 2; grid-row: 1; }
+.nav-arrows kbd[data-key=left]  { grid-column: 1; grid-row: 2; }
+.nav-arrows kbd[data-key=down]  { grid-column: 2; grid-row: 2; }
+.nav-arrows kbd[data-key=right] { grid-column: 3; grid-row: 2; }
+
+/* Nav keys — slightly muted, smaller label */
+
+.keyboard__nav kbd {
+  color: rgba(200, 242, 215, 0.78);
+  background: linear-gradient(180deg, #1a2019, #0c110d 55%, #040604);
+  border-color: rgba(var(--mx-warm-rgb), 0.2);
+}
+
+.keyboard__nav kbd::after {
+  font-size: 0.68rem;
+  text-transform: none;
+}
+
+.nav-arrows kbd::after {
+  font-size: 1rem;
+}
+
+/* Hide nav cluster on narrow screens */
+
+@media (max-width: 880px) {
+  .keyboard__nav {
+    display: none;
+  }
 }
