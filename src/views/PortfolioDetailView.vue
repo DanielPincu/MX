@@ -266,7 +266,7 @@ button {
 
 .crt-monitor {
   position: relative;
-  width: min(92vw, 1100px);
+  width: 100%;
   user-select: none;
 }
 
