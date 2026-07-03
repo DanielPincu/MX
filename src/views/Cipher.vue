@@ -219,15 +219,20 @@
   
   function renewDigits() {
     for (let c = 0; c < COLUMNS.length; c++) {
-      COLUMNS[c].digits = [];
-      for (let d = 0, ypos = INIT_YPOS2; d < COLUMNS[c].numDigits; d++, ypos += INIT_CHARSIZE) {
-        COLUMNS[c].digits[d] = new Digit(COLUMNS[c].initColumnXPos, ypos);
+      const col = COLUMNS[c];
+      for (let d = 0; d < col.digits.length; d++) {
+        col.digits[d].digitChar = (Math.random() * 10) | 0;
+        col.digits[d].digitFillStyle = DIGIT_FILL_STYLES[Math.random() < 0.5 ? 0 : 1];
       }
     }
   }
   
+  let dcSkip = 0;
   function drawDigits() {
-    ctx.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height);
+    dcSkip++;
+    if (dcSkip % 6 !== 0) { requestAnimationFrame(drawDigits); return; }
+    ctx.fillStyle = "rgba(0,0,0,.5)";
+    ctx.fillRect(0, 0, canvasRef.value.width, canvasRef.value.height);
     renewDigits();
   
     for (let p = 0; p < PHONE_NUMBER.length; p++) {
@@ -238,20 +243,17 @@
     }
   
     for (let c = 0; c < COLUMNS.length; c++) {
-      if (!COLUMNS[c].isDisplayed) {
-        continue;
-      }
-      for (let d = 0; d < COLUMNS[c].digits.length; d++) {
-        ctx.fillStyle = COLUMNS[c].digits[d].digitFillStyle;
-        ctx.fillText(COLUMNS[c].digits[d].digitChar, COLUMNS[c].digits[d].digitXPos, COLUMNS[c].digits[d].digitYPos);
+      if (!COLUMNS[c].isDisplayed) continue;
+      const digits = COLUMNS[c].digits;
+      for (let d = 0; d < digits.length; d++) {
+        ctx.fillStyle = digits[d].digitFillStyle;
+        ctx.fillText(digits[d].digitChar, digits[d].digitXPos, digits[d].digitYPos);
       }
     }
   
-    digitAnimationTimer = setTimeout(() => {
-      if (DIGIT_ANIMATION_FRAME) {
-        requestAnimationFrame(drawDigits);
-      }
-    }, 50);
+    if (DIGIT_ANIMATION_FRAME) {
+      requestAnimationFrame(drawDigits);
+    }
   }
   
   function getNumDisplayedColumns() {
