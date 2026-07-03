@@ -67,7 +67,8 @@ const getPortfolio = () => {
       image2: chat2,
       image3: chat3,
       
-      link: 'https://messenger-95a5d.web.app/',
+      liveLink: 'https://messenger-95a5d.web.app/',
+      sourceCode: 'https://github.com/DanielPincu/Messenger-App',
       category: 'Web Application'
     },
 
@@ -84,7 +85,8 @@ const getPortfolio = () => {
       image1: glitch1,
       image2: glitch2,
       image3: glitch3,
-      link: 'https://danielpincu.dev/',
+      liveLink: 'https://danielpincu.dev/',
+      sourceCode: '',
       category: 'Web Application'
     },
 
@@ -100,7 +102,8 @@ const getPortfolio = () => {
       image1: fan1,
       image2: fan2,
       image3: fan3,
-      link: 'https://exam-6d170.web.app/',
+      liveLink: 'https://exam-6d170.web.app/',
+      sourceCode: '',
       category: 'Web Design'
     },
 
@@ -116,7 +119,8 @@ const getPortfolio = () => {
       image1: board1,
       image2: board2,
       image3: board3,
-      link: 'https://esbjergboardgames.dk',
+      liveLink: 'https://esbjergboardgames.dk',
+      sourceCode: '',
       category: 'Web Design'
     },
 
@@ -134,7 +138,8 @@ const getPortfolio = () => {
   image1: ck1,
   image2: ck2,
   image3: ck3,
-  link: 'https://ckcookies.dk',
+  liveLink: 'https://ckcookies.dk',
+  sourceCode: '',
   category: 'Web Design'
 },
 
@@ -152,7 +157,8 @@ const getPortfolio = () => {
       image1: trap1,
       image2: trap2,
       image3: trap3,
-      link: 'https://semester-project-kappa.vercel.app/',
+      liveLink: 'https://semester-project-kappa.vercel.app/',
+      sourceCode: '',
       category: 'Web Design'
     },
     
@@ -169,7 +175,8 @@ const getPortfolio = () => {
       image1: port1,
       image2: port3,
       image3: port1,
-      link: 'https://portfolio-firebase-mu.vercel.app/',
+      liveLink: 'https://portfolio-firebase-mu.vercel.app/',
+      sourceCode: '',
       category: 'Web Design'
     },
 
@@ -185,7 +192,8 @@ const getPortfolio = () => {
       image1: task0,
       image2: task2,
       image3: task3,
-      link: 'https://www.youtube.com/watch?v=dIwXC3LD0uE&ab_channel=DanielPincu',
+      liveLink: 'https://www.youtube.com/watch?v=dIwXC3LD0uE&ab_channel=DanielPincu',
+      sourceCode: '',
       category: 'Web Design'
     },
 
@@ -202,7 +210,8 @@ const getPortfolio = () => {
       image1: kate1,
       image2: kate2,
       image3: kate3,
-      link: 'https://kates-corner.danielpincu.dev/',
+      liveLink: 'https://kates-corner.danielpincu.dev/',
+      sourceCode: '',
       category: 'E-commerce'
     },
     
@@ -220,7 +229,8 @@ const getPortfolio = () => {
       image2: un2,
       image3: un3,
       image4: un4,
-      link: 'https://united-nations.danielpincu.dev',
+      liveLink: 'https://united-nations.danielpincu.dev',
+      sourceCode: '',
       category: 'Web Design'
     },
     

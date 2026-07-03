@@ -6,8 +6,11 @@
     </div>
     <div v-else class="relative z-10">
       <nav class="detail-rail hidden md:flex" aria-label="Project actions">
-        <a target="_blank" :href="specificPortfolioItem.link" rel="noopener" class="detail-rail__link">
-          <span>Visit project</span>
+        <a v-if="specificPortfolioItem.liveLink" target="_blank" :href="specificPortfolioItem.liveLink" rel="noopener" class="detail-rail__link">
+          <span>Live Link</span>
+        </a>
+        <a v-if="specificPortfolioItem.sourceCode" target="_blank" :href="specificPortfolioItem.sourceCode" rel="noopener" class="detail-rail__link">
+          <span>Source Code</span>
         </a>
         <button @click="goBack" class="detail-rail__link detail-rail__link--button" type="button">
           <span>Go back</span>
@@ -22,8 +25,11 @@
             <p class="detail-lead">{{ specificPortfolioItem.description }}</p>
           </div>
           <div class="detail-actions">
-            <a target="_blank" :href="specificPortfolioItem.link" rel="noopener" class="detail-nav-btn detail-nav-btn--visit">
-              <span>Visit project</span>
+            <a v-if="specificPortfolioItem.liveLink" target="_blank" :href="specificPortfolioItem.liveLink" rel="noopener" class="detail-nav-btn detail-nav-btn--visit">
+              <span>Live Link</span>
+            </a>
+            <a v-if="specificPortfolioItem.sourceCode" target="_blank" :href="specificPortfolioItem.sourceCode" rel="noopener" class="detail-nav-btn detail-nav-btn--source">
+              <span>Source Code</span>
             </a>
             <button @click="goBack" class="detail-nav-btn detail-nav-btn--back" type="button">
               <span>Go back</span>
@@ -624,6 +630,12 @@ button {
   background:
     linear-gradient(90deg, rgba(var(--mx-accent-rgb), 0.18), rgba(var(--mx-blue-vibe-rgb), 0.14)),
     rgba(0, 0, 0, 0.46);
+}
+
+.detail-nav-btn--source {
+  background:
+    linear-gradient(90deg, rgba(var(--mx-warm-rgb), 0.14), rgba(var(--mx-accent-rgb), 0.1)),
+    rgba(0, 0, 0, 0.45);
 }
 
 .detail-nav-btn--back {
