@@ -230,7 +230,7 @@
   let dcSkip = 0;
   function drawDigits() {
     dcSkip++;
-    if (dcSkip % 6 !== 0) { requestAnimationFrame(drawDigits); return; }
+    if (dcSkip % 3 !== 0) { requestAnimationFrame(drawDigits); return; }
     ctx.fillStyle = "rgba(0,0,0,.5)";
     ctx.fillRect(0, 0, canvasRef.value.width, canvasRef.value.height);
     renewDigits();

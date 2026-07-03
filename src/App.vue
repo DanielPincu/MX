@@ -148,7 +148,7 @@ const initRain = () => {
 const drawRain = () => {
   rainTick++
   // skip every other frame → ~30 fps instead of 60
-  if (rainTick & 1) { requestAnimationFrame(drawRain); return }
+  // full speed
 
   rainCtx.fillStyle = "rgba(0,0,0,.05)"
   rainCtx.fillRect(0, 0, rainW, rainH)
@@ -163,7 +163,7 @@ const drawRain = () => {
       }
       continue
     }
-    if (rainTick % 8 === 0) {
+    if (rainTick % 4 === 0) {
       rainArr[i].char = rainChars[(Math.random() * rainChars.length) | 0]
       rainArr[i].y++
     }
