@@ -3,7 +3,8 @@
     <div class="wrapper">
       <div class="gif-tv">
         <div id="gif_tv_viewport" class="viewport">
-          <img id="gif_tv_video" class="video" :src="currentChannelURL" />
+          <video v-if="isVideo" id="gif_tv_video" class="video" :src="currentChannelURL" autoplay loop muted playsinline></video>
+          <img v-else id="gif_tv_video" class="video" :src="currentChannelURL" />
           <div
             id="gif_tv_pixels"
             class="pixels"
@@ -23,13 +24,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import ddd from '@/assets/ddd.jpeg';
 import tv from '@/assets/tvweb.webp';
-import gif1 from '@/assets/gif1.webp';
-import gif2 from '@/assets/gif2.webp';
-import gif3 from '@/assets/gif3.webp';
-import gif4 from '@/assets/gif4.webp';
+import gif1 from '@/assets/gif1.mp4';
+import gif2 from '@/assets/gif2.mp4';
+import gif3 from '@/assets/gif3.mp4';
+import gif4 from '@/assets/gif4.mp4';
 import xploading from '@/assets/xploading.gif';
 import code from '@/assets/code.gif';
 import error from '@/assets/error.gif';
@@ -46,14 +47,7 @@ xploading,
 
 const currentChannelURL = ref(gifTVURLs[0]);
 const channelMessage = ref('Matrix TV');
-
-// Preload the GIFs to avoid delays
-const preloadImages = () => {
-  gifTVURLs.forEach(url => {
-    const img = new Image();
-    img.src = url;
-  });
-};
+const isVideo = computed(() => currentChannelURL.value.endsWith('.mp4'));
 
 // Start auto channel change
 let channelChangeInterval;

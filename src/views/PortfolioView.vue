@@ -23,16 +23,17 @@
             :to="`/detail/${portfolioItem.id}`"
             class="project opacity-95"
             >
-            
+            <!-- CRT corner brackets -->
+            <span class="project-corner project-corner--tl" aria-hidden="true"></span>
+            <span class="project-corner project-corner--tr" aria-hidden="true"></span>
+            <span class="project-corner project-corner--bl" aria-hidden="true"></span>
+            <span class="project-corner project-corner--br" aria-hidden="true"></span>
+
             <div class="project-frame">
               <img
                 :src="portfolioItem.image"
                 :alt="`${portfolioItem.title} project preview`"
               />
-            </div>
-            <div class="project-meta">
-              <span>{{ portfolioItem.category }}</span>
-              <span>{{ portfolioItem.year }}</span>
             </div>
             <div class="project__content">
               <div>
@@ -43,6 +44,8 @@
                 </div>
               </div>
             </div>
+            <!-- LED status dot -->
+            <span class="project-led" aria-hidden="true"></span>
           </router-link>
         </div>
       </section>
@@ -206,24 +209,31 @@ a {
   color: #fff7aa;
 }
 
+/* ═══════════════════════════════════════════
+   Project Cards — Y2K CRT Monitor
+   ═══════════════════════════════════════════ */
+
 .project {
   position: relative;
   min-width: 225px;
   min-height: 430px;
   overflow: hidden;
-  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.18);
-  border-bottom: 6px solid rgba(0, 0, 0, 0.9);
-  border-radius: 8px 8px 14px 14px;
+  border: 3px solid #1a1f1a;
+  border-top-color: #252a25;
+  border-left-color: #1c211c;
+  border-right-color: #0e120e;
+  border-bottom: 5px solid #080a08;
+  border-radius: 12px 12px 18px 18px;
+  outline: 2px solid #000;
+  outline-offset: -4px;
   background:
-    linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.055), transparent 34%),
-    linear-gradient(180deg, rgba(20, 27, 21, 0.78), rgba(5, 7, 5, 0.66) 72%);
-  backdrop-filter: blur(0.5px);
+    linear-gradient(180deg, #151715 0%, #0a0d0a 30%, #050705 70%, #0a0d0a 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -0.5rem 0.65rem rgba(0, 0, 0, 0.72),
-    0 0.22rem 0 rgba(0, 0, 0, 0.9),
-    0 0 10px rgba(var(--mx-accent-rgb), 0.06);
-  transition: transform 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
+    inset 0 0.5rem 1rem rgba(0,0,0,0.65),
+    0 0.22rem 0 rgba(0,0,0,0.9),
+    0 0.4rem 1rem rgba(0,0,0,0.6),
+    0 0 16px rgba(var(--mx-accent-rgb), 0.06);
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
   isolation: isolate;
   contain: paint;
 }
@@ -231,104 +241,180 @@ a {
 .project::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.32) 42%, rgba(0, 0, 0, 0.9) 100%),
-    repeating-linear-gradient(180deg, rgba(var(--mx-accent-rgb), 0.035) 0 1px, transparent 1px 5px);
+  inset: 6px;
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.12);
+  border-radius: 7px 7px 11px 11px;
   z-index: 1;
   pointer-events: none;
 }
 
+/* ── CRT Corner L-brackets ── */
+
+.project-corner {
+  position: absolute;
+  z-index: 3;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.project-corner::before,
+.project-corner::after {
+  content: '';
+  position: absolute;
+  background: rgba(var(--mx-accent-rgb), 0.3);
+  box-shadow: 0 0 5px rgba(var(--mx-accent-rgb), 0.15);
+}
+
+.project-corner::before { width: 100%; height: 2px; }
+.project-corner::after  { width: 2px; height: 100%; }
+
+.project-corner--tl { top: 10px; left: 10px; }
+.project-corner--tl::before { top: 0; left: 0; }
+.project-corner--tl::after  { top: 0; left: 0; }
+
+.project-corner--tr { top: 10px; right: 10px; }
+.project-corner--tr::before { top: 0; right: 0; }
+.project-corner--tr::after  { top: 0; right: 0; }
+
+.project-corner--bl { bottom: 14px; left: 10px; }
+.project-corner--bl::before { bottom: 0; left: 0; }
+.project-corner--bl::after  { bottom: 0; left: 0; }
+
+.project-corner--br { bottom: 14px; right: 10px; }
+.project-corner--br::before { bottom: 0; right: 0; }
+.project-corner--br::after  { bottom: 0; right: 0; }
+
+/* ── Image frame — CRT screen ── */
+
 .project-frame {
   position: absolute;
-  inset: 0.75rem;
-  bottom: 8.5rem;
-  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.12);
-  border-radius: 5px;
+  inset: 1rem;
+  bottom: 8rem;
+  border: 2px solid #000;
   overflow: hidden;
-  background: rgba(3, 6, 3, 0.66);
+  background: #000;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
 }
 
 .project-frame img {
   position: relative;
   z-index: 0;
-  filter: saturate(0.82) contrast(1.02) brightness(0.78);
-  transition: filter 160ms ease, transform 160ms ease;
+  filter: saturate(0.65) contrast(1.2) brightness(0.65);
+  transition: filter 200ms ease, transform 200ms ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.project-meta {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.project-meta span,
-.tech-row span {
-  border: 1px solid rgba(var(--mx-accent-soft-rgb), 0.22);
-  background: rgba(0, 8, 3, 0.82);
-  color: rgba(var(--mx-accent-soft-rgb), 0.82);
-  padding: 0.3rem 0.55rem;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
+/* ── Content strip — terminal readout ── */
 
 .project__content {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
   z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  padding: 1.4rem;
-  background: linear-gradient(180deg, transparent, rgba(0, 9, 3, 0.88));
+  padding: 0.9rem 1rem;
+  background:
+    linear-gradient(180deg, rgba(5,8,5,0.9), rgba(2,4,2,0.95));
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.18);
+  border-top: 1px solid rgba(var(--mx-accent-rgb), 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.03),
+    0 0 8px rgba(0,0,0,0.5);
 }
 
 .project__content > div {
   width: 100%;
 }
 
-.project__content p {
-  color: rgba(var(--mx-accent-soft-rgb), 0.68);
-  text-align: center;
-  margin-top: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.78rem;
+.project__content h2 {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(var(--mx-accent-rgb), 0.25);
+  transition: text-shadow 0.2s;
 }
+
+.project__content p {
+  color: rgba(var(--mx-accent-soft-rgb), 0.55);
+  text-align: center;
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 0.72rem;
+}
+
+/* ── Tech tags — LED chip labels ── */
 
 .tech-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
 }
+
+.tech-row span {
+  border: 1px solid rgba(var(--mx-accent-rgb), 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(var(--mx-accent-soft-rgb), 0.7);
+  padding: 0.2rem 0.45rem;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: 'VT323', 'Courier New', monospace;
+}
+
+/* ── LED status dot ── */
+
+.project-led {
+  position: absolute;
+  bottom: 1.15rem;
+  right: 1.35rem;
+  z-index: 4;
+  width: 0.35rem;
+  height: 0.35rem;
+  background: var(--mx-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(var(--mx-accent-rgb), 0.7);
+}
+
+/* ── Hover — phosphor brightening ── */
 
 .project:hover {
   transform: translateY(-3px);
-  border-color: rgba(var(--mx-warm-rgb), 0.5);
+  border-color: rgba(var(--mx-accent-rgb), 0.45);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -0.5rem 0.65rem rgba(0, 0, 0, 0.62),
-    0 0.22rem 0 rgba(0, 0, 0, 0.9),
-    0 0 14px rgba(var(--mx-accent-rgb), 0.1);
+    inset 0 0.5rem 1rem rgba(0,0,0,0.65),
+    0 0.22rem 0 rgba(0,0,0,0.9),
+    0 0.4rem 1rem rgba(0,0,0,0.6),
+    0 0 28px rgba(var(--mx-accent-rgb), 0.14);
+}
+
+.project:hover .project-corner {
+  opacity: 0.85;
+}
+
+.project:hover .project-corner::before,
+.project:hover .project-corner::after {
+  background: rgba(var(--mx-accent-rgb), 0.55);
+  box-shadow: 0 0 8px rgba(var(--mx-accent-rgb), 0.3);
 }
 
 .project:hover .project-frame img {
-  filter: saturate(1) contrast(1.04) brightness(0.9);
-  transform: scale(1.02);
+  filter: saturate(0.85) contrast(1.15) brightness(0.78);
+  transform: scale(1.03);
 }
 
 .project:hover h2 {
-  text-shadow:
-    0 0 10px rgba(var(--mx-accent-rgb), 0.4);
+  text-shadow: 0 0 14px rgba(var(--mx-accent-rgb), 0.5);
+}
+
+.project:hover .project-led {
+  box-shadow: 0 0 12px rgba(var(--mx-accent-rgb), 0.9);
 }
 
 
@@ -341,7 +427,7 @@ a {
 
 @media screen and (max-width: 802px) {
   .projects-container {
-    grid-template-columns: 1fr; /* 1 card per row on small screens */
+    grid-template-columns: 1fr;
   }
   body {
     min-height: 100vh;
@@ -352,8 +438,19 @@ a {
   }
   .project {
     transform: none;
-    min-height: 340px;
+    min-height: 320px;
   }
+  .project-frame {
+    bottom: 7rem;
+  }
+  .project-corner {
+    width: 10px;
+    height: 10px;
+  }
+  .project-corner--tl { top: 7px; left: 7px; }
+  .project-corner--tr { top: 7px; right: 7px; }
+  .project-corner--bl { bottom: 10px; left: 7px; }
+  .project-corner--br { bottom: 10px; right: 7px; }
   .matrix-showcase-console::before,
   .showcase-console-header p {
     display: none;
